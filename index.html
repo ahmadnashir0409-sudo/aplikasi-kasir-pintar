@@ -84,7 +84,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="flex"><b>Total</b><b id="cartTotal">Rp 0</b></div>
   <label style="margin-top:12px">📱 No WA Customer <span style="font-weight:400;color:#777">(opsional)</span></label>
   <input id="waCustomer" placeholder="Contoh: 0812-3456-7890" oninput="syncWaCustomer('transaksi')">
-  <h3 style="margin:14px 0 6px">Metode Pembayaran</h3>
+  <h3 style="margin-top:14px">Metode Pembayaran</h3>
   <button class="btn btn-outline" onclick="bukaPopupBayar()">💳 <span id="metodeTerpilihText">Tunai - Bayar Cash</span> &nbsp;▼</button>
   <div id="metodeInfo" style="background:#F2F7F0;border-radius:12px;padding:10px;margin-top:8px;font-size:13px">Bayar langsung dengan uang tunai.</div>
   <div id="qrisBoxTransaksi" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:14px;margin-top:10px"><b id="qrisNamaTransaksi">QRIS</b><br><img id="qrisImgTransaksi" src="" style="width:180px;height:180px;margin:8px auto;display:block"><small>Scan QR ini pakai aplikasi bank / e-wallet pembeli</small><br><b id="qrisTotalTransaksi" style="font-size:20px"></b></div>
@@ -96,10 +96,8 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button class="btn btn-green" style="margin-top:12px" onclick="bayar()">✅ Bayar Sekarang</button></div>
 </div>
 
-<!-- PRODUK : MANUAL + TAUTKAN SHEETS -->
 <div id="p-produk" class="page">
   <div class="card" style="background:#7BC69A;color:#fff;text-align:center"><h2 style="margin:0">Produk</h2></div>
-  <!-- OPSI 1 MANUAL -->
   <button class="btn btn-green" onclick="bukaFormStok()">+ Tambah Stok Barang</button>
   <div id="formStok" class="card hidden"><h3 id="judulFormStok">Tambah Stok Barang</h3>
     <label>Nama Barang</label><input id="fNama" placeholder="Contoh: Indomie Goreng">
@@ -107,9 +105,8 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <label>Jumlah Stok</label><input id="fStok" type="number" placeholder="10">
     <div class="flex"><button class="btn btn-light" onclick="batalEditStok()">Batal</button><button class="btn btn-green" onclick="tambahStok()" id="btnSimpanStok">Simpan Stok</button></div>
   </div>
-  <!-- OPSI 2 TAUTKAN SHEETS -->
   <div class="sheetBox" id="sheetStatusBox" style="margin-top:10px">
-    <b>📊 Google Sheets</b><br><span id="sheetStatusText">Belum ada Sheets yang ditautkan. Punya data di Sheets? Tinggal tautkan link-nya, barang langsung masuk semua.</span>
+    <b>📊 Google Sheets</b><br><span id="sheetStatusText">Belum ada Sheets yang ditautkan.</span>
     <div class="flex" style="margin-top:10px"><button class="btn btn-outline" onclick="bukaPopupSheets()">🔗 Tautkan Link Sheets</button><button class="btn btn-light hidden" id="btnSyncSheets" onclick="syncSheets()">🔄 Sync Sekarang</button></div>
     <button class="btn btn-pink btn-sm hidden" id="btnPutusSheets" style="margin-top:8px" onclick="putuskanSheets()">❌ Putuskan Tautan</button>
     <small style="color:#666">Gak punya Sheets? Gak apa-apa, pakai cara Manual di atas aja.</small>
@@ -125,6 +122,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="card"><h3>Data Pelanggan</h3><div id="pelanggan"></div></div>
 </div>
 
+<!-- PROFIL - TOMBOL LUAR DINAMIS -->
 <div id="p-profil" class="page">
   <h2 style="text-align:center">Profil</h2>
   <div class="card" style="background:#6BB98A;color:#fff"><b>Profil Pengusaha</b>
@@ -134,8 +132,9 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="card"><b>Umum</b>
     <button class="menuRow" onclick="go('pengaturan')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">⚙️</span><span>Pengaturan<small>PIN, Sidik Jari, No WA, Rekening & Akun Email</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="alert('Bantuan: Hubungi WA Warung Pintar di nomor yang ada di Profil Warung.')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">❓</span><span>Bantuan<small>Cara pakai, struk & transaksi</small></span></span><span>›</span></button>
-    <button class="menuRow" onclick="alert('Warung Pintar v1.0 - Aplikasi kasir warung, PIN + Sidik Jari + Email.')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">ℹ️</span><span>Tentang Aplikasi<small>Warung Pintar v1.0</small></span></span><span>›</span></button>
-    <button class="btn btn-pink" style="margin-top:12px" onclick="logoutSemua()">Logout / Kunci</button>
+    <button class="menuRow" onclick="alert('Warung Pintar v1.0')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">ℹ️</span><span>Tentang Aplikasi<small>Warung Pintar v1.0</small></span></span><span>›</span></button>
+    <!-- TOMBOL LUAR - BERUBAH OTOMATIS -->
+    <button class="btn btn-green" id="btnProfilLuar" style="margin-top:12px" onclick="klikTombolLuar()">🟢 Login / Registrasi</button>
   </div>
 </div>
 
@@ -149,9 +148,9 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <button class="menuRow" onclick="go('pengaturan-akun')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">🔗</span><span>Akun Terhubung<small>Rekening, QRIS, DANA, GoPay</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="go('pengaturan-point')" style="border-bottom:0"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">💰</span><span>Point & Dompet<small>1.250 Poin • Level Silver</small></span></span><span>›</span></button>
   </div>
-  <button class="btn btn-pink" onclick="logoutSemua()">🚪 Logout</button>
 </div>
 
+<!-- PROFILE SETTINGS - LOGOUT DI DALEM SINI -->
 <div id="p-pengaturan-profil" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">👤 Profile Settings</h2></div>
   <div class="card" style="margin-top:14px"><h3 style="margin:0">🏪 Profil Warung</h3>
@@ -163,6 +162,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   </div>
   <div class="card"><h3 style="margin:0">📧 Akun Email</h3><small>Login pakai email. Akun ini yang muncul di Profil.</small>
     <div id="akunBelumLogin">
+      <p style="font-size:13px;color:#666">Kamu belum login. Pencet tombol <b>Login / Registrasi</b> di halaman Profil, atau pakai form di bawah ini.</p>
       <label style="margin-top:10px">Nama Lengkap</label><input id="regNama" placeholder="Contoh: Budi Santoso">
       <label>Email</label><input id="regEmail" type="email" placeholder="Contoh: budi@gmail.com">
       <label>Password</label><input id="regPass" type="password" placeholder="Minimal 6 karakter">
@@ -170,18 +170,20 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     </div>
     <div id="akunSudahLogin" class="hidden">
       <div class="item" style="border:1px solid #BFE3CB"><span style="flex:1"><b id="akunNamaTampil"></b><br><small id="akunEmailTampil"></small><br><span class="badge">Login ✅</span></span></div>
-      <button class="btn btn-pink" onclick="logoutAkun()">Logout Akun Email</button>
+      <!-- LOGOUT PINDAH KE SINI -->
+      <button class="btn btn-pink" onclick="logoutAkun()">🚪 Logout Akun</button>
+      <small style="color:#666;display:block;text-align:center;margin-top:8px">Logout akan mengembalikanmu ke halaman login. Data warung tetap aman.</small>
     </div>
   </div>
 </div>
 
 <div id="p-pengaturan-security" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">🛡️ Security Settings</h2></div>
-  <div class="card" style="margin-top:14px"><h3 style="margin:0">🔐 PIN Kasir</h3><small>PIN dipakai untuk membuka aplikasi. Default: 1234</small>
+  <div class="card" style="margin-top:14px"><h3 style="margin:0">🔐 PIN Kasir</h3><small>Default: 1234</small>
     <label style="margin-top:10px">PIN Baru (4 digit)</label><input id="pinBaru" type="password" inputmode="numeric" maxlength="4" placeholder="Contoh: 1234">
     <button class="btn btn-green" onclick="gantiPin()">🔐 Ganti PIN</button>
   </div>
-  <div class="card"><h3 style="margin:0">👆 Sidik Jari / Face ID</h3><span id="statusSidik">Belum terdaftar</span><br><button class="btn btn-outline" style="margin-top:10px" onclick="daftarSidikJari()">👆 Daftarin Sidik Jari Sekarang</button><br><small style="color:#666">Sidik jari tersimpan aman di HP ini aja. Butuh HTTPS & HP support biometrik.</small></div>
+  <div class="card"><h3 style="margin:0">👆 Sidik Jari / Face ID</h3><span id="statusSidik">Belum terdaftar</span><br><button class="btn btn-outline" style="margin-top:10px" onclick="daftarSidikJari()">👆 Daftarin Sidik Jari Sekarang</button></div>
   <button class="btn btn-outline" onclick="kunciAplikasi()">🔒 Kunci Aplikasi Sekarang</button>
 </div>
 
@@ -202,12 +204,12 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 
 <div id="p-pengaturan-akun" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">🔗 Akun Terhubung</h2></div>
-  <div class="card" style="margin-top:14px"><h3 style="margin:0">💳 Rekening & Metode Pembayaran</h3><small>Metode yang tersimpan akan muncul di menu Transaksi.</small><div id="daftarBayarTersimpan" style="margin-top:12px"></div><button class="btn btn-outline" style="margin-top:8px" onclick="bukaPopupTambahBayar()">+ Tambahkan Metode Pembayaran</button></div>
+  <div class="card" style="margin-top:14px"><h3 style="margin:0">💳 Rekening & Metode Pembayaran</h3><div id="daftarBayarTersimpan" style="margin-top:12px"></div><button class="btn btn-outline" style="margin-top:8px" onclick="bukaPopupTambahBayar()">+ Tambahkan Metode Pembayaran</button></div>
 </div>
 
 <div id="p-pengaturan-point" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">💰 Point & Dompet</h2></div>
-  <div class="card" style="margin-top:14px;background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div><div class="flex" style="margin-top:10px"><button class="btn" style="background:#fff" onclick="alert('Tukar point belum aktif, kumpulin sampai Gold dulu ya!')">⭐ Tukar Point</button><button class="btn" style="background:#fff" onclick="alert('Reward: Diskon 5% di Gold')">🎁 Lihat Reward</button></div></div>
+  <div class="card" style="margin-top:14px;background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div></div>
 </div>
 
 <div id="p-notifikasi" class="page">
@@ -215,7 +217,6 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button class="btn btn-green" style="margin-top:12px" onclick="tandaiSemuaDibaca()">✅ Tandai Semua Sudah Dibaca</button>
   <div id="listNotifikasi" style="margin-top:12px"></div>
 </div>
-
 </div>
 
 <nav class="nav">
@@ -226,28 +227,48 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button onclick="go('profil',this)">👤<br>Profil</button>
 </nav>
 
-<!-- POPUP TAUTKAN SHEETS -->
+<!-- POPUP LOGIN / REGISTRASI -->
+<div id="popupAuth" class="modal"><div class="modalBox">
+  <div class="flex" style="align-items:center"><h3 style="margin:0">👋 Selamat Datang</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupAuth()">✕</button></div>
+  <p style="font-size:13px;color:#666">Udah punya akun? Login. Belum punya? Daftar dulu, gratis.</p>
+  <div class="tabAuth"><button class="btn btn-outline" id="tabAuthLogin" onclick="setTabPopupAuth('login')">🔓 Login</button><button class="btn btn-light" id="tabAuthReg" onclick="setTabPopupAuth('reg')">📝 Registrasi</button></div>
+  <div id="popupAuthLogin">
+    <label>Email</label><input id="authLoginEmail" type="email" placeholder="Contoh: budi@gmail.com">
+    <label>Password</label><input id="authLoginPass" type="password" placeholder="Password">
+    <button class="btn btn-green" onclick="loginDariPopupAuth()">🔓 Login</button>
+    <small style="color:#666;display:block;text-align:center;margin-top:8px">Belum punya akun? Pencet tab <b>Registrasi</b> di atas.</small>
+  </div>
+  <div id="popupAuthReg" class="hidden">
+    <label>Nama Warung</label><input id="authRegWarung" placeholder="Contoh: Warung Pintar Senen">
+    <label>Nama Pemilik</label><input id="authRegNama" placeholder="Contoh: Budi Santoso">
+    <label>No WA Warung</label><input id="authRegWa" placeholder="Contoh: 0812-3456-7890">
+    <label>Email</label><input id="authRegEmail" type="email" placeholder="Contoh: budi@gmail.com">
+    <label>Password</label><input id="authRegPass" type="password" placeholder="Minimal 6 karakter">
+    <button class="btn btn-green" onclick="registerDariPopupAuth()">📝 Daftar Akun Baru</button>
+    <small style="color:#666;display:block;text-align:center;margin-top:8px">Abis daftar, kamu akan diminta login lagi.</small>
+  </div>
+</div></div>
+
 <div id="popupSheets" class="modal"><div class="modalBox">
   <div class="flex" style="align-items:center"><h3 style="margin:0">🔗 Tautkan Google Sheets</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupSheets()">✕</button></div>
-  <p style="font-size:13px;color:#666">Paste link Google Sheets yang isinya daftar barang. Sheets harus di-setting <b>Siapa saja yang memiliki link bisa melihat</b>.</p>
-  <label>Link Google Sheets</label><input id="inputLinkSheets" placeholder="Paste link di sini... Contoh: https://docs.google.com/spreadsheets/d/...">
-  <div style="background:#F2F7F0;border-radius:12px;padding:10px;font-size:13px"><b>Format Sheets yang bener:</b><br>Baris 1 (judul): <b>Nama | Harga | Stok</b><br>Baris 2: Indomie Goreng | 3500 | 10<br>Baris 3: Aqua 600ml | 4000 | 20<br><br><button class="btn btn-light btn-sm" onclick="copyContohSheets()">📋 Salin Contoh Format</button></div>
+  <p style="font-size:13px;color:#666">Paste link Google Sheets. Sheets harus di-setting <b>Siapa saja yang memiliki link bisa melihat</b>.</p>
+  <label>Link Google Sheets</label><input id="inputLinkSheets" placeholder="Paste link di sini...">
+  <div style="background:#F2F7F0;border-radius:12px;padding:10px;font-size:13px"><b>Format Sheets:</b><br>Baris 1: <b>Nama | Harga | Stok</b><br>Baris 2: Indomie Goreng | 3500 | 10<br><button class="btn btn-light btn-sm" style="margin-top:6px" onclick="copyContohSheets()">📋 Salin Contoh Format</button></div>
   <button class="btn btn-green" style="margin-top:12px" onclick="tautkanSheets()">🔗 Tautkan Link</button>
   <div id="sheetPreview" class="hidden" style="margin-top:12px"></div>
 </div></div>
 
-<div id="popupPin" class="modal open"><div class="modalBox" style="text-align:center">
+<div id="popupPin" class="modal"><div class="modalBox" style="text-align:center">
   <div style="font-size:44px">🔒</div><h3 style="margin:6px 0">Warung Pintar Terkunci</h3><p style="font-size:13px;color:#666">Pilih cara buka: Sidik Jari, PIN, atau Email.</p>
   <div class="tabAuth"><button class="btn btn-outline" id="tabBtnPin" onclick="setTabAuth('pin')">🔢 PIN</button><button class="btn btn-light" id="tabBtnEmail" onclick="setTabAuth('email')">📧 Email</button><button class="btn btn-light" id="tabBtnBio" onclick="setTabAuth('bio')">👆 Sidik Jari</button></div>
   <div id="authPin"><input id="inputPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" style="text-align:center;font-size:26px;letter-spacing:12px"><button class="btn btn-green" onclick="cekPin()">🔓 Buka pake PIN</button><small style="color:#666">Default PIN: 1234</small></div>
   <div id="authEmail" class="hidden"><input id="loginEmailInput" type="email" placeholder="Email"><input id="loginPassInput" type="password" placeholder="Password"><button class="btn btn-green" onclick="loginEmailDariKunci()">🔓 Buka pake Email</button></div>
-  <div id="authBio" class="hidden"><button class="btn btn-green" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button><small style="color:#666">Harus sudah daftar sidik jari di Pengaturan dulu.</small></div>
+  <div id="authBio" class="hidden"><button class="btn btn-green" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button></div>
   <small id="pinError" style="color:#B00;display:block;margin-top:8px"></small>
 </div></div>
 
 <div id="popupBayar" class="modal"><div class="modalBox">
   <div class="flex" style="align-items:center"><h3 style="margin:0">💳 Pilih Metode Pembayaran</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupBayar()">✕</button></div>
-  <p style="font-size:13px;color:#666">Data rekening diambil dari Pengaturan.</p>
   <div id="listPopupBayar"></div>
   <div id="qrisDiPopup" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:12px;margin-top:8px"><b id="qrisNamaPopup">QRIS</b><br><img id="qrisImgPopup" src="" style="width:170px;height:170px;margin:8px auto;display:block"><small>Suruh pembeli scan QR ini</small><br><b id="qrisTotalPopup"></b></div>
   <button class="btn btn-green" style="margin-top:12px" onclick="konfirmasiBayarPopup()">✅ Pakai Metode Ini</button>
@@ -262,22 +283,11 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button class="btn btn-green" onclick="simpanMetodeBaru()">💾 Simpan</button>
 </div></div>
 
-<div id="popupEditProfil" class="modal"><div class="modalBox">
-  <div class="flex" style="align-items:center"><h3 style="margin:0">✏️ Edit Profil Warung</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupEditProfil()">✕</button></div>
-  <p style="font-size:13px;color:#666">Data ini akan muncul di Profil & di kepala struk.</p>
-  <label>Nama Warung</label><input id="editNamaWarung" placeholder="Contoh: Warung Pintar Senen">
-  <label>Nama Pemilik</label><input id="editPemilik" placeholder="Contoh: Budi Santoso">
-  <label>No WA Warung</label><input id="editWaWarung" placeholder="Contoh: 0812-3456-7890">
-  <label>Alamat Warung</label><input id="editAlamat" placeholder="Contoh: Jl. Merdeka No. 12, Jakarta Pusat">
-  <button class="btn btn-green" onclick="simpanProfil()">💾 Simpan Profil</button>
-</div></div>
-
 <div id="popupStruk" class="modal"><div class="modalBox" id="strukArea">
   <h3 style="margin:0">🧾 <span id="strukNamaWarung">WARUNG PINTAR SENEN</span></h3><p style="font-size:12px;margin:4px 0"><span id="strukAlamat">Jl. Merdeka No. 12, Jakarta Pusat</span><br>WA: <span id="strukWaWarung">0812-3456-7890</span></p><hr>
   <div id="strukIsi" style="text-align:left;font-size:14px"></div><hr>
   <label>📱 No WA Customer</label>
   <input id="waCustomerStruk" placeholder="Contoh: 0812-3456-7890" oninput="syncWaCustomer('struk')">
-  <small style="color:#666;display:block;margin:-6px 0 10px">Struk akan dikirim ke nomor ini.</small>
   <div class="flex"><button class="btn btn-outline" onclick="window.print()">🖨️ Cetak Struk (58mm)</button><button class="btn btn-green" onclick="kirimWAStrukTerakhir()">💬 Kirim WA</button></div>
   <button class="btn btn-light" style="margin-top:8px" onclick="tutupStruk()">✅ Selesai / Transaksi Baru</button>
 </div></div>
@@ -302,18 +312,26 @@ let fmt=n=>'Rp '+n.toLocaleString('id-ID');
 document.getElementById('tgl').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
 function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let el=document.getElementById('p-'+id);if(el)el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='pengaturan-profil')isiSettingWarung();if(id==='pengaturan-notif')renderNotifSetting();if(id==='pengaturan-verif')renderVerif();if(id==='notifikasi')renderNotifikasi();if(id==='produk')renderSheetStatus();if(id==='profil')document.querySelectorAll('.nav button')[4].classList.add('active');window.scrollTo(0,0)}
 function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';document.getElementById('eyeBtn').textContent=lihatSaldo?'🙈':'👁️'}
-// === GOOGLE SHEETS - TAUTKAN LINK ===
+// === TOMBOL LUAR PROFIL - LOGIN / REGISTRASI <-> KUNCI ===
+function renderTombolLuar(){let btn=document.getElementById('btnProfilLuar');if(!currentUser){btn.className='btn btn-green';btn.textContent='🟢 Login / Registrasi';btn.style.marginTop='12px'}else{btn.className='btn btn-pink';btn.textContent='🔒 Kunci Aplikasi';btn.style.marginTop='12px'}}
+function klikTombolLuar(){if(!currentUser){bukaPopupAuth()}else{kunciAplikasi()}}
+function bukaPopupAuth(){setTabPopupAuth('login');document.getElementById('popupAuth').classList.add('open')}
+function tutupPopupAuth(){document.getElementById('popupAuth').classList.remove('open')}
+function setTabPopupAuth(tab){document.getElementById('popupAuthLogin').classList.toggle('hidden',tab!=='login');document.getElementById('popupAuthReg').classList.toggle('hidden',tab!=='reg');document.getElementById('tabAuthLogin').className='btn '+(tab==='login'?'btn-outline':'btn-light');document.getElementById('tabAuthReg').className='btn '+(tab==='reg'?'btn-outline':'btn-light')}
+function registerDariPopupAuth(){let warung=document.getElementById('authRegWarung').value.trim(),nama=document.getElementById('authRegNama').value.trim(),wa=document.getElementById('authRegWa').value.trim(),email=(document.getElementById('authRegEmail').value||'').trim().toLowerCase(),pass=document.getElementById('authRegPass').value;if(!warung||!nama||!email||!pass)return alert('Nama Warung, Nama, Email, Password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');users.push({nama,email,pass:hashPass(pass),credId:null,warung,wa});profil={warung,pemilik:nama,wa:wa||profil.wa,alamat:profil.alamat};saveAll();renderProfil();document.getElementById('authLoginEmail').value=email;document.getElementById('authLoginPass').value='';setTabPopupAuth('login');alert('Registrasi berhasil! Warung '+warung+' sudah dibuat. Sekarang silakan LOGIN pakai email & password barumu.')}
+function loginDariPopupAuth(){let email=(document.getElementById('authLoginEmail').value||'').trim().toLowerCase(),pass=document.getElementById('authLoginPass').value;if(loginDengan(email,pass)){tutupPopupAuth();go('profil')}}
+// === SHEETS ===
 function bukaPopupSheets(){document.getElementById('inputLinkSheets').value=sheetLink;document.getElementById('sheetPreview').classList.add('hidden');document.getElementById('popupSheets').classList.add('open')}
 function tutupPopupSheets(){document.getElementById('popupSheets').classList.remove('open')}
-function copyContohSheets(){let txt='Nama,Harga,Stok\nIndomie Goreng,3500,10\nAqua 600ml,4000,20\nKopi Sachet,2000,30';if(navigator.clipboard)navigator.clipboard.writeText(txt);alert('Contoh format tersalin! Paste ke Google Sheets baris pertama.\n\nNama,Harga,Stok\nIndomie Goreng,3500,10')}
+function copyContohSheets(){let txt='Nama,Harga,Stok\nIndomie Goreng,3500,10\nAqua 600ml,4000,20';if(navigator.clipboard)navigator.clipboard.writeText(txt);alert('Contoh format tersalin!')}
 function ambilIdSheets(link){let m=(link||'').match(/\/d\/([a-zA-Z0-9-_]+)/);return m?m[1]:''}
-function renderSheetStatus(){let ada=!!sheetLink;document.getElementById('sheetStatusText').innerHTML=ada?`✅ <b>Terhubung!</b><br><small style="word-break:break-all">${sheetLink}</small><br><small>Terakhir sync: ${load('sheetLastSync','Belum pernah sync')}</small>`:'Belum ada Sheets yang ditautkan. Punya data di Sheets? Tinggal tautkan link-nya, barang langsung masuk semua.';document.getElementById('btnSyncSheets').classList.toggle('hidden',!ada);document.getElementById('btnPutusSheets').classList.toggle('hidden',!ada)}
-async function tautkanSheets(){let link=document.getElementById('inputLinkSheets').value.trim();if(!link||!link.includes('docs.google.com'))return alert('Link-nya belum bener! Copy link dari Google Sheets, contoh: https://docs.google.com/spreadsheets/d/...');let id=ambilIdSheets(link);if(!id)return alert('Link Sheets tidak ketemu ID-nya. Coba copy lagi link-nya dari address bar.');sheetLink=link;saveAll();renderSheetStatus();document.getElementById('sheetPreview').classList.remove('hidden');document.getElementById('sheetPreview').innerHTML='<b>⏳ Mencoba narik data...</b><br><small>Pastikan Sheets sudah di-setting: Bagikan > Siapa saja yang memiliki link bisa melihat.</small>';try{let hasil=await fetchSheetsData();document.getElementById('sheetPreview').innerHTML='<b>✅ Berhasil! Ketemu '+hasil.length+' barang.</b><br><small>'+hasil.slice(0,3).map(h=>h.nama+' - '+fmt(h.harga)+' - Stok '+h.stok).join('<br>')+'</small><br><button class="btn btn-green" style="margin-top:8px" onclick="importDariSheetsLangsung()">📥 Import Semua ke Kasir</button>'}catch(e){document.getElementById('sheetPreview').innerHTML='<b style="color:#B00">❌ Gagal narik data.</b><br><small>Cek lagi: 1) Sheets sudah Dibagikan ke Siapa Saja, 2) Format kolom Nama | Harga | Stok, 3) Koneksi internet nyala. Error: '+e.message+'</small>'}}
-async function fetchSheetsData(){let id=ambilIdSheets(sheetLink);if(!id)throw new Error('Link belum ditautkan');let url='https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:csv&sheet=Sheet1';let res=await fetch(url);if(!res.ok)throw new Error('Sheets tidak bisa diakses (cek setting Bagikan)');let teks=await res.text();return parseCsvSheets(teks)}
-function parseCsvSheets(teks){let baris=teks.trim().split('\n').map(r=>r.split(',').map(c=>c.replace(/^"|"$/g,'').trim()));let mulai=0;if(baris[0]&&/nama/i.test(baris[0][0]))mulai=1;let hasil=[];for(let i=mulai;i<baris.length;i++){let [nama,harga,stok]=baris[i];if(!nama)continue;harga=parseInt((harga||'').replace(/\D/g,''))||0;stok=parseInt((stok||'').replace(/\D/g,''))||0;if(harga>0)hasil.push({nama,harga,stok,emoji:'📦'})}if(!hasil.length)throw new Error('Tidak ada barang yang valid. Cek format Nama | Harga | Stok');return hasil}
-async function importDariSheetsLangsung(){try{let hasil=await fetchSheetsData();let masuk=0,update=0;hasil.forEach(h=>{let ada=produk.find(p=>p.nama.toLowerCase()===h.nama.toLowerCase());if(ada){ada.harga=h.harga;ada.stok=h.stok;update++}else{produk.push(h);masuk++}});save('sheetLastSync',new Date().toLocaleString('id-ID'));saveAll();renderAll();renderProdukTransaksi();renderSheetStatus();tutupPopupSheets();tambahNotif('Google Sheets Tersinkron','Berhasil import '+hasil.length+' barang dari Sheets ('+masuk+' baru, '+update+' di-update).','📊');alert('Berhasil! '+hasil.length+' barang masuk. ('+masuk+' baru, '+update+' di-update)') }catch(e){alert('Gagal import: '+e.message)}}
-async function syncSheets(){if(!sheetLink)return alert('Tautkan dulu link Sheets-nya!');try{await importDariSheetsLangsung()}catch(e){alert('Gagal sync: '+e.message)}}
-function putuskanSheets(){if(!confirm('Putuskan tautan Google Sheets? Barang yang sudah masuk tetap aman di kasir.'))return;sheetLink='';saveAll();renderSheetStatus();alert('Tautan Sheets diputuskan. Barang tetap ada di kasir.')}
+function renderSheetStatus(){let ada=!!sheetLink;document.getElementById('sheetStatusText').innerHTML=ada?`✅ <b>Terhubung!</b><br><small style="word-break:break-all">${sheetLink}</small><br><small>Terakhir sync: ${load('sheetLastSync','Belum pernah sync')}</small>`:'Belum ada Sheets yang ditautkan. Punya data di Sheets? Tinggal tautkan link-nya.';document.getElementById('btnSyncSheets').classList.toggle('hidden',!ada);document.getElementById('btnPutusSheets').classList.toggle('hidden',!ada)}
+async function tautkanSheets(){let link=document.getElementById('inputLinkSheets').value.trim();if(!link||!link.includes('docs.google.com'))return alert('Link-nya belum bener!');let id=ambilIdSheets(link);if(!id)return alert('Link Sheets tidak ketemu ID-nya.');sheetLink=link;saveAll();renderSheetStatus();document.getElementById('sheetPreview').classList.remove('hidden');document.getElementById('sheetPreview').innerHTML='<b>⏳ Mencoba narik data...</b>';try{let hasil=await fetchSheetsData();document.getElementById('sheetPreview').innerHTML='<b>✅ Berhasil! Ketemu '+hasil.length+' barang.</b><br><button class="btn btn-green" style="margin-top:8px" onclick="importDariSheetsLangsung()">📥 Import Semua ke Kasir</button>'}catch(e){document.getElementById('sheetPreview').innerHTML='<b style="color:#B00">❌ Gagal narik data.</b><br><small>Cek setting Bagikan Sheets ke Siapa Saja. Error: '+e.message+'</small>'}}
+async function fetchSheetsData(){let id=ambilIdSheets(sheetLink);if(!id)throw new Error('Link belum ditautkan');let url='https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:csv&sheet=Sheet1';let res=await fetch(url);if(!res.ok)throw new Error('Sheets tidak bisa diakses');let teks=await res.text();return parseCsvSheets(teks)}
+function parseCsvSheets(teks){let baris=teks.trim().split('\n').map(r=>r.split(',').map(c=>c.replace(/^"|"$/g,'').trim()));let mulai=0;if(baris[0]&&/nama/i.test(baris[0][0]))mulai=1;let hasil=[];for(let i=mulai;i<baris.length;i++){let [nama,harga,stok]=baris[i];if(!nama)continue;harga=parseInt((harga||'').replace(/\D/g,''))||0;stok=parseInt((stok||'').replace(/\D/g,''))||0;if(harga>0)hasil.push({nama,harga,stok,emoji:'📦'})}if(!hasil.length)throw new Error('Tidak ada barang valid. Cek format Nama | Harga | Stok');return hasil}
+async function importDariSheetsLangsung(){try{let hasil=await fetchSheetsData();let masuk=0,update=0;hasil.forEach(h=>{let ada=produk.find(p=>p.nama.toLowerCase()===h.nama.toLowerCase());if(ada){ada.harga=h.harga;ada.stok=h.stok;update++}else{produk.push(h);masuk++}});save('sheetLastSync',new Date().toLocaleString('id-ID'));saveAll();renderAll();renderProdukTransaksi();renderSheetStatus();tutupPopupSheets();tambahNotif('Google Sheets Tersinkron','Berhasil import '+hasil.length+' barang dari Sheets.','📊');alert('Berhasil! '+hasil.length+' barang masuk.')}catch(e){alert('Gagal import: '+e.message)}}
+async function syncSheets(){if(!sheetLink)return alert('Tautkan dulu link Sheets-nya!');await importDariSheetsLangsung()}
+function putuskanSheets(){if(!confirm('Putuskan tautan Google Sheets? Barang tetap aman di kasir.'))return;sheetLink='';saveAll();renderSheetStatus();alert('Tautan Sheets diputuskan.')}
 // === NOTIFIKASI ===
 function tambahNotif(judul,isi,ikon){notifs.unshift({judul,isi,ikon:ikon||'🔔',waktu:new Date().toLocaleString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}),baca:false});if(notifs.length>50)notifs=notifs.slice(0,50);saveAll();updateBadge()}
 function updateBadge(){let unread=notifs.filter(n=>!n.baca).length;let badge=document.getElementById('bellBadge');if(unread>0){badge.classList.remove('hidden');badge.textContent=unread>99?'99+':unread}else badge.classList.add('hidden')}
@@ -325,7 +343,7 @@ function hapusSemuaNotif(){if(!confirm('Hapus semua notifikasi?'))return;notifs=
 function toggleNotif(jenis){notifSetting[jenis]=!notifSetting[jenis];saveAll();renderNotifSetting();updateBadge()}
 function renderNotifSetting(){['stok','transaksi','bunyi'].forEach(j=>{let el=document.getElementById('sw'+j.charAt(0).toUpperCase()+j.slice(1));if(el)el.className='switch '+(notifSetting[j]?'on':'')})}
 function renderVerif(){let v=verifEmail&&currentUser;document.getElementById('verifIcon').textContent=v?'✅':'📧';document.getElementById('verifJudul').textContent=v?'Email Terverifikasi ✅':'Email Belum Terverifikasi';document.getElementById('verifIsi').textContent=v?('Email '+currentUser.email+' sudah terverifikasi.'):'Login dulu pakai email, lalu verifikasi.';document.getElementById('verifBtn').textContent=v?'✅ Sudah Terverifikasi':'✅ Verifikasi Email Sekarang';document.getElementById('verifSub').textContent=v?'Email terverifikasi ✅':'Email belum terverifikasi'}
-function verifikasiEmail(){if(!currentUser)return alert('Login dulu pakai email di Profile Settings!');verifEmail=true;saveAll();renderVerif();tambahNotif('Email Terverifikasi','Email '+currentUser.email+' berhasil diverifikasi ✅','✅');alert('Email berhasil diverifikasi ✅')}
+function verifikasiEmail(){if(!currentUser)return alert('Login dulu pakai email!');verifEmail=true;saveAll();renderVerif();tambahNotif('Email Terverifikasi','Email '+currentUser.email+' berhasil diverifikasi ✅','✅');alert('Email berhasil diverifikasi ✅')}
 function setTabAuth(tab){['pin','email','bio'].forEach(t=>{document.getElementById('auth'+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle('hidden',t!==tab);document.getElementById('tabBtn'+t.charAt(0).toUpperCase()+t.slice(1)).className='btn '+(t===tab?'btn-outline':'btn-light')});document.getElementById('pinError').textContent=''}
 function cekPin(){let v=document.getElementById('inputPin').value;if(v===pinKasir){bukaAplikasi()}else{document.getElementById('pinError').textContent='❌ PIN salah! Coba lagi.';document.getElementById('inputPin').value=''}}
 function bukaAplikasi(){document.getElementById('popupPin').classList.remove('open');document.getElementById('inputPin').value='';document.getElementById('pinError').textContent='';renderAkun()}
@@ -333,18 +351,18 @@ function kunciAplikasi(){document.getElementById('popupPin').classList.add('open
 function gantiPin(){let v=document.getElementById('pinBaru').value.trim();if(v.length!==4||isNaN(v))return alert('PIN harus 4 angka!');pinKasir=v;saveAll();document.getElementById('pinBaru').value='';tambahNotif('PIN Berhasil Diganti','PIN kasir berhasil diganti 🔐','🔐');alert('PIN berhasil diganti jadi '+v)}
 document.getElementById('inputPin').addEventListener('keyup',e=>{if(e.key==='Enter')cekPin()});
 function hashPass(p){let h=0;for(let i=0;i<p.length;i++){h=((h<<5)-h)+p.charCodeAt(i);h=h&h}return 'h'+h}
-function renderAkun(){let login=!!currentUser;document.getElementById('akunBelumLogin').classList.toggle('hidden',login);document.getElementById('akunSudahLogin').classList.toggle('hidden',!login);if(login){document.getElementById('akunNamaTampil').textContent=currentUser.nama;document.getElementById('akunEmailTampil').textContent=currentUser.email;document.getElementById('topUser').textContent='Halo, '+currentUser.nama;document.getElementById('profilEmail').textContent='📧 '+currentUser.email+(verifEmail?' • Terverifikasi ✅':'')}else{document.getElementById('topUser').textContent='Dashboard Kasir';document.getElementById('profilEmail').textContent='📧 Belum login email'}}
-function registerAkun(){let nama=document.getElementById('regNama').value.trim(),email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;if(!nama||!email||!pass)return alert('Nama, email, dan password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');let u={nama,email,pass:hashPass(pass),credId:null};users.push(u);currentUser={nama,email};verifEmail=false;saveAll();renderAkun();tambahNotif('Akun Email Dibuat','Selamat datang, '+nama+'!','📧');alert('Akun berhasil dibuat!')}
+function renderAkun(){let login=!!currentUser;document.getElementById('akunBelumLogin').classList.toggle('hidden',login);document.getElementById('akunSudahLogin').classList.toggle('hidden',!login);if(login){document.getElementById('akunNamaTampil').textContent=currentUser.nama;document.getElementById('akunEmailTampil').textContent=currentUser.email;document.getElementById('topUser').textContent='Halo, '+currentUser.nama;document.getElementById('profilEmail').textContent='📧 '+currentUser.email+(verifEmail?' • Terverifikasi ✅':'')}else{document.getElementById('topUser').textContent='Dashboard Kasir';document.getElementById('profilEmail').textContent='📧 Belum login email'}renderTombolLuar()}
+function registerAkun(){let nama=document.getElementById('regNama').value.trim(),email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;if(!nama||!email||!pass)return alert('Nama, email, dan password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');users.push({nama,email,pass:hashPass(pass),credId:null});currentUser={nama,email};verifEmail=false;saveAll();renderAkun();tambahNotif('Akun Email Dibuat','Selamat datang, '+nama+'!','📧');alert('Akun berhasil dibuat!')}
 function loginEmail(){let email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;return loginDengan(email,pass)}
 function loginEmailDariKunci(){let email=(document.getElementById('loginEmailInput').value||'').trim().toLowerCase(),pass=document.getElementById('loginPassInput').value;return loginDengan(email,pass)}
-function loginDengan(email,pass){if(!email||!pass){alert('Isi email & password dulu!');return false}let u=users.find(x=>x.email===email);if(!u){alert('Email belum terdaftar! Daftar dulu.');return false}if(u.pass!==hashPass(pass)){document.getElementById('pinError').textContent='❌ Email / password salah!';alert('Password salah!');return false}currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Login berhasil! Halo, '+u.nama);return true}
-function logoutAkun(){if(!confirm('Logout akun email?'))return;currentUser=null;verifEmail=false;saveAll();renderAkun();kunciAplikasi()}
-function logoutSemua(){if(!confirm('Logout & kunci aplikasi?'))return;currentUser=null;saveAll();renderAkun();kunciAplikasi()}
+function loginDengan(email,pass){if(!email||!pass){alert('Isi email & password dulu!');return false}let u=users.find(x=>x.email===email);if(!u){alert('Email belum terdaftar! Daftar dulu.');return false}if(u.pass!==hashPass(pass)){document.getElementById('pinError').textContent='❌ Email / password salah!';alert('Password salah!');return false}currentUser={nama:u.nama,email:u.email};if(u.warung){profil.warung=u.warung;profil.pemilik=u.nama;if(u.wa)profil.wa=u.wa;renderProfil()}saveAll();renderAkun();bukaAplikasi();alert('Login berhasil! Halo, '+u.nama);return true}
+function logoutAkun(){if(!confirm('Yakin mau logout? Nanti harus login lagi pake email & password.'))return;currentUser=null;verifEmail=false;saveAll();renderAkun();go('profil');alert('Berhasil logout. Pencet Login / Registrasi di bawah untuk masuk lagi.')}
+function logoutSemua(){logoutAkun()}
 function updateStatusSidik(){let u=currentUser?users.find(x=>x.email===currentUser.email):users[0];let ada=u&&u.credId;document.getElementById('statusSidik').textContent=ada?'✅ Sudah terdaftar di HP ini':'Belum terdaftar';if(ada)document.getElementById('statusSidik').style.color='#147A43'}
 function bufToB64(buf){return btoa(String.fromCharCode(...new Uint8Array(buf)))}
 function b64ToBuf(b64){let s=atob(b64);let a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a.buffer}
-function getAkunUntukBio(){if(currentUser){let u=users.find(x=>x.email===currentUser.email);if(u)return u}if(!users.length){alert('Daftar / Login email dulu sebelum daftarin sidik jari!');return null}return users[0]}
-async function daftarSidikJari(){if(!window.PublicKeyCredential){alert('HP ini tidak support sidik jari. Pakai PIN aja.');return}if(location.protocol!=='https:'&&location.hostname!=='localhost'){alert('Sidik jari butuh HTTPS. Buka lewat link github.io.');return}let u=getAkunUntukBio();if(!u)return;try{let challenge=crypto.getRandomValues(new Uint8Array(32));let cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'Warung Pintar'},user:{id:new TextEncoder().encode(u.email),name:u.email,displayName:u.nama},pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});u.credId=bufToB64(cred.rawId);saveAll();updateStatusSidik();alert('Sidik jari berhasil didaftarkan!')}catch(e){alert('Gagal daftar sidik jari: '+(e.message||e))}}
+function getAkunUntukBio(){if(currentUser){let u=users.find(x=>x.email===currentUser.email);if(u)return u}if(!users.length){alert('Daftar / Login email dulu!');return null}return users[0]}
+async function daftarSidikJari(){if(!window.PublicKeyCredential){alert('HP ini tidak support sidik jari.');return}if(location.protocol!=='https:'&&location.hostname!=='localhost'){alert('Sidik jari butuh HTTPS.');return}let u=getAkunUntukBio();if(!u)return;try{let challenge=crypto.getRandomValues(new Uint8Array(32));let cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'Warung Pintar'},user:{id:new TextEncoder().encode(u.email),name:u.email,displayName:u.nama},pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});u.credId=bufToB64(cred.rawId);saveAll();updateStatusSidik();alert('Sidik jari berhasil didaftarkan!')}catch(e){alert('Gagal daftar sidik jari: '+(e.message||e))}}
 async function bukaSidikJari(){if(!window.PublicKeyCredential){document.getElementById('pinError').textContent='HP ini tidak support sidik jari.';return}let u=getAkunUntukBio();if(!u||!u.credId){document.getElementById('pinError').textContent='Belum ada sidik jari terdaftar.';return}try{let challenge=crypto.getRandomValues(new Uint8Array(32));await navigator.credentials.get({publicKey:{challenge,allowCredentials:[{id:b64ToBuf(u.credId),type:'public-key'}],userVerification:'required',timeout:60000}});currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Sidik jari cocok! Halo, '+u.nama)}catch(e){document.getElementById('pinError').textContent='❌ Sidik jari gagal. Coba lagi atau pakai PIN.'}}
 function isiSettingWarung(){document.getElementById('settingNamaWarung').value=profil.warung;document.getElementById('settingPemilik').value=profil.pemilik;document.getElementById('settingWa').value=profil.wa;document.getElementById('settingAlamat').value=profil.alamat}
 function simpanSettingWarung(){let w=document.getElementById('settingNamaWarung').value.trim(),p=document.getElementById('settingPemilik').value.trim(),wa=document.getElementById('settingWa').value.trim(),a=document.getElementById('settingAlamat').value.trim();if(!w||!p||!wa||!a)return alert('Semua kolom wajib diisi!');profil={warung:w,pemilik:p,wa:wa,alamat:a};saveAll();renderProfil();alert('Profil warung berhasil disimpan!')}
@@ -353,9 +371,6 @@ function syncWaCustomer(dari){if(dari==='transaksi'){document.getElementById('wa
 function kirimWAStrukTerakhir(){if(!strukTerakhir)return alert('Belum ada struk!');let raw=document.getElementById('waCustomerStruk').value||document.getElementById('waCustomer').value;if(!raw.trim())return alert('Isi dulu No WA Customer!');let no=formatWa62(raw);if(no.length<10)return alert('No WA kurang lengkap!');window.open('https://wa.me/'+no+'?text='+strukTerakhir,'_blank')}
 function hitungKembalian(){let total=getTotalCart(),uang=+document.getElementById('uangDiterima').value||0;let box=document.getElementById('kembalianBox');if(metodeDipilih!=='Tunai'){box.classList.add('hidden');return}if(!total&&!uang){box.classList.add('hidden');return}box.classList.remove('hidden');document.getElementById('kembalianUang').textContent=fmt(uang);document.getElementById('kembalianTotal').textContent=fmt(total);let kembali=uang-total;document.getElementById('kembalianNilai').textContent=fmt(Math.max(0,kembali));document.getElementById('kembalianPesan').textContent=uang<total?'⚠️ Uang kurang '+(fmt(total-uang))+' lagi':uang===total?'✅ Uang pas':'✅ Kembalikan '+fmt(kembali)}
 function renderProfil(){document.getElementById('profilNamaWarung').textContent=profil.warung;document.getElementById('profilPemilik').textContent='Pemilik : '+profil.pemilik;document.getElementById('profilWa').textContent='WA : '+profil.wa;document.getElementById('profilAlamat').textContent='Alamat : '+profil.alamat;document.getElementById('strukNamaWarung').textContent=profil.warung.toUpperCase();document.getElementById('strukAlamat').textContent=profil.alamat;document.getElementById('strukWaWarung').textContent=profil.wa}
-function bukaPopupEditProfil(){document.getElementById('editNamaWarung').value=profil.warung;document.getElementById('editPemilik').value=profil.pemilik;document.getElementById('editWaWarung').value=profil.wa;document.getElementById('editAlamat').value=profil.alamat;document.getElementById('popupEditProfil').classList.add('open')}
-function tutupPopupEditProfil(){document.getElementById('popupEditProfil').classList.remove('open')}
-function simpanProfil(){let w=document.getElementById('editNamaWarung').value.trim(),p=document.getElementById('editPemilik').value.trim(),wa=document.getElementById('editWaWarung').value.trim(),a=document.getElementById('editAlamat').value.trim();if(!w||!p||!wa||!a)return alert('Semua kolom wajib diisi!');profil={warung:w,pemilik:p,wa:wa,alamat:a};tutupPopupEditProfil();renderProfil();saveAll();alert('Profil berhasil disimpan!')}
 function renderProdukTransaksi(){let q=(document.getElementById('cari').value||'').toLowerCase();let list=produk.filter(p=>p.nama.toLowerCase().includes(q));let el=document.getElementById('produkTransaksi');if(!list.length){el.innerHTML=`<div class="emptyBox">📦 <b>Belum ada produk</b><br>Tambah dulu di menu <b>Produk</b></div>`;return}el.innerHTML=`<div class="gridProduk">`+list.map(p=>{let i=produk.indexOf(p);let jml=cart[i]||0;return `<div class="pCard"><div class="emoji">${p.emoji}</div><b>${p.nama}</b><small>${fmt(p.harga)} • Stok: ${p.stok}</small><div class="qtyBox"><button class="qtyBtn" onclick="ubahQty(${i},-1)">−</button><b>${jml}</b><button class="qtyBtn plus" onclick="ubahQty(${i},1)">+</button></div></div>`}).join('')+`</div>`}
 function ubahQty(i,d){let baru=(cart[i]||0)+d;if(baru<0)baru=0;if(baru>produk[i].stok){alert('Stok '+produk[i].nama+' cuma '+produk[i].stok);return}if(baru===0)delete cart[i];else cart[i]=baru;renderProdukTransaksi();renderCart();hitungKembalian()}
 function renderCart(){let html='',total=0;for(let k in cart){let p=produk[k],sub=p.harga*cart[k];total+=sub;html+=`<div class="cartRow"><span>${p.nama} x ${cart[k]}</span><span>${fmt(sub)}</span></div>`}document.getElementById('cartList').innerHTML=html||'<p style="color:#777">Belum ada barang dipilih.</p>';document.getElementById('cartTotal').textContent=fmt(total);if(metodeDipilih==='QRIS')document.getElementById('qrisTotalTransaksi').textContent=fmt(total);if(metodeSementara==='QRIS')document.getElementById('qrisTotalPopup').textContent='Total bayar: '+fmt(getTotalCart())}
