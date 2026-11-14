@@ -14,8 +14,7 @@ body{background:#eef2ef;padding-bottom:90px}
 .avatar{width:44px;height:44px;background:#cde8d4;border-radius:50%;display:grid;place-items:center;font-size:22px}
 .card{background:#0a4d2a;color:#fff;margin:16px;border-radius:20px;padding:18px;position:relative}
 .saldo{font-size:44px;font-weight:900;margin:10px 0 4px}
-.date{font-weight:700;font-size:19px}
-.sub{opacity:.75;font-size:14px;margin-top:6px}
+.date{font-weight:700;font-size:19px}.sub{opacity:.75;font-size:14px;margin-top:6px}
 .eye{position:absolute;right:18px;top:18px;font-size:22px;background:none;border:none;color:#fff;cursor:pointer}
 .card-foot{background:#6aab85;margin:18px -18px -18px;padding:10px 18px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}
 .badge{background:#fff;color:#0a4d2a;padding:3px 8px;border-radius:6px;font-size:11px}
@@ -27,32 +26,31 @@ body{background:#eef2ef;padding-bottom:90px}
 .cal div{padding:9px 0;font-size:16px}.cal .head{color:#777;font-size:14px}.cal .today{background:#009444;color:#fff;border-radius:50%;font-weight:800}
 .riwayat-head{display:flex;justify-content:space-between;align-items:center;margin:4px 16px 10px}
 .riwayat-head h3{font-size:20px}.riwayat-head a{color:#009444;text-decoration:none;font-weight:700;font-size:14px}
-.trx{background:#fff;margin:0 16px;border-radius:18px;padding:14px;display:flex;gap:12px}
+.trx{background:#fff;margin:0 16px 12px;border-radius:18px;padding:14px;display:flex;gap:12px}
 .trx .icon{background:#e2f3e5;width:68px;height:68px;border-radius:12px;display:grid;place-items:center;font-size:28px;flex-shrink:0}
 .trx b{font-size:16px;line-height:1.4}.trx .price{font-weight:800;white-space:nowrap}.trx small{color:#888;font-size:13px}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0 18px;border-top:1px solid #eee;z-index:20}
 .nav div{text-align:center;font-size:12px;color:#888;cursor:pointer}.nav .on{color:#009444;font-weight:700}
 .page{display:none}.page.active{display:block}
-.tabs{display:flex;gap:8px;margin:16px}
-.tabs button{flex:1;padding:10px;border:none;border-radius:12px;font-weight:700;background:#fff;cursor:pointer}
-.tabs button.on{background:#009444;color:#fff}
+.tabs{display:flex;gap:8px;margin:16px}.tabs button{flex:1;padding:10px;border:none;border-radius:12px;font-weight:700;background:#fff;cursor:pointer}.tabs button.on{background:#009444;color:#fff}
 .chart-box{background:#fff;margin:0 16px 16px;border-radius:20px;padding:16px}
-.chart-box h3{margin-bottom:4px}.chart-box small{color:#888}
 canvas{width:100%;height:180px;margin-top:12px}
-.bar-row{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:13px}
-.bar-row span:first-child{width:32px}.bar{height:22px;background:#009444;border-radius:6px;color:#fff;font-size:11px;display:flex;align-items:center;padding:0 8px;min-width:50px}
+.bar-row{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:13px}.bar-row span:first-child{width:32px}.bar{height:22px;background:#009444;border-radius:6px;color:#fff;font-size:11px;display:flex;align-items:center;padding:0 8px;min-width:50px}
 .lap-item{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;display:flex;justify-content:space-between}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center;padding:20px;z-index:30}
-.modal.show{display:grid}.modal-box{background:#fff;border-radius:18px;padding:20px;text-align:center;width:100%;max-width:360px}
-.modal-box button{border:none;padding:12px 18px;border-radius:10px;font-weight:700;margin-top:14px;cursor:pointer}
-.btn-yes{background:#009444;color:#fff}.btn-no{background:#eee;margin-left:8px}
+.prod{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.prod b{font-size:15px}.prod small{color:#888}
+.btn{background:#009444;color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+.btn2{background:#eee;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin:8px 0;font-size:15px}
+.cart{background:#0a4d2a;color:#fff;margin:16px;border-radius:16px;padding:14px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center;padding:20px;z-index:30}.modal.show{display:grid}.modal-box{background:#fff;border-radius:18px;padding:20px;text-align:center;width:100%;max-width:360px}.modal-box button{border:none;padding:12px 18px;border-radius:10px;font-weight:700;margin-top:14px;cursor:pointer}.btn-yes{background:#009444;color:#fff}.btn-no{background:#eee;margin-left:8px}
 </style>
 </head>
 <body>
 <div class="top"><div class="top-bar"><span>10:53</span><span>70%</span></div></div>
 <div class="header"><div><h1>WARUNG<br>PINTAR</h1></div><div style="display:flex;align-items:center;gap:10px"><p>Halo, Budi ange</p><div class="avatar">👤</div></div></div>
 
-<!-- PAGE HOME -->
+<!-- HOME -->
 <div id="page-home" class="page active">
   <div class="card">
     <button class="eye" onclick="toggleSaldo()">👁️</button>
@@ -65,103 +63,84 @@ canvas{width:100%;height:180px;margin-top:12px}
   <div class="tutup" onclick="openModal()">📖 Tutup Buku</div>
   <p class="note">Saldo akan direset jadi Rp 0 & disimpan ke Laporan</p>
   <div class="box"><h2>November 2026</h2><div class="cal" id="calendar"></div></div>
-  <div class="riwayat-head"><h3>📋 Riwayat Transaksi</h3><a href="#" onclick="showPage('laporan')">Lihat Semua →</a></div>
-  <div class="trx"><div class="icon">🧾</div><div style="flex:1"><b>Pantene kondisioner x2,<br>Makarizo hair energy x2,<br>Hand sanitazier x2</b><small>🕒 17.57 • Bayar: Tunai • Kasir:<br>Budi ange</small></div><div class="price">Rp 224.000</div></div>
+  <div class="riwayat-head"><h3>📋 Riwayat Transaksi</h3><a href="#" onclick="showPage('laporan');return false">Lihat Semua →</a></div>
+  <div id="riwayatList"></div>
 </div>
 
-<!-- PAGE LAPORAN -->
+<!-- TRANSAKSI -->
+<div id="page-transaksi" class="page">
+  <div style="margin:16px"><h2>💸 Transaksi Baru</h2><p style="color:#666;font-size:13px">Klik + buat nambah ke keranjang</p></div>
+  <div id="produkTransaksi"></div>
+  <div class="cart"><b>Keranjang: <span id="cartCount">0</span> item</b><br><span>Total: Rp <span id="cartTotal">0</span></span><br><br><button class="btn" style="background:#fff;color:#0a4d2a;width:100%" onclick="checkout()">Bayar Tunai - Selesaikan</button></div>
+</div>
+
+<!-- PRODUK -->
+<div id="page-produk" class="page">
+  <div style="margin:16px"><h2>📦 Daftar Produk</h2></div>
+  <div class="box"><h3 style="text-align:left">+ Tambah Produk</h3><input id="namaBaru" placeholder="Nama produk, contoh: Rinso 500g"><input id="hargaBaru" type="number" placeholder="Harga jual, contoh: 15000"><button class="btn" style="width:100%" onclick="tambahProduk()">Simpan Produk</button></div>
+  <div id="produkList"></div>
+</div>
+
+<!-- LAPORAN -->
 <div id="page-laporan" class="page">
-  <div style="margin:16px"><h2 style="font-size:22px">📊 Laporan Penjualan</h2><p style="color:#666;font-size:13px">Total yang udah Tutup Buku masuk sini</p></div>
-  <div class="tabs">
-    <button class="on" onclick="setRange('minggu',this)">Mingguan</button>
-    <button onclick="setRange('bulan',this)">Bulanan</button>
-  </div>
-  <div class="chart-box">
-    <h3 id="chartTitle">Grafik Penjualan - Minggu Ini</h3>
-    <small>Total: <b id="chartTotal" style="color:#009444">Rp 1.240.000</b></small>
-    <canvas id="chart" width="320" height="180"></canvas>
-  </div>
+  <div style="margin:16px"><h2>📊 Laporan Penjualan</h2></div>
+  <div class="tabs"><button class="on" onclick="setRange('minggu',this)">Mingguan</button><button onclick="setRange('bulan',this)">Bulanan</button></div>
+  <div class="chart-box"><h3 id="chartTitle">Grafik Penjualan - Minggu Ini</h3><small>Total: <b id="chartTotal" style="color:#009444">Rp 1.240.000</b></small><canvas id="chart" width="320" height="180"></canvas></div>
   <div class="chart-box"><h3>Detail Per Hari</h3><div id="barList"></div></div>
-  <div style="margin:0 16px 10px"><b>Riwayat Tutup Buku</b></div>
-  <div id="laporanList"></div>
+  <div style="margin:0 16px 10px"><b>Riwayat Tutup Buku</b></div><div id="laporanList"></div>
+</div>
+
+<!-- PROFIL -->
+<div id="page-profil" class="page">
+  <div style="margin:16px"><h2>👤 Profil</h2></div>
+  <div class="box"><div style="text-align:center;font-size:50px">👤</div><h3 style="text-align:center">Budi ange</h3><p style="text-align:center;color:#888">Kasir - WARUNG PINTAR .... 1234<br>PREMIUM SILVER</p></div>
+  <div class="box"><b>Pengaturan</b><br><br><button class="btn2" style="width:100%" onclick="toggleSaldo()">Sembunyikan / Tampilkan Saldo 👁️</button><br><br><button class="btn2" style="width:100%" onclick="if(confirm('Hapus semua data?')){localStorage.clear();location.reload()}">Hapus Semua Data (Reset)</button></div>
 </div>
 
 <div class="nav">
   <div id="nav-home" class="on" onclick="showPage('home')">🏠<br>Home</div>
-  <div onclick="alert('Transaksi - belum dibuat bre')">💸<br>Transaksi</div>
-  <div onclick="alert('Produk - belum dibuat bre')">📦<br>Produk</div>
+  <div id="nav-transaksi" onclick="showPage('transaksi')">💸<br>Transaksi</div>
+  <div id="nav-produk" onclick="showPage('produk')">📦<br>Produk</div>
   <div id="nav-laporan" onclick="showPage('laporan')">📊<br>Laporan</div>
-  <div onclick="alert('Profil - belum dibuat bre')">👤<br>Profil</div>
+  <div id="nav-profil" onclick="showPage('profil')">👤<br>Profil</div>
 </div>
 
 <div class="modal" id="modal"><div class="modal-box"><h3>Tutup Buku?</h3><p style="margin-top:8px;color:#555">Saldo <b id="modalSaldo">Rp 224.000</b> akan direset jadi Rp 0 & disimpan ke Laporan.</p><button class="btn-yes" onclick="doTutupBuku()">Ya, Tutup Buku</button><button class="btn-no" onclick="closeModal()">Batal</button></div></div>
 
 <script>
-let saldo = 224000, hidden = false;
-let formatRp = n => n.toLocaleString('id-ID');
-function renderSaldo(){
-  document.getElementById('saldoVal').textContent = hidden ? '****' : formatRp(saldo);
-  document.getElementById('modalSaldo').textContent = 'Rp ' + formatRp(saldo);
-  document.getElementById('subText').textContent = saldo===0 ? 'Buku sudah ditutup. Saldo direset ke Rp 0' : 'Belum ada penjualan hari ini';
+let saldo=224000, hidden=false;
+let produk=[
+  {nama:'Pantene kondisioner',harga:45000},
+  {nama:'Makarizo hair energy',harga:52000},
+  {nama:'Hand sanitazier',harga:15000},
+  {nama:'Indomie Goreng',harga:3500},
+  {nama:'Aqua 600ml',harga:4000},
+];
+let cart=[];
+let riwayat=[{items:'Pantene kondisioner x2, Makarizo hair energy x2, Hand sanitazier x2',total:224000,waktu:'17.57 - Bayar: Tunai - Kasir: Budi ange'}];
+let formatRp=n=>n.toLocaleString('id-ID');
+function renderSaldo(){document.getElementById('saldoVal').textContent=hidden?'****':formatRp(saldo);document.getElementById('modalSaldo').textContent='Rp '+formatRp(saldo);document.getElementById('subText').textContent=saldo===0?'Buku sudah ditutup. Saldo direset ke Rp 0':'Belum ada penjualan hari ini'}
+function toggleSaldo(){hidden=!hidden;renderSaldo()}
+let heads=['Sen','Sel','Rab','Kam','Jum','Sab','Min'],html='';heads.forEach(h=>html+=`<div class="head">${h}</div>`);for(let i=0;i<6;i++)html+=`<div></div>`;for(let d=1;d<=30;d++)html+=`<div class="${d===14?'today':''}">${d}</div>`;document.getElementById('calendar').innerHTML=html;
+function openModal(){document.getElementById('modal').classList.add('show')}function closeModal(){document.getElementById('modal').classList.remove('show')}
+function doTutupBuku(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');lap.push({tanggal:'14 Nov 2026',total:saldo});localStorage.setItem('laporan',JSON.stringify(lap));saldo=0;renderSaldo();closeModal();renderLaporan();showPage('laporan')}
+function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');['home','transaksi','produk','laporan','profil'].forEach(k=>document.getElementById('nav-'+k).classList.toggle('on',k===p));if(p==='laporan')drawChart();window.scrollTo(0,0)}
+function renderRiwayat(){document.getElementById('riwayatList').innerHTML=riwayat.map(r=>`<div class="trx"><div class="icon">🧾</div><div style="flex:1"><b>${r.items}</b><small>🕒 ${r.waktu}</small></div><div class="price">Rp ${formatRp(r.total)}</div></div>`).join('')}
+function renderProduk(){
+  document.getElementById('produkList').innerHTML=produk.map((p,i)=>`<div class="prod"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)} • Stok: 20</small></div><button class="btn" onclick="addToCart(${i})">+ Tambah</button></div>`).join('');
+  document.getElementById('produkTransaksi').innerHTML=produk.map((p,i)=>`<div class="prod"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)}</small></div><button class="btn" onclick="addToCart(${i})">+ Keranjang</button></div>`).join('');
 }
-function toggleSaldo(){hidden=!hidden;renderSaldo();}
-let heads=['Sen','Sel','Rab','Kam','Jum','Sab','Min'], html='';
-heads.forEach(h=>html+=`<div class="head">${h}</div>`);
-for(let i=0;i<6;i++) html+=`<div></div>`;
-for(let d=1;d<=30;d++) html+=`<div class="${d===14?'today':''}">${d}</div>`;
-document.getElementById('calendar').innerHTML=html;
-function openModal(){document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-function doTutupBuku(){
-  let lap=JSON.parse(localStorage.getItem('laporan')||'[]');
-  lap.push({tanggal:'14 Nov 2026', total:saldo});
-  localStorage.setItem('laporan',JSON.stringify(lap));
-  saldo=0; renderSaldo(); closeModal(); renderLaporan(); alert('Buku ditutup! Masuk ke Laporan.');
-  showPage('laporan');
-}
-function showPage(p){
-  document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  document.getElementById('nav-home').classList.toggle('on',p==='home');
-  document.getElementById('nav-laporan').classList.toggle('on',p==='laporan');
-  if(p==='laporan') drawChart();
-  window.scrollTo(0,0);
-}
+function addToCart(i){cart.push(produk[i]);updateCart();showPage('transaksi')}
+function updateCart(){let total=cart.reduce((a,b)=>a+b.harga,0);document.getElementById('cartCount').textContent=cart.length;document.getElementById('cartTotal').textContent=formatRp(total)}
+function checkout(){if(!cart.length)return alert('Keranjang masih kosong bre');let total=cart.reduce((a,b)=>a+b.harga,0);let items=cart.map(c=>c.nama+' x1').join(', ');saldo+=total;riwayat.unshift({items,total,waktu:'Baru saja - Bayar: Tunai - Kasir: Budi ange'});cart=[];updateCart();renderRiwayat();renderSaldo();alert('Transaksi berhasil! Rp '+formatRp(total)+' masuk ke saldo.');showPage('home')}
+function tambahProduk(){let n=document.getElementById('namaBaru').value,h=parseInt(document.getElementById('hargaBaru').value);if(!n||!h)return alert('Isi nama & harga dulu bre');produk.push({nama:n,harga:h});document.getElementById('namaBaru').value='';document.getElementById('hargaBaru').value='';renderProduk();alert('Produk ditambah!')}
 let dataMinggu=[{label:'Sen',val:180000},{label:'Sel',val:220000},{label:'Rab',val:150000},{label:'Kam',val:310000},{label:'Jum',val:90000},{label:'Sab',val:224000},{label:'Min',val:66000}];
 let dataBulan=[{label:'W1',val:850000},{label:'W2',val:1240000},{label:'W3',val:980000},{label:'W4',val:1120000}];
 let currentData=dataMinggu;
-function setRange(r,btn){
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on')); btn.classList.add('on');
-  currentData = r==='minggu'?dataMinggu:dataBulan;
-  document.getElementById('chartTitle').textContent = r==='minggu'?'Grafik Penjualan - Minggu Ini':'Grafik Penjualan - Bulan Ini';
-  drawChart();
-}
-function drawChart(){
-  let c=document.getElementById('chart'), ctx=c.getContext('2d');
-  ctx.clearRect(0,0,c.width,c.height);
-  let max=Math.max(...currentData.map(d=>d.val));
-  let bw=c.width/currentData.length;
-  currentData.forEach((d,i)=>{
-    let h=(d.val/max)*120;
-    ctx.fillStyle = d.label==='Sab' ? '#0a4d2a' : '#009444';
-    ctx.fillRect(i*bw+12, 140-h, bw-24, h);
-    ctx.fillStyle='#333'; ctx.font='11px sans-serif'; ctx.textAlign='center';
-    ctx.fillText(d.label, i*bw+bw/2, 158);
-    ctx.fillStyle='#009444'; ctx.font='bold 10px sans-serif';
-    ctx.fillText((d.val/1000)+'k', i*bw+bw/2, 132-h);
-  });
-  let total=currentData.reduce((a,b)=>a+b.val,0);
-  document.getElementById('chartTotal').textContent='Rp '+formatRp(total);
-  document.getElementById('barList').innerHTML=currentData.map(d=>{
-    let pct=Math.round(d.val/max*100);
-    return `<div class="bar-row"><span>${d.label}</span><div class="bar" style="width:${pct}%">Rp ${formatRp(d.val)}</div></div>`;
-  }).join('');
-}
-function renderLaporan(){
-  let lap=JSON.parse(localStorage.getItem('laporan')||'[]');
-  document.getElementById('laporanList').innerHTML = lap.length? lap.map(l=>`<div class="lap-item"><div><b>Tutup Buku - ${l.tanggal}</b><br><small style="color:#888">Saldo periode</small></div><b style="color:#009444">Rp ${formatRp(l.total)}</b></div>`).join('') : `<div class="lap-item"><span style="color:#888">Belum ada Tutup Buku. Contoh: 14 Nov 2026 - Rp 224.000</span></div>`;
-}
-renderSaldo(); renderLaporan(); drawChart();
+function setRange(r,btn){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');currentData=r==='minggu'?dataMinggu:dataBulan;document.getElementById('chartTitle').textContent=r==='minggu'?'Grafik Penjualan - Minggu Ini':'Grafik Penjualan - Bulan Ini';drawChart()}
+function drawChart(){let c=document.getElementById('chart'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);let max=Math.max(...currentData.map(d=>d.val));let bw=c.width/currentData.length;currentData.forEach((d,i)=>{let h=(d.val/max)*120;ctx.fillStyle=d.label==='Sab'?'#0a4d2a':'#009444';ctx.fillRect(i*bw+12,140-h,bw-24,h);ctx.fillStyle='#333';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(d.label,i*bw+bw/2,158);ctx.fillStyle='#009444';ctx.font='bold 10px sans-serif';ctx.fillText((d.val/1000)+'k',i*bw+bw/2,132-h)});let total=currentData.reduce((a,b)=>a+b.val,0);document.getElementById('chartTotal').textContent='Rp '+formatRp(total);document.getElementById('barList').innerHTML=currentData.map(d=>{let pct=Math.round(d.val/max*100);return `<div class="bar-row"><span>${d.label}</span><div class="bar" style="width:${pct}%">Rp ${formatRp(d.val)}</div></div>`}).join('')}
+function renderLaporan(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');document.getElementById('laporanList').innerHTML=lap.length?lap.map(l=>`<div class="lap-item"><div><b>Tutup Buku - ${l.tanggal}</b><br><small style="color:#888">Saldo periode</small></div><b style="color:#009444">Rp ${formatRp(l.total)}</b></div>`).join(''):`<div class="lap-item"><span style="color:#888">Belum ada Tutup Buku.</span></div>`}
+renderSaldo();renderRiwayat();renderProduk();renderLaporan();drawChart();updateCart();
 </script>
 </body>
 </html>
