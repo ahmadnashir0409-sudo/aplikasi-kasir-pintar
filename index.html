@@ -52,6 +52,8 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 .notifDot{width:10px;height:10px;border-radius:50%;background:#FF3B30;flex-shrink:0;margin-top:6px}
 .switch{position:relative;width:48px;height:26px;background:#D9EADF;border-radius:999px;flex-shrink:0;border:0}.switch.on{background:#147A43}.switch i{position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s}.switch.on i{left:25px}
 .sheetBox{background:#EAF5EF;border:1.5px solid #BFE3CB;border-radius:14px;padding:12px;margin-bottom:12px;font-size:13px}
+.infoBox{background:#F2F7F0;border:1px solid #D9EADF;border-radius:12px;padding:10px;font-size:13px;color:#666}
+.faq{border:1px solid #E6EFE9;border-radius:12px;margin-bottom:8px;overflow:hidden}.faq button{width:100%;text-align:left;background:#fff;border:0;padding:12px;font-weight:800;display:flex;justify-content:space-between}.faq div{padding:0 12px 12px;font-size:13px;color:#444;line-height:1.5;display:none}.faq.open div{display:block}
 @media print{
   body{background:#fff} .app,.nav,.top{display:none!important}
   #popupStruk{position:static;display:block!important;background:#fff;padding:0}
@@ -115,14 +117,14 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <h3>Stok Hampir Habis ⚠️</h3><div id="hampirHabis"></div>
 </div>
 
+<!-- LAPORAN - DATA PELANGGAN DIHAPUS, DIGANTI RIWAYAT PENARIKAN DATA -->
 <div id="p-laporan" class="page">
   <h2 style="text-align:center">Laporan</h2>
   <div class="card" style="background:#CDEBCF"><b>GRAFIK RINGKASAN PENJUALAN BULANAN</b><div class="bar" id="chartBulan"></div><p>Jan Feb Mar Apr Mei Jun Jul Agu Sep Okt Nov Des</p><b>Total penjualan bulan ini<br><span id="totalBulan">Rp 0</span></b></div>
-  <div class="card"><h3>Tarik Data Penjualan</h3><div class="flex"><button class="chip active" onclick="setPeriode('Harian',this)">Harian</button><button class="chip" onclick="setPeriode('Mingguan',this)">Mingguan</button><button class="chip" onclick="setPeriode('Bulanan',this)">Bulanan</button></div><button class="btn btn-green" style="margin-top:10px" onclick="tarikData()">Tarik Data Penjualan</button></div>
-  <div class="card"><h3>Data Pelanggan</h3><div id="pelanggan"></div></div>
+  <div class="card"><h3>Tarik Data Penjualan</h3><div class="flex"><button class="chip active" onclick="setPeriode('Harian',this)">Harian</button><button class="chip" onclick="setPeriode('Mingguan',this)">Mingguan</button><button class="chip" onclick="setPeriode('Bulanan',this)">Bulanan</button></div><button class="btn btn-green" style="margin-top:10px" onclick="tarikData()">Tarik Data Penjualan</button><small style="color:#666">File CSV akan terdownload ke HP kamu.</small></div>
+  <div class="card"><h3>📥 Riwayat Penarikan Data</h3><small>Setiap kali kamu pencet Tarik Data, kecatet di sini.</small><div id="riwayatTarik" style="margin-top:12px"></div></div>
 </div>
 
-<!-- PROFIL - UDAH GAK ADA TOMBOL KUNCI / LOGOUT DI SINI -->
 <div id="p-profil" class="page">
   <h2 style="text-align:center">Profil</h2>
   <div class="card" style="background:#6BB98A;color:#fff"><b>Profil Pengusaha</b>
@@ -131,14 +133,34 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="card" style="background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div><div class="flex" style="margin-top:10px"><button class="btn" style="background:#fff" onclick="go('pengaturan-point')">⭐ Tukar Point</button><button class="btn" style="background:#fff" onclick="go('pengaturan-point')">🎁 Lihat Reward</button></div></div>
   <div class="card"><b>Umum</b>
     <button class="menuRow" onclick="go('pengaturan')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">⚙️</span><span>Pengaturan<small>PIN, Sidik Jari, No WA, Rekening & Akun Email</small></span></span><span>›</span></button>
-    <button class="menuRow" onclick="alert('Bantuan: Hubungi WA Warung Pintar di nomor yang ada di Profil Warung.')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">❓</span><span>Bantuan<small>Cara pakai, struk & transaksi</small></span></span><span>›</span></button>
+    <button class="menuRow" onclick="go('bantuan')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">❓</span><span>Pusat Bantuan<small>Petunjuk penggunaan & penyelesaian masalah</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="alert('Warung Pintar v1.0')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">ℹ️</span><span>Tentang Aplikasi<small>Warung Pintar v1.0</small></span></span><span>›</span></button>
-    <!-- KALAU BELUM LOGIN, TOMBOL INI MUNCUL. KALAU UDAH LOGIN, TOMBOL INI ILANG, KARENA LOGOUT PINDAH KE PENGATURAN -->
     <button class="btn btn-green" id="btnProfilLuar" style="margin-top:12px" onclick="bukaPopupAuth()">🟢 Login / Registrasi</button>
   </div>
 </div>
 
-<!-- PENGATURAN - LOGOUT PINDAH KE SINI, DI BAWAH POINT & DOMPET -->
+<!-- PUSAT BANTUAN - BARU -->
+<div id="p-bantuan" class="page">
+  <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('profil')">‹</button><h2 style="flex:1;margin:0">❓ Pusat Bantuan</h2></div>
+  <div class="card" style="margin-top:14px"><h3 style="margin:0">📖 Petunjuk Penggunaan</h3><small>Langkah-langkah paling sering dipakai.</small>
+    <div class="faq"><button onclick="toggleFaq(this)">1. Cara Jualan / Transaksi <span>▼</span></button><div>1. Buka menu <b>Transaksi</b><br>2. Pencet <b>+</b> di barang yang dibeli customer<br>3. Isi <b>No WA Customer</b> kalau mau kirim struk via WA (boleh kosong)<br>4. Pilih <b>Metode Pembayaran</b> (Tunai / Transfer / QRIS)<br>5. Kalau Tunai, isi <b>Uang Diterima</b>, liat <b>Kembalian</b><br>6. Pencet <b>Bayar Sekarang</b> > Struk muncul > Pencet <b>Kirim WA / Cetak</b></div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">2. Cara Tambah Produk / Stok <span>▼</span></button><div>Buka menu <b>Produk</b> > Pencet <b>+ Tambah Stok Barang</b> > Isi Nama, Harga, Stok > <b>Simpan Stok</b>. Kalau nama barang sudah ada, stoknya akan ditambah, bukan dobel.<br><br>Atau kalau punya data di Google Sheets, pencet <b>Tautkan Link Sheets</b>, paste link-nya, pencet <b>Sync</b>.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">3. Cara Tautkan Google Sheets <span>▼</span></button><div>1. Bikin Sheets dengan baris 1: <b>Nama | Harga | Stok</b><br>2. Di Sheets pencet <b>Bagikan</b> > <b>Siapa saja yang memiliki link bisa melihat</b><br>3. Copy link-nya<br>4. Di Kasir: <b>Produk > Tautkan Link Sheets</b> > Paste link > <b>Tautkan</b> > <b>Import</b><br>5. Kalau harga di Sheets berubah, pencet <b>Sync Sekarang</b> di menu Produk.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">4. Cara Tarik Laporan <span>▼</span></button><div>Buka menu <b>Laporan</b> > Pilih <b>Harian / Mingguan / Bulanan</b> > Pencet <b>Tarik Data Penjualan</b>. File CSV akan terdownload ke HP kamu. Buka pakai Google Sheets / Excel. Riwayat penarikanmu kecatet di bawahnya.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">5. Cara Logout <span>▼</span></button><div>Buka <b>Profil > Pengaturan</b> > Scroll paling bawah, di bawah <b>Point & Dompet</b> > Pencet <b>Logout</b>. Kalau cuma mau kunci bentar, pakai <b>Pengaturan > Security Settings > Kunci Aplikasi Sekarang</b>, bukan Logout.</div></div>
+  </div>
+  <div class="card"><h3 style="margin:0">🛠️ Penyelesaian Masalah</h3><small>Klik masalahnya untuk liat solusinya.</small>
+    <div class="faq"><button onclick="toggleFaq(this)">Lupa PIN / PIN Salah Terus <span>▼</span></button><div>Default PIN adalah <b>1234</b>. Kalau kamu pernah ganti dan lupa, kamu masih bisa buka pakai <b>Email</b> atau <b>Sidik Jari</b> di layar kunci. Setelah masuk, ganti PIN di <b>Pengaturan > Security Settings > PIN Kasir</b>. Kalau email juga lupa, kamu harus daftar akun baru.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Gagal Login - Email / Password Salah <span>▼</span></button><div>Pastikan email ditulis lengkap pakai @gmail.com, dan huruf kecil semua. Password minimal 6 karakter dan harus sama persis kayak pas daftar. Cek tombol Caps Lock. Kalau masih gagal, coba daftar lagi pakai email yang sama, kalau muncul pesan <i>Email sudah terdaftar</i>, berarti password-nya yang salah.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Sidik Jari Tidak Kedeteksi Padahal HP Ada <span>▼</span></button><div>Ini paling sering karena 3 hal:<br>1. Kamu buka link dari <b>dalam WhatsApp / Instagram</b>. Web di dalam WhatsApp tidak boleh akses sidik jari. Solusi: Copy link-nya, paste langsung di <b>Safari (iPhone)</b> atau <b>Chrome (Android)</b>.<br>2. Face ID / Sidik Jari belum diaktifkan untuk browser. iPhone: <b>Pengaturan > Face ID & Kode Sandi</b> > aktifkan. Lalu <b>Pengaturan > Safari</b> > pastikan tidak mode Private.<br>3. Browser masih mode Private / Incognito. Keluar dari mode itu dulu.<br><br>Kalau masih gagal, pakai <b>PIN</b> aja, itu yang paling aman dan selalu bisa.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Google Sheets Gagal Sync / Gagal Narik Data <span>▼</span></button><div>99% karena Sheets-nya belum dibagikan. Cek lagi: Buka Sheets > <b>Bagikan</b> > pilih <b>Siapa saja yang memiliki link bisa melihat</b> > <b>Selesai</b>. Terus cek formatnya: Baris 1 harus <b>Nama | Harga | Stok</b>, harga harus angka, bukan <i>Rp 3.500</i>. Kalau masih gagal, coba putuskan tautan dulu, lalu tautkan ulang.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Struk Tidak Terkirim ke WA Customer <span>▼</span></button><div>Pastikan <b>No WA Customer</b> diisi sebelum pencet Bayar, diawali 08, contoh 0812-3456-7890. Setelah bayar, di struk pencet <b>Kirim WA</b>, nanti WhatsApp kebuka otomatis, kamu tinggal pencet Kirim. Kalau nomornya salah, struk tidak akan sampai. Nomor customer tidak disimpan otomatis, jadi isi tiap transaksi.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Tidak Menerima Email Verifikasi <span>▼</span></button><div>Saat ini email verifikasi <b>belum dikirim beneran</b> karena aplikasi belum terhubung ke server email (belum pakai Firebase). Tombol Verifikasi yang kamu pencet itu hanya menandai <b>Terverifikasi Secara Lokal</b> di HP ini aja. Jadi wajar kalau inbox kamu kosong. Untuk kirim email beneran, aplikasi harus dihubungkan ke Firebase Auth dulu. Sementara ini, abaikan saja, akunmu tetap bisa dipakai jualan.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Data Hilang Setelah Ganti HP / Hapus Cache <span>▼</span></button><div>Data Warung Pintar saat ini tersimpan di <b>HP masing-masing</b> (localStorage), bukan di cloud. Jadi kalau ganti HP atau hapus data browser, data di HP lama tidak ikut. Solusi sementara: Sebelum ganti HP, <b>Tarik Data Penjualan</b> di menu Laporan untuk simpan laporan, dan pastikan produkmu sudah ada di <b>Google Sheets</b> yang ditautkan, supaya produk bisa di-sync lagi di HP baru.</div></div>
+  </div>
+  <div class="card" style="text-align:center"><h3 style="margin:0">Masih Belum Bisa?</h3><p style="font-size:13px;color:#666">Chat admin, sertakan screenshot masalahnya + nama warungmu.</p><button class="btn btn-green" onclick="chatAdminWA()">💬 Chat Admin via WA</button><small style="color:#666">Admin akan balas di jam kerja.</small></div>
+</div>
+
 <div id="p-pengaturan" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('profil')">‹</button><h2 style="flex:1;margin:0;text-align:center">Pengaturan</h2><span style="width:52px"></span></div>
   <div class="card" style="padding:6px 14px;margin-top:14px">
@@ -149,7 +171,6 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <button class="menuRow" onclick="go('pengaturan-akun')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">🔗</span><span>Akun Terhubung<small>Rekening, QRIS, DANA, GoPay</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="go('pengaturan-point')" style="border-bottom:0"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">💰</span><span>Point & Dompet<small>1.250 Poin • Level Silver</small></span></span><span>›</span></button>
   </div>
-  <!-- LOGOUT - DI BAWAH POINT & DOMPET, SESUAI REQUEST LU -->
   <button class="btn btn-pink" id="btnLogoutPengaturan" onclick="logoutAkun()">🚪 Logout</button>
   <small id="logoutHint" style="color:#666;display:block;text-align:center;margin-top:8px">Logout akan mengembalikanmu ke halaman login. Data warung tetap aman.</small>
 </div>
@@ -180,11 +201,16 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 
 <div id="p-pengaturan-security" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">🛡️ Security Settings</h2></div>
-  <div class="card" style="margin-top:14px"><h3 style="margin:0">🔐 PIN Kasir</h3><small>Default: 1234</small>
+  <div class="card" style="margin-top:14px"><h3 style="margin:0">🔐 PIN Kasir</h3><small>Ini yang paling aman & selalu bisa dipakai. Default: 1234</small>
     <label style="margin-top:10px">PIN Baru (4 digit)</label><input id="pinBaru" type="password" inputmode="numeric" maxlength="4" placeholder="Contoh: 1234">
     <button class="btn btn-green" onclick="gantiPin()">🔐 Ganti PIN</button>
   </div>
-  <div class="card"><h3 style="margin:0">👆 Sidik Jari / Face ID</h3><span id="statusSidik">Belum terdaftar</span><br><button class="btn btn-outline" style="margin-top:10px" onclick="daftarSidikJari()">👆 Daftarin Sidik Jari Sekarang</button></div>
+  <div class="card" id="sidikCard"><h3 style="margin:0">👆 Sidik Jari / Face ID</h3><span id="statusSidik">Mengecek dukungan perangkat...</span><br>
+    <button class="btn btn-outline" id="btnDaftarSidik" style="margin-top:10px" onclick="daftarSidikJari()">👆 Daftarin Sidik Jari Sekarang</button>
+    <div id="sidikNotSupport" class="infoBox hidden" style="margin-top:10px">ℹ️ <span id="sidikAlasan">Browser ini belum terdeteksi mendukung sidik jari.</span><br><br>Coba: 1) Buka link ini langsung di <b>Safari (iPhone)</b> / <b>Chrome (Android)</b>, jangan dari dalam WhatsApp. 2) Aktifkan Face ID / Sidik Jari untuk browser di Pengaturan HP. 3) Keluar dari mode Private / Incognito.<br><br>Kalau masih gagal, pakai <b>PIN</b> aja, itu udah aman.</div>
+    <small id="sidikError" style="color:#B00;display:block;margin-top:8px"></small>
+    <small id="sidikDetail" style="color:#666;display:block;margin-top:4px"></small>
+  </div>
   <button class="btn btn-outline" onclick="kunciAplikasi()">🔒 Kunci Aplikasi Sekarang</button>
 </div>
 
@@ -198,9 +224,14 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button class="btn btn-green" onclick="bukaNotifikasi()">🔔 Lihat Semua Notifikasi</button>
 </div>
 
+<!-- VERIFIKASI - JUJUR, BELUM KIRIM EMAIL BENERAN -->
 <div id="p-pengaturan-verif" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">✅ Verifikasi</h2></div>
-  <div class="card" style="margin-top:14px;text-align:center"><div style="font-size:44px" id="verifIcon">📧</div><h3 id="verifJudul">Email Belum Terverifikasi</h3><p style="color:#666;font-size:13px" id="verifIsi">Login dulu pakai email, lalu verifikasi biar akunmu lebih aman.</p><button class="btn btn-green" id="verifBtn" onclick="verifikasiEmail()">✅ Verifikasi Email Sekarang</button></div>
+  <div class="card" style="margin-top:14px;text-align:center"><div style="font-size:44px" id="verifIcon">📧</div><h3 id="verifJudul">Email Belum Terverifikasi</h3><p style="color:#666;font-size:13px" id="verifIsi">Login dulu pakai email, lalu verifikasi biar akunmu lebih aman.</p>
+    <div class="infoBox" style="text-align:left"><b>⚠️ Penting - Baca Dulu:</b><br>Saat ini <b>email verifikasi belum dikirim beneran</b> ke inbox kamu, karena aplikasi belum terhubung ke server email (belum pakai Firebase Auth). Tombol di bawah ini hanya menandai <b>Terverifikasi Secara Lokal</b> di HP ini aja. Jadi wajar kalau kamu tidak menerima email. Akunmu tetap bisa dipakai jualan seperti biasa.</div>
+    <button class="btn btn-green" id="verifBtn" style="margin-top:12px" onclick="verifikasiEmail()">✅ Tandai Terverifikasi Secara Lokal</button>
+    <button class="btn btn-outline" style="margin-top:8px" onclick="bukaGmailInbox()">📧 Cek Inbox Email Saya</button>
+  </div>
 </div>
 
 <div id="p-pengaturan-akun" class="page">
@@ -259,11 +290,11 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 </div></div>
 
 <div id="popupPin" class="modal"><div class="modalBox" style="text-align:center">
-  <div style="font-size:44px">🔒</div><h3 style="margin:6px 0">Warung Pintar Terkunci</h3><p style="font-size:13px;color:#666">Pilih cara buka: Sidik Jari, PIN, atau Email.</p>
+  <div style="font-size:44px">🔒</div><h3 style="margin:6px 0">Warung Pintar Terkunci</h3><p style="font-size:13px;color:#666">Pilih cara buka: PIN atau Email. Sidik jari hanya muncul kalau HP & browser-nya support.</p>
   <div class="tabAuth"><button class="btn btn-outline" id="tabBtnPin" onclick="setTabAuth('pin')">🔢 PIN</button><button class="btn btn-light" id="tabBtnEmail" onclick="setTabAuth('email')">📧 Email</button><button class="btn btn-light" id="tabBtnBio" onclick="setTabAuth('bio')">👆 Sidik Jari</button></div>
   <div id="authPin"><input id="inputPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" style="text-align:center;font-size:26px;letter-spacing:12px"><button class="btn btn-green" onclick="cekPin()">🔓 Buka pake PIN</button><small style="color:#666">Default PIN: 1234</small></div>
   <div id="authEmail" class="hidden"><input id="loginEmailInput" type="email" placeholder="Email"><input id="loginPassInput" type="password" placeholder="Password"><button class="btn btn-green" onclick="loginEmailDariKunci()">🔓 Buka pake Email</button></div>
-  <div id="authBio" class="hidden"><button class="btn btn-green" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button></div>
+  <div id="authBio" class="hidden"><div id="bioNotSupport" class="infoBox hidden">Browser ini tidak mendukung sidik jari. Pakai PIN aja. Buka lewat Safari / Chrome asli, bukan dari WhatsApp.</div><button class="btn btn-green" id="btnBioBuka" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button><small id="bioDetail" style="color:#666;display:block;margin-top:6px"></small></div>
   <small id="pinError" style="color:#B00;display:block;margin-top:8px"></small>
 </div></div>
 
@@ -295,12 +326,12 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 <script>
 function load(key,def){try{let v=localStorage.getItem('wp_'+key);return v?JSON.parse(v):def}catch(e){return def}}
 function save(key,val){try{localStorage.setItem('wp_'+key,JSON.stringify(val))}catch(e){}}
-function saveAll(){save('produk',produk);save('riwayat',riwayat);save('saldo',saldoAsli);save('metode',metodeList);save('profil',profil);save('pin',pinKasir);save('users',users);save('currentUser',currentUser);save('notifs',notifs);save('notifSetting',notifSetting);save('verif',verifEmail);save('sheetLink',sheetLink)}
+function saveAll(){save('produk',produk);save('riwayat',riwayat);save('saldo',saldoAsli);save('metode',metodeList);save('profil',profil);save('pin',pinKasir);save('users',users);save('currentUser',currentUser);save('notifs',notifs);save('notifSetting',notifSetting);save('verif',verifEmail);save('sheetLink',sheetLink);save('riwayatTarik',riwayatTarik)}
 let saldoAsli=load('saldo',0), lihatSaldo=true;
 let produk=load('produk',[]);
-let pelanggan=[['Budi Santoso','0812-3456-7890'],['Siti Nurhaliza','0821-9988-7766'],['Andi Pratama','0857-1122-3344']];
 let cart={}, periode='Bulanan', strukTerakhir='';
 let riwayat=load('riwayat',[]);
+let riwayatTarik=load('riwayatTarik',[]);
 let metodeList=load('metode',[{bank:'BRI',no:'1234-5678-9012',nama:'Budi Santoso',aktif:true},{bank:'BCA',no:'123-456-7890',nama:'Budi Santoso',aktif:true},{bank:'QRIS',no:'ID10234567890',nama:'WARUNG PINTAR SENEN',aktif:true}]);
 let profil=load('profil',{warung:'Warung Pintar Senen',pemilik:'Budi Santoso',wa:'0812-3456-7890',alamat:'Jl. Merdeka No. 12, Jakarta Pusat'});
 let pinKasir=load('pin','1234');
@@ -308,11 +339,45 @@ let users=load('users',[]); let currentUser=load('currentUser',null);
 let notifs=load('notifs',[]); let notifSetting=load('notifSetting',{stok:true,transaksi:true,bunyi:true}); let verifEmail=load('verif',false);
 let sheetLink=load('sheetLink','');
 let metodeDipilih='Tunai', metodeSementara='Tunai', editIndex=-1;
+let bioSupportCache=null;
 let fmt=n=>'Rp '+n.toLocaleString('id-ID');
 document.getElementById('tgl').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
-function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let el=document.getElementById('p-'+id);if(el)el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='pengaturan-profil')isiSettingWarung();if(id==='pengaturan-notif')renderNotifSetting();if(id==='pengaturan-verif')renderVerif();if(id==='notifikasi')renderNotifikasi();if(id==='produk')renderSheetStatus();if(id==='profil')document.querySelectorAll('.nav button')[4].classList.add('active');window.scrollTo(0,0)}
+function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let el=document.getElementById('p-'+id);if(el)el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='pengaturan-profil')isiSettingWarung();if(id==='pengaturan-notif')renderNotifSetting();if(id==='pengaturan-verif')renderVerif();if(id==='notifikasi')renderNotifikasi();if(id==='produk')renderSheetStatus();if(id==='pengaturan-security')cekSupportSidik();if(id==='laporan')renderRiwayatTarik();if(id==='profil')document.querySelectorAll('.nav button')[4].classList.add('active');window.scrollTo(0,0)}
 function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';document.getElementById('eyeBtn').textContent=lihatSaldo?'🙈':'👁️'}
-// === TOMBOL LUAR PROFIL + LOGOUT DI PENGATURAN ===
+function toggleFaq(btn){let f=btn.parentElement;f.classList.toggle('open');btn.querySelector('span').textContent=f.classList.contains('open')?'▲':'▼'}
+function chatAdminWA(){let pesan='Halo Admin Warung Pintar, saya '+(profil.pemilik||'')+' dari '+(profil.warung||'')+'. Saya butuh bantuan: ';window.open('https://wa.me/'+formatWa62(profil.wa)+'?text='+encodeURIComponent(pesan),'_blank')}
+function renderRiwayatTarik(){let el=document.getElementById('riwayatTarik');if(!riwayatTarik.length){el.innerHTML='<div class="emptyBox">Belum ada penarikan data. Pencet Tarik Data di atas.</div>';return}el.innerHTML=riwayatTarik.map(r=>`<div class="item"><span class="thumb" style="font-size:20px">📥</span><span style="flex:1"><b>Penarikan ${r.periode}</b><br><small>${r.waktu} • ${r.jumlah} transaksi • Total ${fmt(r.total)}</small></span><span class="badge">CSV</span></div>`).join('')}
+// === SIDIK JARI - DETEKSI BENER, PAKAI API RESMI ===
+async function cekSupportSidik(){
+  let support=false, alasan='';
+  try{
+    if(!window.isSecureContext){alasan='Halaman ini tidak HTTPS / dibuka dari browser dalam aplikasi.'}
+    else if(!window.PublicKeyCredential){alasan='Browser ini tidak menyediakan WebAuthn (PublicKeyCredential).'}
+    else if(typeof PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable==='function'){
+      support=await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+      alasan=support?'Perangkat ini punya Face ID / Sidik Jari yang bisa dipakai web.':'Perangkat ini tidak melaporkan adanya Face ID / Sidik Jari untuk web. Cek Pengaturan Face ID & Kode Sandi, dan pastikan Safari tidak mode Private.';
+    } else {support=true;alasan='Browser mendukung WebAuthn, tapi tidak bisa dicek otomatis. Coba langsung daftarkan.'}
+  }catch(e){alasan='Gagal mengecek: '+e.message}
+  bioSupportCache=support;
+  let btn=document.getElementById('btnDaftarSidik');
+  let info=document.getElementById('sidikNotSupport');
+  let btnBio=document.getElementById('btnBioBuka');
+  let bioInfo=document.getElementById('bioNotSupport');
+  let status=document.getElementById('statusSidik');
+  let detail=document.getElementById('sidikDetail');
+  let bioDetail=document.getElementById('bioDetail');
+  let alasanEl=document.getElementById('sidikAlasan');
+  if(status){let u=currentUser?users.find(x=>x.email===currentUser.email):users[0];let ada=u&&u.credId;status.textContent=ada?'✅ Sudah terdaftar di HP ini':(support?'✅ Perangkat mendukung sidik jari':'⚠️ Belum terdeteksi');if(ada)status.style.color='#147A43';else status.style.color='';}
+  if(btn)btn.classList.toggle('hidden',!support);
+  if(info)info.classList.toggle('hidden',support);
+  if(alasanEl)alasanEl.textContent=alasan;
+  if(detail)detail.textContent=alasan;
+  if(btnBio)btnBio.classList.toggle('hidden',!support);
+  if(bioInfo)bioInfo.classList.toggle('hidden',support);
+  if(bioDetail)bioDetail.textContent=alasan;
+  let tabBio=document.getElementById('tabBtnBio');if(tabBio)tabBio.style.opacity=support?'1':'0.4';
+  return support;
+}
 function renderTombolLuar(){
   let btn=document.getElementById('btnProfilLuar');
   let btnLogout=document.getElementById('btnLogoutPengaturan');
@@ -330,7 +395,6 @@ function tutupPopupAuth(){document.getElementById('popupAuth').classList.remove(
 function setTabPopupAuth(tab){document.getElementById('popupAuthLogin').classList.toggle('hidden',tab!=='login');document.getElementById('popupAuthReg').classList.toggle('hidden',tab!=='reg');document.getElementById('tabAuthLogin').className='btn '+(tab==='login'?'btn-outline':'btn-light');document.getElementById('tabAuthReg').className='btn '+(tab==='reg'?'btn-outline':'btn-light')}
 function registerDariPopupAuth(){let warung=document.getElementById('authRegWarung').value.trim(),nama=document.getElementById('authRegNama').value.trim(),wa=document.getElementById('authRegWa').value.trim(),email=(document.getElementById('authRegEmail').value||'').trim().toLowerCase(),pass=document.getElementById('authRegPass').value;if(!warung||!nama||!email||!pass)return alert('Nama Warung, Nama, Email, Password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');users.push({nama,email,pass:hashPass(pass),credId:null,warung,wa});profil={warung,pemilik:nama,wa:wa||profil.wa,alamat:profil.alamat};saveAll();renderProfil();document.getElementById('authLoginEmail').value=email;document.getElementById('authLoginPass').value='';setTabPopupAuth('login');alert('Registrasi berhasil! Warung '+warung+' sudah dibuat. Sekarang silakan LOGIN pakai email & password barumu.')}
 function loginDariPopupAuth(){let email=(document.getElementById('authLoginEmail').value||'').trim().toLowerCase(),pass=document.getElementById('authLoginPass').value;if(loginDengan(email,pass)){tutupPopupAuth();go('profil')}}
-// === SHEETS ===
 function bukaPopupSheets(){document.getElementById('inputLinkSheets').value=sheetLink;document.getElementById('sheetPreview').classList.add('hidden');document.getElementById('popupSheets').classList.add('open')}
 function tutupPopupSheets(){document.getElementById('popupSheets').classList.remove('open')}
 function copyContohSheets(){let txt='Nama,Harga,Stok\nIndomie Goreng,3500,10\nAqua 600ml,4000,20';if(navigator.clipboard)navigator.clipboard.writeText(txt);alert('Contoh format tersalin!')}
@@ -342,7 +406,6 @@ function parseCsvSheets(teks){let baris=teks.trim().split('\n').map(r=>r.split('
 async function importDariSheetsLangsung(){try{let hasil=await fetchSheetsData();let masuk=0,update=0;hasil.forEach(h=>{let ada=produk.find(p=>p.nama.toLowerCase()===h.nama.toLowerCase());if(ada){ada.harga=h.harga;ada.stok=h.stok;update++}else{produk.push(h);masuk++}});save('sheetLastSync',new Date().toLocaleString('id-ID'));saveAll();renderAll();renderProdukTransaksi();renderSheetStatus();tutupPopupSheets();tambahNotif('Google Sheets Tersinkron','Berhasil import '+hasil.length+' barang dari Sheets.','📊');alert('Berhasil! '+hasil.length+' barang masuk.')}catch(e){alert('Gagal import: '+e.message)}}
 async function syncSheets(){if(!sheetLink)return alert('Tautkan dulu link Sheets-nya!');await importDariSheetsLangsung()}
 function putuskanSheets(){if(!confirm('Putuskan tautan Google Sheets? Barang tetap aman di kasir.'))return;sheetLink='';saveAll();renderSheetStatus();alert('Tautan Sheets diputuskan.')}
-// === NOTIFIKASI ===
 function tambahNotif(judul,isi,ikon){notifs.unshift({judul,isi,ikon:ikon||'🔔',waktu:new Date().toLocaleString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}),baca:false});if(notifs.length>50)notifs=notifs.slice(0,50);saveAll();updateBadge()}
 function updateBadge(){let unread=notifs.filter(n=>!n.baca).length;let badge=document.getElementById('bellBadge');if(unread>0){badge.classList.remove('hidden');badge.textContent=unread>99?'99+':unread}else badge.classList.add('hidden')}
 function bukaNotifikasi(){go('notifikasi')}
@@ -352,27 +415,38 @@ function tandaiSemuaDibaca(){notifs.forEach(n=>n.baca=true);saveAll();updateBadg
 function hapusSemuaNotif(){if(!confirm('Hapus semua notifikasi?'))return;notifs=[];saveAll();updateBadge();renderNotifikasi()}
 function toggleNotif(jenis){notifSetting[jenis]=!notifSetting[jenis];saveAll();renderNotifSetting();updateBadge()}
 function renderNotifSetting(){['stok','transaksi','bunyi'].forEach(j=>{let el=document.getElementById('sw'+j.charAt(0).toUpperCase()+j.slice(1));if(el)el.className='switch '+(notifSetting[j]?'on':'')})}
-function renderVerif(){let v=verifEmail&&currentUser;document.getElementById('verifIcon').textContent=v?'✅':'📧';document.getElementById('verifJudul').textContent=v?'Email Terverifikasi ✅':'Email Belum Terverifikasi';document.getElementById('verifIsi').textContent=v?('Email '+currentUser.email+' sudah terverifikasi.'):'Login dulu pakai email, lalu verifikasi.';document.getElementById('verifBtn').textContent=v?'✅ Sudah Terverifikasi':'✅ Verifikasi Email Sekarang';document.getElementById('verifSub').textContent=v?'Email terverifikasi ✅':'Email belum terverifikasi'}
-function verifikasiEmail(){if(!currentUser)return alert('Login dulu pakai email!');verifEmail=true;saveAll();renderVerif();tambahNotif('Email Terverifikasi','Email '+currentUser.email+' berhasil diverifikasi ✅','✅');alert('Email berhasil diverifikasi ✅')}
-function setTabAuth(tab){['pin','email','bio'].forEach(t=>{document.getElementById('auth'+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle('hidden',t!==tab);document.getElementById('tabBtn'+t.charAt(0).toUpperCase()+t.slice(1)).className='btn '+(t===tab?'btn-outline':'btn-light')});document.getElementById('pinError').textContent=''}
+function renderVerif(){let v=verifEmail&&currentUser;document.getElementById('verifIcon').textContent=v?'✅':'📧';document.getElementById('verifJudul').textContent=v?'Email Terverifikasi (Lokal) ✅':'Email Belum Terverifikasi';document.getElementById('verifIsi').textContent=v?('Email '+currentUser.email+' ditandai terverifikasi secara lokal di HP ini. Email verifikasi belum dikirim ke inbox karena belum terhubung ke server email.'):'Login dulu pakai email, lalu tandai terverifikasi. Email verifikasi belum dikirim ke inbox karena belum terhubung ke server email.';document.getElementById('verifBtn').textContent=v?'✅ Sudah Terverifikasi Secara Lokal':'✅ Tandai Terverifikasi Secara Lokal';document.getElementById('verifSub').textContent=v?'Terverifikasi secara lokal ✅':'Email belum terverifikasi'}
+function verifikasiEmail(){if(!currentUser)return alert('Login dulu pakai email!');verifEmail=true;saveAll();renderVerif();tambahNotif('Email Terverifikasi (Lokal)','Email '+currentUser.email+' ditandai terverifikasi secara lokal. Email belum dikirim ke inbox.','✅');alert('Ditandai terverifikasi secara lokal ✅\n\nIngat bre: Email beneran belum dikirim ke inbox, karena belum ada server email. Ini cuma penanda di HP ini.')}
+function bukaGmailInbox(){window.open('https://mail.google.com','_blank')}
+function setTabAuth(tab){['pin','email','bio'].forEach(t=>{document.getElementById('auth'+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle('hidden',t!==tab);document.getElementById('tabBtn'+t.charAt(0).toUpperCase()+t.slice(1)).className='btn '+(t===tab?'btn-outline':'btn-light')});document.getElementById('pinError').textContent='';cekSupportSidik()}
 function cekPin(){let v=document.getElementById('inputPin').value;if(v===pinKasir){bukaAplikasi()}else{document.getElementById('pinError').textContent='❌ PIN salah! Coba lagi.';document.getElementById('inputPin').value=''}}
 function bukaAplikasi(){document.getElementById('popupPin').classList.remove('open');document.getElementById('inputPin').value='';document.getElementById('pinError').textContent='';renderAkun()}
-function kunciAplikasi(){document.getElementById('popupPin').classList.add('open')}
+function kunciAplikasi(){cekSupportSidik();document.getElementById('popupPin').classList.add('open')}
 function gantiPin(){let v=document.getElementById('pinBaru').value.trim();if(v.length!==4||isNaN(v))return alert('PIN harus 4 angka!');pinKasir=v;saveAll();document.getElementById('pinBaru').value='';tambahNotif('PIN Berhasil Diganti','PIN kasir berhasil diganti 🔐','🔐');alert('PIN berhasil diganti jadi '+v)}
 document.getElementById('inputPin').addEventListener('keyup',e=>{if(e.key==='Enter')cekPin()});
 function hashPass(p){let h=0;for(let i=0;i<p.length;i++){h=((h<<5)-h)+p.charCodeAt(i);h=h&h}return 'h'+h}
-function renderAkun(){let login=!!currentUser;document.getElementById('akunBelumLogin').classList.toggle('hidden',login);document.getElementById('akunSudahLogin').classList.toggle('hidden',!login);if(login){document.getElementById('akunNamaTampil').textContent=currentUser.nama;document.getElementById('akunEmailTampil').textContent=currentUser.email;document.getElementById('topUser').textContent='Halo, '+currentUser.nama;document.getElementById('profilEmail').textContent='📧 '+currentUser.email+(verifEmail?' • Terverifikasi ✅':'')}else{document.getElementById('topUser').textContent='Dashboard Kasir';document.getElementById('profilEmail').textContent='📧 Belum login email'}renderTombolLuar()}
+function renderAkun(){let login=!!currentUser;document.getElementById('akunBelumLogin').classList.toggle('hidden',login);document.getElementById('akunSudahLogin').classList.toggle('hidden',!login);if(login){document.getElementById('akunNamaTampil').textContent=currentUser.nama;document.getElementById('akunEmailTampil').textContent=currentUser.email;document.getElementById('topUser').textContent='Halo, '+currentUser.nama;document.getElementById('profilEmail').textContent='📧 '+currentUser.email+(verifEmail?' • Terverifikasi (Lokal) ✅':'')}else{document.getElementById('topUser').textContent='Dashboard Kasir';document.getElementById('profilEmail').textContent='📧 Belum login email'}renderTombolLuar()}
 function registerAkun(){let nama=document.getElementById('regNama').value.trim(),email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;if(!nama||!email||!pass)return alert('Nama, email, dan password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');users.push({nama,email,pass:hashPass(pass),credId:null});saveAll();renderAkun();alert('Akun berhasil dibuat! Sekarang Login ya.')}
 function loginEmail(){let email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;return loginDengan(email,pass)}
 function loginEmailDariKunci(){let email=(document.getElementById('loginEmailInput').value||'').trim().toLowerCase(),pass=document.getElementById('loginPassInput').value;return loginDengan(email,pass)}
 function loginDengan(email,pass){if(!email||!pass){alert('Isi email & password dulu!');return false}let u=users.find(x=>x.email===email);if(!u){alert('Email belum terdaftar! Daftar dulu.');return false}if(u.pass!==hashPass(pass)){document.getElementById('pinError').textContent='❌ Email / password salah!';alert('Password salah!');return false}currentUser={nama:u.nama,email:u.email};if(u.warung){profil.warung=u.warung;profil.pemilik=u.nama;if(u.wa)profil.wa=u.wa;renderProfil()}saveAll();renderAkun();bukaAplikasi();alert('Login berhasil! Halo, '+u.nama);return true}
 function logoutAkun(){if(!confirm('Yakin mau logout? Nanti harus login lagi pake email & password.'))return;currentUser=null;verifEmail=false;saveAll();renderAkun();go('profil');alert('Berhasil logout. Pencet Login / Registrasi di Profil untuk masuk lagi.')}
-function updateStatusSidik(){let u=currentUser?users.find(x=>x.email===currentUser.email):users[0];let ada=u&&u.credId;document.getElementById('statusSidik').textContent=ada?'✅ Sudah terdaftar di HP ini':'Belum terdaftar';if(ada)document.getElementById('statusSidik').style.color='#147A43'}
+function updateStatusSidik(){cekSupportSidik()}
 function bufToB64(buf){return btoa(String.fromCharCode(...new Uint8Array(buf)))}
 function b64ToBuf(b64){let s=atob(b64);let a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a.buffer}
-function getAkunUntukBio(){if(currentUser){let u=users.find(x=>x.email===currentUser.email);if(u)return u}if(!users.length){alert('Daftar / Login email dulu!');return null}return users[0]}
-async function daftarSidikJari(){if(!window.PublicKeyCredential){alert('HP ini tidak support sidik jari.');return}if(location.protocol!=='https:'&&location.hostname!=='localhost'){alert('Sidik jari butuh HTTPS.');return}let u=getAkunUntukBio();if(!u)return;try{let challenge=crypto.getRandomValues(new Uint8Array(32));let cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'Warung Pintar'},user:{id:new TextEncoder().encode(u.email),name:u.email,displayName:u.nama},pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});u.credId=bufToB64(cred.rawId);saveAll();updateStatusSidik();alert('Sidik jari berhasil didaftarkan!')}catch(e){alert('Gagal daftar sidik jari: '+(e.message||e))}}
-async function bukaSidikJari(){if(!window.PublicKeyCredential){document.getElementById('pinError').textContent='HP ini tidak support sidik jari.';return}let u=getAkunUntukBio();if(!u||!u.credId){document.getElementById('pinError').textContent='Belum ada sidik jari terdaftar.';return}try{let challenge=crypto.getRandomValues(new Uint8Array(32));await navigator.credentials.get({publicKey:{challenge,allowCredentials:[{id:b64ToBuf(u.credId),type:'public-key'}],userVerification:'required',timeout:60000}});currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Sidik jari cocok! Halo, '+u.nama)}catch(e){document.getElementById('pinError').textContent='❌ Sidik jari gagal. Coba lagi atau pakai PIN.'}}
+function getAkunUntukBio(){if(currentUser){let u=users.find(x=>x.email===currentUser.email);if(u)return u}if(!users.length){document.getElementById('sidikError').textContent='Daftar / Login email dulu sebelum daftarin sidik jari!';return null}return users[0]}
+async function daftarSidikJari(){
+  let support=await cekSupportSidik();
+  if(!support){document.getElementById('sidikError').textContent='Perangkat / browser ini belum terdeteksi mendukung sidik jari untuk web. Coba buka lewat Safari / Chrome asli, bukan dari WhatsApp. Pakai PIN dulu aja.';return}
+  let u=getAkunUntukBio();if(!u)return;
+  try{let challenge=crypto.getRandomValues(new Uint8Array(32));let cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'Warung Pintar'},user:{id:new TextEncoder().encode(u.email),name:u.email,displayName:u.nama},pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});u.credId=bufToB64(cred.rawId);saveAll();cekSupportSidik();document.getElementById('sidikError').textContent='';alert('Sidik jari berhasil didaftarkan!')}catch(e){let msg=e.name==='NotAllowedError'?'Kamu membatalkan / Face ID tidak dikenali, atau Face ID belum diizinkan untuk Safari. Cek Pengaturan > Face ID & Kode Sandi > Safari.':e.name==='NotSupportedError'?'Perangkat ini tidak mendukung WebAuthn di browser ini.':(e.message||e);document.getElementById('sidikError').textContent='Gagal daftar sidik jari: '+msg+' Pakai PIN aja kalau masih gagal.'}
+}
+async function bukaSidikJari(){
+  let support=await cekSupportSidik();
+  if(!support){document.getElementById('pinError').textContent='Browser ini belum terdeteksi mendukung sidik jari. Pakai PIN aja. Buka lewat Safari / Chrome asli.';return}
+  let u=getAkunUntukBio();if(!u||!u.credId){document.getElementById('pinError').textContent='Belum ada sidik jari terdaftar. Pakai PIN.';return}
+  try{let challenge=crypto.getRandomValues(new Uint8Array(32));await navigator.credentials.get({publicKey:{challenge,allowCredentials:[{id:b64ToBuf(u.credId),type:'public-key'}],userVerification:'required',timeout:60000}});currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Sidik jari cocok! Halo, '+u.nama)}catch(e){document.getElementById('pinError').textContent='❌ Sidik jari gagal / dibatalkan ('+e.name+'). Coba lagi atau pakai PIN.'}
+}
 function isiSettingWarung(){document.getElementById('settingNamaWarung').value=profil.warung;document.getElementById('settingPemilik').value=profil.pemilik;document.getElementById('settingWa').value=profil.wa;document.getElementById('settingAlamat').value=profil.alamat}
 function simpanSettingWarung(){let w=document.getElementById('settingNamaWarung').value.trim(),p=document.getElementById('settingPemilik').value.trim(),wa=document.getElementById('settingWa').value.trim(),a=document.getElementById('settingAlamat').value.trim();if(!w||!p||!wa||!a)return alert('Semua kolom wajib diisi!');profil={warung:w,pemilik:p,wa:wa,alamat:a};saveAll();renderProfil();alert('Profil warung berhasil disimpan!')}
 function formatWa62(raw){let n=(raw||'').replace(/\D/g,'');if(!n)return '';if(n.startsWith('0'))n='62'+n.slice(1);else if(n.startsWith('8'))n='62'+n;else if(n.startsWith('620'))n='62'+n.slice(3);return n}
@@ -405,18 +479,17 @@ function renderDaftarBayar(){let el=document.getElementById('daftarBayarTersimpa
 function toggleAktifBayar(i){metodeList[i].aktif=!metodeList[i].aktif;renderDaftarBayar();saveAll()}
 function hapusBayar(i){if(!confirm('Hapus '+metodeList[i].bank+'?'))return;let bankHapus=metodeList[i].bank;metodeList.splice(i,1);if(metodeDipilih===bankHapus)metodeDipilih='Tunai';renderDaftarBayar();saveAll()}
 function setPeriode(p,btn){periode=p;document.querySelectorAll('#p-laporan .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
-function tarikData(){if(!riwayat.length)return alert('Belum ada transaksi!');let rows=[['Tanggal','Barang','Total','Metode','WA Customer','Uang','Kembalian','Kasir'],...riwayat.map(r=>[r.jam,r.items,r.total,r.metode||'',r.wa||'',r.uang||'',r.kembali||'',r.kasir||''])];let csv=rows.map(r=>r.join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='laporan-'+periode+'.csv';a.click();alert('Data '+periode+' berhasil ditarik!')}
+function tarikData(){if(!riwayat.length)return alert('Belum ada transaksi!');let total=riwayat.reduce((s,r)=>s+r.total,0);riwayatTarik.unshift({periode,waktu:new Date().toLocaleString('id-ID'),jumlah:riwayat.length,total});saveAll();renderRiwayatTarik();let rows=[['Tanggal','Barang','Total','Metode','WA Customer','Uang','Kembalian','Kasir'],...riwayat.map(r=>[r.jam,r.items,r.total,r.metode||'',r.wa||'',r.uang||'',r.kembali||'',r.kasir||''])];let csv=rows.map(r=>r.join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='laporan-'+periode+'.csv';a.click();alert('Data '+periode+' berhasil ditarik! Riwayat penarikan kecatet di bawah.')}
 function renderAll(){
  let tipis=produk.filter(p=>p.stok<=4);
  document.getElementById('alertStok').innerHTML=tipis.length?`<div class="card" style="background:#FFF3CD;border:1px solid #FFE9B8">⚠️ <b>Stok Tipis:</b> ${tipis.map(p=>p.nama+' ('+p.stok+')').join(', ')} — buruan restock!</div>`:'';
  document.getElementById('riwayatHome').innerHTML=riwayat.length?riwayat.slice(0,5).map(r=>`<div class="item"><span class="thumb">🧾</span><span style="flex:1"><b>${r.items}</b><br><small>🕒 ${r.jam} • Bayar: ${r.metode}${r.kasir?' • Kasir: '+r.kasir:''}</small></span><b>${fmt(r.total)}</b></div>`).join(''):'<div class="emptyBox">🧾 Belum ada transaksi hari ini.</div>';
  document.getElementById('produkList').innerHTML=produk.length?`<div class="gridProduk">`+produk.map((p,i)=>`<div class="pCard"><div class="emoji">${p.emoji}</div><b>${p.nama}</b><small>${fmt(p.harga)} • Stok: ${p.stok}</small><span class="badge ${p.stok<=4?'warn':''}">${p.stok<=4?'Hampir Habis':'Tersedia'}</span><div class="flex"><button class="btn btn-light btn-sm" onclick="editProduk(${i})">✏️ Edit</button><button class="btn btn-pink btn-sm" onclick="hapusProduk(${i})">🗑️ Hapus</button></div></div>`).join('')+`</div>`:`<div class="emptyBox">📦 <b>Belum ada stok</b><br>Isi dulu lewat tombol <b>+ Tambah Stok Barang</b> atau <b>🔗 Tautkan Google Sheets</b>.</div>`;
  document.getElementById('hampirHabis').innerHTML=produk.filter(p=>p.stok<=4).length?produk.filter(p=>p.stok<=4).map(p=>`<div class="item"><span>⚠️</span><span style="flex:1"><b>${p.nama}</b><br><small>Sisa ${p.stok} stok</small></span><span class="badge warn">Hampir Habis</span></div>`).join(''):'<p>Belum ada stok yang hampir habis.</p>';
- document.getElementById('pelanggan').innerHTML=pelanggan.map(p=>`<div class="item"><span class="thumb">${p[0][0]}</span><span style="flex:1"><b>${p[0]}</b><br><small>${p[1]}</small></span><a href="https://wa.me/62${p[1].slice(1)}" target="_blank">💬</a></div>`).join('');
  let totalBulan=riwayat.reduce((s,r)=>s+r.total,0);document.getElementById('totalBulan').textContent=fmt(totalBulan);document.getElementById('totalJual').textContent=fmt(totalBulan);document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';
  document.getElementById('chart').innerHTML=[0,0,0,0,0,0,0,0].map(v=>`<div style="height:8%"></div>`).join('');
  document.getElementById('chartBulan').innerHTML=[0,0,0,0,0,0,0,0,0,0,0,0].map(v=>`<div style="height:8%"></div>`).join('');
- renderDaftarBayar();renderProfil();renderAkun();updateStatusSidik();renderNotifSetting();renderVerif();updateBadge();renderSheetStatus();
+ renderDaftarBayar();renderProfil();renderAkun();renderRiwayatTarik();renderNotifSetting();renderVerif();updateBadge();renderSheetStatus();cekSupportSidik();
 }
 renderProdukTransaksi();renderAll();
 </script>
