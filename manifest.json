@@ -1,27 +1,21 @@
 {
   "name": "WARUNG PINTAR - Dompet Digital Warung",
   "short_name": "WARUNG PINTAR",
-  "description": "Kasir Warung Pintar - Jualan, Stok, Laporan, Struk WA",
-  "start_url": "./",
+  "description": "Kasir Warung Pintar",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#062E1F",
   "theme_color": "#0E7A4B",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3ea.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3ea.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/2331/2331970.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3ea.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/2331/2331970.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
