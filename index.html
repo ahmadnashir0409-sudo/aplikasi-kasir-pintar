@@ -45,6 +45,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 .emptyBox{background:#fff;border:2px dashed #C8E2D0;border-radius:16px;padding:22px;text-align:center;color:#777}
 .kembalianBox{background:#FFF3CD;border:1px solid #FFE9B8;border-radius:12px;padding:10px;margin-top:10px;font-size:14px}
 .tabAuth{display:flex;gap:8px;margin-bottom:10px}.tabAuth button{flex:1}
+.menuRow{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid #EEF3EF;text-align:left;width:100%;background:transparent;border-top:0;border-left:0;border-right:0;font-size:16px;color:#12351F}.menuRow small{display:block;color:#777;font-size:12px;font-weight:400}
 @media print{
   body{background:#fff} .app,.nav,.top{display:none!important}
   #popupStruk{position:static;display:block!important;background:#fff;padding:0}
@@ -109,15 +110,15 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="card"><h3>Data Pelanggan</h3><div id="pelanggan"></div></div>
 </div>
 
+<!-- PROFIL BERSIH -->
 <div id="p-profil" class="page">
   <h2 style="text-align:center">Profil</h2>
-  <div class="card" style="background:#EAF5EF;border:2px solid #147A43"><h3 style="margin:0">📧 Akun Email</h3><small>Login pakai email biar bisa dipakai di HP mana aja (nanti sinkron server).</small>
+  <div class="card" style="background:#EAF5EF;border:2px solid #147A43"><h3 style="margin:0">📧 Akun Email</h3>
     <div id="akunBelumLogin">
       <label style="margin-top:10px">Nama Lengkap</label><input id="regNama" placeholder="Contoh: Budi Santoso">
       <label>Email</label><input id="regEmail" type="email" placeholder="Contoh: budi@gmail.com">
       <label>Password</label><input id="regPass" type="password" placeholder="Minimal 6 karakter">
       <div class="flex"><button class="btn btn-green" onclick="registerAkun()">📝 Daftar</button><button class="btn btn-outline" onclick="loginEmail()">🔓 Login</button></div>
-      <small style="color:#666">Daftar = bikin akun baru. Login = masuk pakai email yang sudah terdaftar.</small>
     </div>
     <div id="akunSudahLogin" class="hidden">
       <div class="item" style="border:1px solid #BFE3CB"><span style="flex:1"><b id="akunNamaTampil"></b><br><small id="akunEmailTampil"></small><br><span class="badge">Login ✅</span></span></div>
@@ -127,18 +128,35 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="card" style="background:#6BB98A;color:#fff"><b>Profil Pengusaha</b>
   <div style="display:flex;gap:12px;align-items:center;margin-top:8px"><div style="width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:32px">👨</div><div id="profilDetail"><b id="profilNamaWarung">Warung Pintar Senen</b><br><span id="profilPemilik">Pemilik : Budi Santoso</span><br><span id="profilWa">WA : 0812-3456-7890</span><br><span id="profilAlamat">Alamat : Jl. Merdeka No. 12, Jakarta Pusat</span></div></div>
   <button class="btn" style="background:#fff;color:#147A43;margin-top:10px" onclick="bukaPopupEditProfil()">Edit Profil</button></div>
+  <div class="card" style="background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div><div class="flex" style="margin-top:10px"><button class="btn" style="background:#fff">⭐ Tukar Point</button><button class="btn" style="background:#fff">🎁 Lihat Reward</button></div></div>
+  <div class="card"><b>Umum</b>
+    <button class="menuRow" onclick="go('pengaturan')"><span>⚙️ Pengaturan<small>PIN, Sidik Jari, No WA, Rekening & Metode Pembayaran</small></span><span>›</span></button>
+    <button class="menuRow" onclick="alert('Bantuan: Hubungi WA Warung Pintar di nomor yang ada di Profil Warung.')"><span>❓ Bantuan<small>Cara pakai, struk & transaksi</small></span><span>›</span></button>
+    <button class="menuRow" onclick="alert('Warung Pintar v1.0 - Aplikasi kasir warung offline, PIN + Sidik Jari + Email.')"><span>ℹ️ Tentang Aplikasi<small>Warung Pintar v1.0</small></span><span>›</span></button>
+    <button class="btn btn-pink" style="margin-top:12px" onclick="kunciAplikasi()">Logout / Kunci</button>
+  </div>
+</div>
+
+<!-- PENGATURAN - SEMUA YANG TADI DI LUAR, PINDAH KE SINI -->
+<div id="p-pengaturan" class="page">
+  <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('profil')">‹</button><h2 style="flex:1;margin:0">⚙️ Pengaturan</h2></div>
+  <p style="color:#666;font-size:13px">Semua setting warung ada di sini. Profil jadi bersih.</p>
+  <div class="card"><h3 style="margin:0">📱 No WA Warung</h3><small>No ini yang muncul di struk & Profil.</small>
+    <label style="margin-top:10px">No WA Warung</label><input id="settingWa" placeholder="Contoh: 0812-3456-7890">
+    <label>Nama Warung</label><input id="settingNamaWarung" placeholder="Contoh: Warung Pintar Senen">
+    <label>Alamat Warung</label><input id="settingAlamat" placeholder="Contoh: Jl. Merdeka No. 12">
+    <button class="btn btn-green" onclick="simpanSettingWa()">💾 Simpan No WA & Warung</button>
+  </div>
   <div class="card"><h3 style="margin:0">🔐 Keamanan Kasir</h3><small>PIN & Sidik Jari dipakai untuk membuka aplikasi.</small>
     <label style="margin-top:10px">PIN Baru (4 digit)</label><input id="pinBaru" type="password" inputmode="numeric" maxlength="4" placeholder="Contoh: 1234">
     <button class="btn btn-green" onclick="gantiPin()">🔐 Ganti PIN</button>
-    <div style="background:#F2F7F0;border-radius:12px;padding:10px;margin-top:10px;font-size:13px"><b>👆 Sidik Jari / Face ID</b><br><span id="statusSidik">Belum terdaftar</span><br><button class="btn btn-outline" style="margin-top:8px" onclick="daftarSidikJari()">👆 Daftarin Sidik Jari Sekarang</button><br><small style="color:#666">Sidik jari tersimpan aman di HP ini aja, tidak dikirim ke server. Butuh HTTPS & HP support biometrik.</small></div>
+    <div style="background:#F2F7F0;border-radius:12px;padding:10px;margin-top:10px;font-size:13px"><b>👆 Sidik Jari / Face ID</b><br><span id="statusSidik">Belum terdaftar</span><br><button class="btn btn-outline" style="margin-top:8px" onclick="daftarSidikJari()">👆 Daftarin Sidik Jari Sekarang</button><br><small style="color:#666">Sidik jari tersimpan aman di HP ini aja. Butuh HTTPS & HP support biometrik.</small></div>
     <button class="btn btn-outline" style="margin-top:10px" onclick="kunciAplikasi()">🔒 Kunci Aplikasi Sekarang</button>
   </div>
-  <div class="card"><h3 style="margin:0">💳 Metode Pembayaran Warung</h3><small>Metode yang tersimpan akan muncul di menu Transaksi.</small>
+  <div class="card"><h3 style="margin:0">💳 Rekening & Metode Pembayaran</h3><small>Metode yang tersimpan akan muncul di menu Transaksi.</small>
     <div id="daftarBayarTersimpan" style="margin-top:12px"></div>
     <button class="btn btn-outline" style="margin-top:8px" onclick="bukaPopupTambahBayar()">+ Tambahkan Metode Pembayaran</button>
   </div>
-  <div class="card" style="background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div><div class="flex" style="margin-top:10px"><button class="btn" style="background:#fff">⭐ Tukar Point</button><button class="btn" style="background:#fff">🎁 Lihat Reward</button></div></div>
-  <div class="card"><b>Umum</b><p>⚙️ Pengaturan ›</p><p>❓ Bantuan ›</p><p>ℹ️ Tentang Aplikasi ›</p><button class="btn btn-pink" onclick="kunciAplikasi()">Logout / Kunci</button></div>
 </div>
 </div>
 
@@ -155,13 +173,13 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="tabAuth"><button class="btn btn-outline" id="tabBtnPin" onclick="setTabAuth('pin')">🔢 PIN</button><button class="btn btn-light" id="tabBtnEmail" onclick="setTabAuth('email')">📧 Email</button><button class="btn btn-light" id="tabBtnBio" onclick="setTabAuth('bio')">👆 Sidik Jari</button></div>
   <div id="authPin"><input id="inputPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" style="text-align:center;font-size:26px;letter-spacing:12px"><button class="btn btn-green" onclick="cekPin()">🔓 Buka pake PIN</button><small style="color:#666">Default PIN: 1234</small></div>
   <div id="authEmail" class="hidden"><input id="loginEmailInput" type="email" placeholder="Email"><input id="loginPassInput" type="password" placeholder="Password"><button class="btn btn-green" onclick="loginEmailDariKunci()">🔓 Buka pake Email</button></div>
-  <div id="authBio" class="hidden"><button class="btn btn-green" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button><small style="color:#666">Harus sudah daftar sidik jari di Profil dulu.</small></div>
+  <div id="authBio" class="hidden"><button class="btn btn-green" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button><small style="color:#666">Harus sudah daftar sidik jari di Pengaturan dulu.</small></div>
   <small id="pinError" style="color:#B00;display:block;margin-top:8px"></small>
 </div></div>
 
 <div id="popupBayar" class="modal"><div class="modalBox">
   <div class="flex" style="align-items:center"><h3 style="margin:0">💳 Pilih Metode Pembayaran</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupBayar()">✕</button></div>
-  <p style="font-size:13px;color:#666">Data rekening diambil dari Profil.</p>
+  <p style="font-size:13px;color:#666">Data rekening diambil dari Pengaturan.</p>
   <div id="listPopupBayar"></div>
   <div id="qrisDiPopup" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:12px;margin-top:8px"><b id="qrisNamaPopup">QRIS</b><br><img id="qrisImgPopup" src="" style="width:170px;height:170px;margin:8px auto;display:block"><small>Suruh pembeli scan QR ini</small><br><b id="qrisTotalPopup"></b></div>
   <button class="btn btn-green" style="margin-top:12px" onclick="konfirmasiBayarPopup()">✅ Pakai Metode Ini</button>
@@ -212,7 +230,7 @@ let users=load('users',[]); let currentUser=load('currentUser',null);
 let metodeDipilih='Tunai', metodeSementara='Tunai', editIndex=-1;
 let fmt=n=>'Rp '+n.toLocaleString('id-ID');
 document.getElementById('tgl').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
-function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');window.scrollTo(0,0)}
+function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='pengaturan')isiSettingWa();if(id==='profil')document.querySelectorAll('.nav button')[4].classList.add('active');window.scrollTo(0,0)}
 function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';document.getElementById('eyeBtn').textContent=lihatSaldo?'🙈':'👁️'}
 function setTabAuth(tab){['pin','email','bio'].forEach(t=>{document.getElementById('auth'+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle('hidden',t!==tab);document.getElementById('tabBtn'+t.charAt(0).toUpperCase()+t.slice(1)).className='btn '+(t===tab?'btn-outline':'btn-light')});document.getElementById('pinError').textContent=''}
 function cekPin(){let v=document.getElementById('inputPin').value;if(v===pinKasir){bukaAplikasi()}else{document.getElementById('pinError').textContent='❌ PIN salah! Coba lagi.';document.getElementById('inputPin').value=''}}
@@ -225,14 +243,17 @@ function renderAkun(){let login=!!currentUser;document.getElementById('akunBelum
 function registerAkun(){let nama=document.getElementById('regNama').value.trim(),email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;if(!nama||!email||!pass)return alert('Nama, email, dan password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');let u={nama,email,pass:hashPass(pass),credId:null};users.push(u);currentUser={nama,email};saveAll();renderAkun();alert('Akun berhasil dibuat! Selamat datang, '+nama)}
 function loginEmail(){let email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;return loginDengan(email,pass)}
 function loginEmailDariKunci(){let email=(document.getElementById('loginEmailInput').value||'').trim().toLowerCase(),pass=document.getElementById('loginPassInput').value;return loginDengan(email,pass,true)}
-function loginDengan(email,pass,dariKunci){if(!email||!pass){alert('Isi email & password dulu!');return false}let u=users.find(x=>x.email===email);if(!u){alert('Email belum terdaftar! Daftar dulu.');return false}if(u.pass!==hashPass(pass)){document.getElementById('pinError').textContent='❌ Email / password salah!';alert('Password salah!');return false}currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Login berhasil! Halo, '+u.nama);return true}
-function logoutAkun(){if(!confirm('Logout akun email?'))return;currentUser=null;saveAll();renderAkun();kunciAplikasi();alert('Kamu logout. Silakan login lagi.')}
+function loginDengan(email,pass){if(!email||!pass){alert('Isi email & password dulu!');return false}let u=users.find(x=>x.email===email);if(!u){alert('Email belum terdaftar! Daftar dulu.');return false}if(u.pass!==hashPass(pass)){document.getElementById('pinError').textContent='❌ Email / password salah!';alert('Password salah!');return false}currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Login berhasil! Halo, '+u.nama);return true}
+function logoutAkun(){if(!confirm('Logout akun email?'))return;currentUser=null;saveAll();renderAkun();kunciAplikasi()}
 function updateStatusSidik(){let u=currentUser?users.find(x=>x.email===currentUser.email):users[0];let ada=u&&u.credId;document.getElementById('statusSidik').textContent=ada?'✅ Sudah terdaftar di HP ini - bisa buka pakai sidik jari':'Belum terdaftar';if(ada)document.getElementById('statusSidik').style.color='#147A43'}
 function bufToB64(buf){return btoa(String.fromCharCode(...new Uint8Array(buf)))}
 function b64ToBuf(b64){let s=atob(b64);let a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a.buffer}
 function getAkunUntukBio(){if(currentUser){let u=users.find(x=>x.email===currentUser.email);if(u)return u}if(!users.length){alert('Daftar / Login email dulu sebelum daftarin sidik jari!');return null}return users[0]}
-async function daftarSidikJari(){if(!window.PublicKeyCredential){alert('HP / browser ini tidak support sidik jari. Pakai PIN aja.');return}if(location.protocol!=='https:'&&location.hostname!=='localhost'){alert('Sidik jari butuh HTTPS. Di GitHub Pages sudah HTTPS, coba buka lewat link github.io, bukan file lokal.');return}let u=getAkunUntukBio();if(!u)return;try{let challenge=crypto.getRandomValues(new Uint8Array(32));let cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'Warung Pintar'},user:{id:new TextEncoder().encode(u.email),name:u.email,displayName:u.nama},pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});u.credId=bufToB64(cred.rawId);saveAll();updateStatusSidik();alert('Sidik jari berhasil didaftarkan! Sekarang bisa buka pakai sidik jari.')}catch(e){alert('Gagal daftar sidik jari: '+(e.message||e)+'. Coba lagi / pakai PIN.')}}
-async function bukaSidikJari(){if(!window.PublicKeyCredential){document.getElementById('pinError').textContent='HP ini tidak support sidik jari.';return}let u=getAkunUntukBio();if(!u||!u.credId){document.getElementById('pinError').textContent='Belum ada sidik jari terdaftar. Daftar dulu di Profil > Sidik Jari.';return}try{let challenge=crypto.getRandomValues(new Uint8Array(32));await navigator.credentials.get({publicKey:{challenge,allowCredentials:[{id:b64ToBuf(u.credId),type:'public-key'}],userVerification:'required',timeout:60000}});currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Sidik jari cocok! Selamat datang, '+u.nama)}catch(e){document.getElementById('pinError').textContent='❌ Sidik jari gagal / dibatalkan. Coba lagi atau pakai PIN.'}}
+async function daftarSidikJari(){if(!window.PublicKeyCredential){alert('HP / browser ini tidak support sidik jari. Pakai PIN aja.');return}if(location.protocol!=='https:'&&location.hostname!=='localhost'){alert('Sidik jari butuh HTTPS. Buka lewat link github.io, bukan file lokal.');return}let u=getAkunUntukBio();if(!u)return;try{let challenge=crypto.getRandomValues(new Uint8Array(32));let cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'Warung Pintar'},user:{id:new TextEncoder().encode(u.email),name:u.email,displayName:u.nama},pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});u.credId=bufToB64(cred.rawId);saveAll();updateStatusSidik();alert('Sidik jari berhasil didaftarkan!')}catch(e){alert('Gagal daftar sidik jari: '+(e.message||e))}}
+async function bukaSidikJari(){if(!window.PublicKeyCredential){document.getElementById('pinError').textContent='HP ini tidak support sidik jari.';return}let u=getAkunUntukBio();if(!u||!u.credId){document.getElementById('pinError').textContent='Belum ada sidik jari terdaftar. Daftar dulu di Pengaturan > Sidik Jari.';return}try{let challenge=crypto.getRandomValues(new Uint8Array(32));await navigator.credentials.get({publicKey:{challenge,allowCredentials:[{id:b64ToBuf(u.credId),type:'public-key'}],userVerification:'required',timeout:60000}});currentUser={nama:u.nama,email:u.email};saveAll();bukaAplikasi();alert('Sidik jari cocok! Halo, '+u.nama)}catch(e){document.getElementById('pinError').textContent='❌ Sidik jari gagal / dibatalkan. Coba lagi atau pakai PIN.'}}
+// === SETTING WA ===
+function isiSettingWa(){document.getElementById('settingWa').value=profil.wa;document.getElementById('settingNamaWarung').value=profil.warung;document.getElementById('settingAlamat').value=profil.alamat}
+function simpanSettingWa(){let wa=document.getElementById('settingWa').value.trim(),w=document.getElementById('settingNamaWarung').value.trim(),a=document.getElementById('settingAlamat').value.trim();if(!wa||!w||!a)return alert('WA, Nama Warung, dan Alamat wajib diisi!');profil.wa=wa;profil.warung=w;profil.alamat=a;saveAll();renderProfil();alert('No WA & Warung berhasil disimpan!')}
 function formatWa62(raw){let n=(raw||'').replace(/\D/g,'');if(!n)return '';if(n.startsWith('0'))n='62'+n.slice(1);else if(n.startsWith('8'))n='62'+n;else if(n.startsWith('620'))n='62'+n.slice(3);return n}
 function syncWaCustomer(dari){if(dari==='transaksi'){document.getElementById('waCustomerStruk').value=document.getElementById('waCustomer').value}else{document.getElementById('waCustomer').value=document.getElementById('waCustomerStruk').value}}
 function kirimWAStrukTerakhir(){if(!strukTerakhir)return alert('Belum ada struk!');let raw=document.getElementById('waCustomerStruk').value||document.getElementById('waCustomer').value;if(!raw.trim())return alert('Isi dulu No WA Customer!');let no=formatWa62(raw);if(no.length<10)return alert('No WA kurang lengkap!');window.open('https://wa.me/'+no+'?text='+strukTerakhir,'_blank')}
@@ -262,7 +283,7 @@ function bukaPopupTambahBayar(){document.getElementById('popupTambahBayar').clas
 function tutupPopupTambahBayar(){document.getElementById('popupTambahBayar').classList.remove('open')}
 function gantiLabelTambah(){let b=document.getElementById('tambahBank').value;let isQRIS=b==='QRIS';document.getElementById('labelNoRek').textContent=isQRIS?'ID / Nomor QRIS':'Masukkan No Rekening';document.getElementById('tambahNoRek').placeholder=isQRIS?'Contoh: ID10234567890':'Contoh: 1234-5678-9012';document.getElementById('labelNamaPemilik').textContent=isQRIS?'Nama QRIS / Nama Toko':'Nama Pemilik Bank';document.getElementById('tambahNamaPemilik').placeholder=isQRIS?'Contoh: WARUNG PINTAR SENEN':'Contoh: Budi Santoso'}
 function simpanMetodeBaru(){let bank=document.getElementById('tambahBank').value,no=document.getElementById('tambahNoRek').value.trim(),nama=document.getElementById('tambahNamaPemilik').value.trim();if(!no||!nama)return alert('No rekening & nama pemilik wajib diisi!');let ada=metodeList.find(m=>m.bank===bank);if(ada){ada.no=no;ada.nama=nama;ada.aktif=true}else metodeList.push({bank,no,nama,aktif:true});document.getElementById('tambahNoRek').value='';document.getElementById('tambahNamaPemilik').value='';tutupPopupTambahBayar();renderDaftarBayar();saveAll();alert(bank+' berhasil disimpan!')}
-function renderDaftarBayar(){let el=document.getElementById('daftarBayarTersimpan');if(!metodeList.length){el.innerHTML='<p style="color:#777;font-size:13px">Belum ada metode pembayaran.</p>';return}el.innerHTML=metodeList.map((m,i)=>`<div class="item" style="border:1px solid #E6EFE9"><span style="flex:1"><b>${m.bank==='QRIS'?'📷 QRIS':'🏦 '+m.bank}</b><br><small>${m.bank==='QRIS'?'ID: '+m.no+' • '+m.nama:m.no+' • a.n '+m.nama}</small><br><span class="badge ${m.aktif?'':'warn'}">${m.aktif?'Aktif ✅':'Nonaktif'}</span></span><button class="btn btn-light btn-sm" onclick="toggleAktifBayar(${i})">${m.aktif?'Nonaktifkan':'Aktifkan'}</button><button class="btn btn-pink btn-sm" onclick="hapusBayar(${i})">🗑️</button></div>`).join('')}
+function renderDaftarBayar(){let el=document.getElementById('daftarBayarTersimpan');if(!metodeList.length){el.innerHTML='<p style="color:#777;font-size:13px">Belum ada metode pembayaran. Klik tombol di bawah untuk menambah.</p>';return}el.innerHTML=metodeList.map((m,i)=>`<div class="item" style="border:1px solid #E6EFE9"><span style="flex:1"><b>${m.bank==='QRIS'?'📷 QRIS':'🏦 '+m.bank}</b><br><small>${m.bank==='QRIS'?'ID: '+m.no+' • '+m.nama:m.no+' • a.n '+m.nama}</small><br><span class="badge ${m.aktif?'':'warn'}">${m.aktif?'Aktif ✅':'Nonaktif'}</span></span><button class="btn btn-light btn-sm" onclick="toggleAktifBayar(${i})">${m.aktif?'Nonaktifkan':'Aktifkan'}</button><button class="btn btn-pink btn-sm" onclick="hapusBayar(${i})">🗑️</button></div>`).join('')}
 function toggleAktifBayar(i){metodeList[i].aktif=!metodeList[i].aktif;renderDaftarBayar();saveAll()}
 function hapusBayar(i){if(!confirm('Hapus '+metodeList[i].bank+'?'))return;let bankHapus=metodeList[i].bank;metodeList.splice(i,1);if(metodeDipilih===bankHapus)metodeDipilih='Tunai';renderDaftarBayar();saveAll()}
 function setPeriode(p,btn){periode=p;document.querySelectorAll('#p-laporan .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
