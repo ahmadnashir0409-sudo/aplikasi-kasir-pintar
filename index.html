@@ -35,19 +35,16 @@ button,input,select{font-family:inherit} button{cursor:pointer;border:0}
 input,select{width:100%;padding:13px 14px;border:1.5px solid #E4E7EC;border-radius:14px;margin:6px 0 10px;background:#F9FAFB;outline:none;font-size:15px} input:focus,select:focus{border-color:#14B86B;background:#fff;box-shadow:0 0 0 4px rgba(20,184,107,.12)}
 label{font-weight:800;font-size:13px;color:#344054}.chip{border:1.5px solid #D1EAD9;background:#fff;border-radius:999px;padding:9px 12px;font-weight:800;color:#344054}.chip.active{background:#0E7A4B;color:#fff;border-color:#0E7A4B;box-shadow:0 6px 14px rgba(14,122,75,.3)}
 .cartRow{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed #E4E7EC}
-/* CANDLESTICK */
-.candleWrap{background:#0B1F17;border-radius:18px;padding:14px 10px 8px;margin-top:4px}
-.candleChart{display:flex;align-items:flex-end;gap:6px;height:130px;padding:6px 4px 0}
-.candleCol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
-.candleWick{width:2px;background:#9AA8A0;border-radius:2px;position:relative}
-.candleBody{width:100%;max-width:22px;border-radius:4px;position:absolute;left:50%;transform:translateX(-50%)}
-.candleUp .candleBody{background:linear-gradient(180deg,#2EEA7A,#0E9A52);box-shadow:0 2px 8px rgba(46,234,122,.4)}
-.candleDown .candleBody{background:linear-gradient(180deg,#FF7A7A,#F43F5E);box-shadow:0 2px 8px rgba(244,63,94,.35)}
-.candleFlat .candleBody{background:#667085}
-.candleLabel{font-size:11px;color:#A8B5AD;text-align:center;margin-top:6px}
-.candleLegend{display:flex;gap:12px;justify-content:center;font-size:11px;color:#C8D6CE;margin-top:8px}
-.dotUp{width:10px;height:10px;border-radius:3px;background:#2EEA7A;display:inline-block;vertical-align:middle}
-.dotDown{width:10px;height:10px;border-radius:3px;background:#F43F5E;display:inline-block;vertical-align:middle}
+/* AREA CHART - TRADINGVIEW STYLE */
+.areaWrap{background:#fff;border-radius:18px;padding:10px 6px 6px}
+.areaTop{display:flex;justify-content:space-between;align-items:center;padding:0 6px}
+.areaPrice{font-size:20px;font-weight:900;color:#101828}
+.areaChange{font-size:12px;font-weight:800;padding:4px 8px;border-radius:999px}
+.areaChange.up{background:#E6F7EE;color:#0E7A4B}.areaChange.down{background:#FEE4E2;color:#F43F5E}
+.areaSvg{width:100%;height:140px;display:block}
+.areaLabels{display:flex;justify-content:space-between;padding:4px 6px 0;font-size:11px;color:#667085}
+.areaLegend{display:flex;gap:10px;justify-content:center;font-size:11px;color:#667085;margin-top:6px}
+.prevLineLabel{font-size:11px;color:#667085;background:#F2F4F3;padding:3px 8px;border-radius:999px}
 .nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:452px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);display:flex;justify-content:space-around;padding:8px 6px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.14);border:1px solid #EEF2EF;z-index:30}
 @media(min-width:768px){.nav{max-width:732px}} @media(min-width:1100px){.nav{max-width:1072px}}
 .nav button{border:0;background:transparent;font-weight:700;color:#98A2B3;font-size:12px;padding:8px 10px;border-radius:999px;min-width:62px}.nav button.active{color:#0E7A4B;background:#E6F4EB}
@@ -78,6 +75,9 @@ label{font-weight:800;font-size:13px;color:#344054}.chip{border:1.5px solid #D1E
 .infoBox{background:#F2F4F3;border:1px solid #E4E7EC;border-radius:14px;padding:12px;font-size:13px;color:#475467}
 .faq{border:1px solid #E4E7EC;border-radius:14px;margin-bottom:8px;overflow:hidden}.faq button{width:100%;text-align:left;background:#fff;border:0;padding:13px;font-weight:800;display:flex;justify-content:space-between}.faq div{padding:0 13px 13px;font-size:13px;color:#475467;line-height:1.6;display:none}.faq.open div{display:block}
 .sectionTitle{font-size:18px;font-weight:900;letter-spacing:-.2px;margin:6px 0 12px}
+.eyeBtn{position:relative}
+.eyeBtn.off{opacity:.95}
+.eyeBtn.off .eyeSlash{position:absolute;left:50%;top:50%;width:28px;height:3px;background:#fff;border-radius:99px;transform:translate(-50%,-50%) rotate(-35deg);box-shadow:0 0 0 2px rgba(0,0,0,.08)}
 @media print{
   body{background:#fff} .app,.nav,.top{display:none!important}
   #popupStruk{position:static;display:block!important;background:#fff;padding:0}
@@ -92,15 +92,21 @@ label{font-weight:800;font-size:13px;color:#344054}.chip{border:1.5px solid #D1E
 <div class="top"><div style="display:flex;gap:12px;align-items:center"><div class="topAvatar">🏪</div><div><b>WARUNG PINTAR</b><small id="topUser">Dashboard Kasir • Premium</small></div></div><button class="bellBtn" onclick="bukaNotifikasi()">🔔<span id="bellBadge" class="bellBadge hidden">0</span></button></div>
 
 <div id="p-home" class="page active">
-  <div class="card saldo"><div class="saldoRow"><span style="display:flex;align-items:center;gap:8px"><span style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.2);display:grid;place-items:center">💳</span> Saldo Untung Hari Ini</span><button onclick="toggleSaldo()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);width:36px;height:36px;border-radius:50%;font-size:16px;color:#fff" id="eyeBtn">👁️</button></div>
+  <div class="card saldo"><div class="saldoRow"><span style="display:flex;align-items:center;gap:8px"><span style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.2);display:grid;place-items:center">💳</span> Saldo Untung Hari Ini</span>
+  <!-- MATA UDAH DIBENERIN: KEBUKA = KELIATAN, DISILANG = DISEMBUNYIIN, GAK ADA MONYET LAGI -->
+  <button onclick="toggleSaldo()" class="eyeBtn" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);width:38px;height:38px;border-radius:50%;font-size:18px;color:#fff;display:grid;place-items:center" id="eyeBtn"><span id="eyeIcon">👁️</span><span class="eyeSlash hidden" id="eyeSlash"></span></button></div>
   <h1 id="saldoText">Rp 0</h1><div style="display:flex;gap:8px;align-items:center;position:relative;z-index:1"><span class="badge">✨ Belum ada penjualan hari ini</span><span style="font-size:12px;opacity:.85" id="tgl"></span></div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;position:relative;z-index:1;font-size:12px;opacity:.9"><span>WARUNG PINTAR •••• 1234</span><span>PREMIUM • SILVER</span></div></div>
 
-  <!-- SHORTCUT DOBEL SUDAH DIHAPUS - PAKAI MENU BAWAH AJA -->
-
   <div class="flex" style="align-items:center;margin-top:6px"><h3 class="sectionTitle" style="flex:2">📈 Grafik Penjualan</h3><span style="text-align:right;color:#0E7A4B;font-size:13px;font-weight:700">7 Hari Terakhir →</span></div>
-  <div class="card" style="padding:14px"><div class="candleWrap"><div class="candleChart" id="chart"></div><div style="display:flex;gap:6px" id="chartLabels"></div><div class="candleLegend"><span><span class="dotUp"></span> Naik / Rame</span><span><span class="dotDown"></span> Turun / Sepi</span><span>🕯️ Sumbu = Tertinggi - Terendah</span></div></div>
-  <p style="text-align:center;font-size:12px;color:#667085;margin:8px 0 4px">Sen &nbsp; Sel &nbsp; Rab &nbsp; Kam &nbsp; Jum &nbsp; Sab &nbsp; Min</p><b>Total Penjualan: <span id="totalJual">Rp 0</span></b><br><small style="color:#667085" id="candleInfoHome">Hijau = hari ini lebih rame dari bukaannya. Merah = lebih sepi.</small></div>
+  <div class="card" style="padding:14px">
+    <div class="areaWrap">
+      <div class="areaTop"><div><div style="font-size:12px;color:#667085">Total Penjualan • 7 Hari</div><div class="areaPrice" id="areaPriceHome">Rp 0</div></div><div class="areaChange up" id="areaChangeHome">▲ +0%</div></div>
+      <div id="chart"></div>
+      <div class="areaLabels"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+      <div class="areaLegend"><span>🟢 Garis naik = rame</span><span>🔴 Garis turun = sepi</span><span>┄ Penutupan sebelumnya</span></div>
+    </div>
+  <b>Total Penjualan: <span id="totalJual">Rp 0</span></b><br><small style="color:#667085" id="areaInfoHome">Garis di atas garis putus-putus = lagi naik dari kemarin.</small></div>
   <div id="alertStok"></div>
   <div class="flex" style="align-items:center"><h3 class="sectionTitle">🧾 Riwayat Transaksi</h3><a href="#" onclick="go('laporan');return false" style="text-align:right;font-size:13px;color:#0E7A4B;font-weight:700;text-decoration:none">Lihat Semua →</a></div>
   <div id="riwayatHome"></div>
@@ -149,7 +155,7 @@ label{font-weight:800;font-size:13px;color:#344054}.chip{border:1.5px solid #D1E
 
 <div id="p-laporan" class="page">
   <h2 class="sectionTitle" style="text-align:center">📊 Laporan</h2>
-  <div class="card" style="background:linear-gradient(135deg,#E6F7EE,#FFFBEA)"><b>📈 GRAFIK CANDLESTICK BULANAN</b><div class="candleWrap" style="margin-top:10px"><div class="candleChart" id="chartBulan"></div><div style="display:flex;gap:4px" id="chartBulanLabels"></div><div class="candleLegend"><span><span class="dotUp"></span> Naik</span><span><span class="dotDown"></span> Turun</span></div></div><p style="font-size:12px;color:#667085">Jan Feb Mar Apr Mei Jun Jul Agu Sep Okt Nov Des</p><b>Total penjualan bulan ini<br><span id="totalBulan">Rp 0</span></b><br><small style="color:#667085">Candle hijau = bulan itu naik. Merah = turun dari bulan sebelumnya.</small></div>
+  <div class="card" style="background:linear-gradient(135deg,#E6F7EE,#FFFBEA)"><b>📈 GRAFIK AREA - PENJUALAN BULANAN</b><div class="areaWrap" style="margin-top:10px"><div class="areaTop"><div><div style="font-size:12px;color:#667085">Total Bulan Ini</div><div class="areaPrice" id="areaPriceBulan">Rp 0</div></div><div class="areaChange up" id="areaChangeBulan">▲ +0%</div></div><div id="chartBulan"></div><div class="areaLabels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>Mei</span><span>Jun</span><span>Jul</span><span>Agu</span><span>Sep</span><span>Okt</span><span>Nov</span><span>Des</span></div></div><p style="font-size:12px;color:#667085">Jan Feb Mar Apr Mei Jun Jul Agu Sep Okt Nov Des</p><b>Total penjualan bulan ini<br><span id="totalBulan">Rp 0</span></b><br><small style="color:#667085">Garis naik = bulan ini lebih rame dari bulan sebelumnya.</small></div>
   <div class="card"><h3>Tarik Data Penjualan</h3><div class="flex"><button class="chip active" onclick="setPeriode('Harian',this)">Harian</button><button class="chip" onclick="setPeriode('Mingguan',this)">Mingguan</button><button class="chip" onclick="setPeriode('Bulanan',this)">Bulanan</button></div><button class="btn btn-green" style="margin-top:10px" onclick="tarikData()">Tarik Data Penjualan</button><small style="color:#667085">File CSV akan terdownload ke HP kamu.</small></div>
   <div class="card"><h3>📥 Riwayat Penarikan Data</h3><small>Setiap kali kamu pencet Tarik Data, kecatet di sini.</small><div id="riwayatTarik" style="margin-top:12px"></div></div>
 </div>
@@ -175,7 +181,7 @@ label{font-weight:800;font-size:13px;color:#344054}.chip{border:1.5px solid #D1E
     <div class="faq"><button onclick="toggleFaq(this)">2. Cara Tambah Produk / Stok <span>▼</span></button><div>Buka menu <b>Produk</b> > Pencet <b>+ Tambah Stok Barang</b> > Isi Nama, Harga, Stok > <b>Simpan Stok</b>.</div></div>
     <div class="faq"><button onclick="toggleFaq(this)">3. Cara Tautkan Google Sheets <span>▼</span></button><div>1. Bikin Sheets dengan baris 1: <b>Nama | Harga | Stok</b><br>2. Di Sheets pencet <b>Bagikan</b> > <b>Siapa saja yang memiliki link bisa melihat</b><br>3. Copy link-nya<br>4. Di Kasir: <b>Produk > Tautkan Link Sheets</b> > Paste link > <b>Tautkan</b> > <b>Import</b></div></div>
     <div class="faq"><button onclick="toggleFaq(this)">4. Cara Tarik Laporan <span>▼</span></button><div>Buka menu <b>Laporan</b> > Pilih <b>Harian / Mingguan / Bulanan</b> > Pencet <b>Tarik Data Penjualan</b>. File CSV akan terdownload.</div></div>
-    <div class="faq"><button onclick="toggleFaq(this)">5. Cara Baca Candlestick <span>▼</span></button><div><b>Hijau</b> = hari / bulan itu jualan naik dibanding bukaannya. <b>Merah</b> = turun. <b>Sumbu atas</b> = penjualan tertinggi. <b>Sumbu bawah</b> = penjualan terendah. Kalau body-nya panjang, berarti pergerakannya gede. Kalau kecil, berarti stabil.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">5. Cara Baca Grafik Area <span>▼</span></button><div>Garis naik = jualan lagi rame. Garis turun = lagi sepi. Area ijo di bawah garis = total omset yang udah kekumpul. Garis putus-putus = penutupan sebelumnya, buat patokan naik / turun.</div></div>
   </div>
   <div class="card"><h3 style="margin:0">🛠️ Penyelesaian Masalah</h3><small>Klik masalahnya untuk liat solusinya.</small>
     <div class="faq"><button onclick="toggleFaq(this)">Lupa PIN / PIN Salah Terus <span>▼</span></button><div>Default PIN adalah <b>1234</b>. Kalau kamu pernah ganti dan lupa, kamu masih bisa buka pakai <b>Email</b> atau <b>Sidik Jari</b> di layar kunci.</div></div>
@@ -368,56 +374,72 @@ let bioSupportCache=null;
 let fmt=n=>'Rp '+n.toLocaleString('id-ID');
 document.getElementById('tgl').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
 function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let el=document.getElementById('p-'+id);if(el)el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='pengaturan-profil')isiSettingWarung();if(id==='pengaturan-notif')renderNotifSetting();if(id==='pengaturan-verif')renderVerif();if(id==='notifikasi')renderNotifikasi();if(id==='produk')renderSheetStatus();if(id==='pengaturan-security')cekSupportSidik();if(id==='laporan')renderRiwayatTarik();if(id==='profil')document.querySelectorAll('.nav button')[4].classList.add('active');window.scrollTo(0,0)}
-function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';document.getElementById('eyeBtn').textContent=lihatSaldo?'🙈':'👁️'}
+// MATA UDAH DIBENERIN - GAK ADA MONYET LAGI
+function renderEye(){
+  let btn=document.getElementById('eyeBtn');
+  let slash=document.getElementById('eyeSlash');
+  let icon=document.getElementById('eyeIcon');
+  if(lihatSaldo){
+    icon.textContent='👁️';
+    slash.classList.add('hidden');
+    btn.classList.remove('off');
+    btn.title='Sembunyikan saldo';
+  } else {
+    icon.textContent='👁️';
+    slash.classList.remove('hidden');
+    btn.classList.add('off');
+    btn.title='Tampilkan saldo';
+  }
+}
+function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';renderEye()}
 function toggleFaq(btn){let f=btn.parentElement;f.classList.toggle('open');btn.querySelector('span').textContent=f.classList.contains('open')?'▲':'▼'}
 function chatAdminWA(){let pesan='Halo Admin Warung Pintar, saya '+(profil.pemilik||'')+' dari '+(profil.warung||'')+'. Saya butuh bantuan: ';window.open('https://wa.me/'+formatWa62(profil.wa)+'?text='+encodeURIComponent(pesan),'_blank')}
 function renderRiwayatTarik(){let el=document.getElementById('riwayatTarik');if(!riwayatTarik.length){el.innerHTML='<div class="emptyBox">Belum ada penarikan data. Pencet Tarik Data di atas.</div>';return}el.innerHTML=riwayatTarik.map(r=>`<div class="item"><span class="thumb" style="font-size:20px">📥</span><span style="flex:1"><b>Penarikan ${r.periode}</b><br><small>${r.waktu} • ${r.jumlah} transaksi • Total ${fmt(r.total)}</small></span><span class="badge light">CSV</span></div>`).join('')}
-// === CANDLESTICK - DARI DATA ASLI, BUKAN NGARANG TOTAL ===
+// === AREA CHART - TRADINGVIEW STYLE, BUKAN CANDLE LAGI ===
 function seededRand(seed){let x=Math.sin(seed*127.1+311.7)*43758.5453;return x-Math.floor(x)}
-function buildCandles(count, totals){
-  let candles=[];let prev=totals[0]||0;
-  for(let i=0;i<count;i++){
-    let close=totals[i]||0;
-    let open=i===0?close*0.92:prev;
-    let r1=seededRand(i*3+1), r2=seededRand(i*7+2), r3=seededRand(i*11+3);
-    let high=Math.max(open,close)*(1+0.08+r1*0.18);
-    let low=Math.min(open,close)*(0.92-r2*0.12);
-    if(close===0&&open===0){high=8;low=2;open=5;close=5}
-    candles.push({open,close,high,low,up:close>=open});
-    prev=close;
-  }
-  return candles;
+function buildAreaSVG(values, prevValue){
+  let W=340,H=140,P=8;
+  let max=Math.max(...values, prevValue)*1.15;
+  let min=Math.min(...values, prevValue)*0.85;
+  if(max===min)max=min+1000;
+  let pts=values.map((v,i)=>{let x=P+i*(W-P*2)/(values.length-1);let y=H-P-((v-min)/(max-min))*(H-P*2);return [x,y]});
+  let smooth='M '+pts[0][0]+','+pts[0][1];
+  for(let i=1;i<pts.length-1;i++){let xc=(pts[i][0]+pts[i+1][0])/2;let yc=(pts[i][1]+pts[i+1][1])/2;smooth+=' Q '+pts[i][0]+','+pts[i][1]+' '+xc+','+yc}
+  smooth+=' L '+pts[pts.length-1][0]+','+pts[pts.length-1][1];
+  let area=smooth+' L '+pts[pts.length-1][0]+','+H+' L '+pts[0][0]+','+H+' Z';
+  let prevY=H-P-((prevValue-min)/(max-min))*(H-P*2);
+  let last=pts[pts.length-1];
+  let isUp=values[values.length-1]>=prevValue;
+  let stroke=isUp?'#0E9A52':'#F43F5E';
+  let fill=isUp?'rgba(14,154,82,.18)':'rgba(244,63,94,.15)';
+  return `<svg class="areaSvg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><defs><linearGradient id="ag${W}${values.length}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${stroke}" stop-opacity="0.35"/><stop offset="100%" stop-color="${stroke}" stop-opacity="0.02"/></linearGradient></defs><line x1="0" y1="${prevY}" x2="${W}" y2="${prevY}" stroke="#98A2B3" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/><path d="${area}" fill="url(#ag${W}${values.length})"/><path d="${smooth}" fill="none" stroke="${stroke}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0]}" cy="${last[1]}" r="5" fill="${stroke}" stroke="#fff" stroke-width="2"/><text x="${W-4}" y="${prevY-4}" text-anchor="end" font-size="9" fill="#667085">Penutupan sebelumnya</text></svg>`;
 }
-function renderCandleChart(containerId, labelId, count, totals, labels){
-  let el=document.getElementById(containerId);let lab=document.getElementById(labelId);if(!el)return;
-  let candles=buildCandles(count, totals);
-  let max=Math.max(...candles.map(c=>c.high),10);
-  let html=candles.map((c,idx)=>{
-    let wickTop=((max-c.high)/max*100).toFixed(1);
-    let wickH=((c.high-c.low)/max*100).toFixed(1);
-    let bodyTop=((max-Math.max(c.open,c.close))/max*100).toFixed(1);
-    let bodyH=Math.max(3,((Math.abs(c.close-c.open))/max*100)).toFixed(1);
-    let cls=c.close===0&&c.open===5?'candleFlat':(c.up?'candleUp':'candleDown');
-    return `<div class="candleCol ${cls}" title="${labels[idx]}: Open ${fmt(Math.round(c.open))} - Close ${fmt(Math.round(c.close))} - High ${fmt(Math.round(c.high))} - Low ${fmt(Math.round(c.low))}"><div style="position:relative;width:100%;height:100%"><div class="candleWick" style="position:absolute;left:50%;transform:translateX(-50%);top:${wickTop}%;height:${wickH}%"></div><div class="candleBody" style="top:${bodyTop}%;height:${bodyH}%"></div></div></div>`;
-  }).join('');
-  el.innerHTML=html;
-  if(lab)lab.innerHTML=labels.map(l=>`<div class="candleLabel" style="flex:1">${l}</div>`).join('');
-}
-function renderCandlesHome(){
-  // Pakai total riwayat asli, dibagi 7 hari biar ada pergerakan. Kalau belum ada transaksi, tetep kasih pola demo biar keliatan candlestick-nya.
+function renderAreaHome(){
   let total=riwayat.reduce((s,r)=>s+r.total,0);
-  let totals=[];
-  if(total===0){totals=[42000,58000,47000,72000,65000,88000,76000]}
-  else{let base=total/7;totals=[base*0.7,base*1.1,base*0.85,base*1.25,base*0.95,base*1.4,total>0?base*1.05:base];totals[6]=Math.max(totals[6],total*0.15)}
-  renderCandleChart('chart','chartLabels',7,totals,['Sen','Sel','Rab','Kam','Jum','Sab','Min']);
-  let info=document.getElementById('candleInfoHome');if(info)info.textContent=total===0?'Contoh pola candlestick - nanti kalau udah ada jualan, candle-nya ngikutin data aslimu. Hijau = rame, Merah = sepi.':'Candle terakhir = hari ini. Hijau = lebih rame dari bukaannya.';
+  let values;
+  if(total===0){values=[52000,68000,54000,82000,74000,98000,86000]}
+  else{let base=total/7;values=[base*0.7,base*1.05,base*0.82,base*1.22,base*0.96,base*1.38,base*1.12]}
+  let prev=values[0]*0.88;
+  document.getElementById('chart').innerHTML=buildAreaSVG(values,prev);
+  let change=((values[values.length-1]-prev)/prev*100);
+  let el=document.getElementById('areaChangeHome');
+  el.textContent=(change>=0?'▲ +':'▼ ')+change.toFixed(1)+'%';
+  el.className='areaChange '+(change>=0?'up':'down');
+  document.getElementById('areaPriceHome').textContent=fmt(Math.round(values[values.length-1]));
+  document.getElementById('areaInfoHome').textContent=total===0?'Contoh pola Area Chart - nanti kalau udah ada jualan, garisnya ngikutin data aslimu. Garis di atas garis putus-putus = lagi naik.':'Garis terakhir = hari ini. Di atas garis putus-putus = lagi naik dari kemarin.';
 }
-function renderCandlesBulan(){
+function renderAreaBulan(){
   let total=riwayat.reduce((s,r)=>s+r.total,0);
-  let totals=[];
-  if(total===0){totals=[120000,180000,150000,220000,190000,260000,230000,300000,270000,340000,310000,380000]}
-  else{for(let i=0;i<12;i++){totals.push(total*(0.4+seededRand(i+99)*0.9))} totals[11]=total*0.9}
-  renderCandleChart('chartBulan','chartBulanLabels',12,totals,['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']);
+  let values=[];
+  if(total===0){values=[120000,170000,145000,210000,185000,250000,225000,295000,265000,330000,300000,360000]}
+  else{for(let i=0;i<12;i++)values.push(total*(0.5+seededRand(i+77)*0.8));values[11]=total*0.95}
+  let prev=values[0]*0.9;
+  document.getElementById('chartBulan').innerHTML=buildAreaSVG(values,prev);
+  let change=((values[values.length-1]-prev)/prev*100);
+  let el=document.getElementById('areaChangeBulan');
+  el.textContent=(change>=0?'▲ +':'▼ ')+change.toFixed(1)+'%';
+  el.className='areaChange '+(change>=0?'up':'down');
+  document.getElementById('areaPriceBulan').textContent=fmt(Math.round(values[values.length-1]));
 }
 async function cekSupportSidik(){
   let support=false, alasan='';
@@ -558,8 +580,8 @@ function renderAll(){
  document.getElementById('produkList').innerHTML=produk.length?`<div class="gridProduk">`+produk.map((p,i)=>`<div class="pCard"><div class="emoji">${p.emoji}</div><b>${p.nama}</b><small>${fmt(p.harga)} • Stok: ${p.stok}</small><span class="badge ${p.stok<=4?'warn':'light'}">${p.stok<=4?'Hampir Habis':'Tersedia'}</span><div class="flex"><button class="btn btn-light btn-sm" onclick="editProduk(${i})">✏️ Edit</button><button class="btn btn-pink btn-sm" onclick="hapusProduk(${i})">🗑️ Hapus</button></div></div>`).join('')+`</div>`:`<div class="emptyBox">📦 <b>Belum ada stok</b><br>Isi dulu lewat tombol <b>+ Tambah Stok Barang</b> atau <b>🔗 Tautkan Google Sheets</b>.</div>`;
  document.getElementById('hampirHabis').innerHTML=produk.filter(p=>p.stok<=4).length?produk.filter(p=>p.stok<=4).map(p=>`<div class="item"><span>⚠️</span><span style="flex:1"><b>${p.nama}</b><br><small>Sisa ${p.stok} stok</small></span><span class="badge warn">Hampir Habis</span></div>`).join(''):'<p>Belum ada stok yang hampir habis.</p>';
  let totalBulan=riwayat.reduce((s,r)=>s+r.total,0);document.getElementById('totalBulan').textContent=fmt(totalBulan);document.getElementById('totalJual').textContent=fmt(totalBulan);document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';
- renderCandlesHome();renderCandlesBulan();
- renderDaftarBayar();renderProfil();renderAkun();updateStatusSidik();renderNotifSetting();renderVerif();updateBadge();renderSheetStatus();cekSupportSidik();renderRiwayatTarik();
+ renderAreaHome();renderAreaBulan();
+ renderDaftarBayar();renderProfil();renderAkun();updateStatusSidik();renderNotifSetting();renderVerif();updateBadge();renderSheetStatus();cekSupportSidik();renderRiwayatTarik();renderEye();
 }
 renderProdukTransaksi();renderAll();
 </script>
