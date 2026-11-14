@@ -1,4 +1,4 @@
-const CACHE = 'warung-pintar-v1';
+const CACHE = 'warung-pintar-v2';
 const FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (e) => {
