@@ -33,7 +33,6 @@ body{background:#eef2ef;padding-bottom:90px}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0 18px;border-top:1px solid #eee;z-index:20}
 .nav div{text-align:center;font-size:12px;color:#888;cursor:pointer}.nav .on{color:#009444;font-weight:700}
 .page{display:none}.page.active{display:block}
-/* LAPORAN */
 .tabs{display:flex;gap:8px;margin:16px}
 .tabs button{flex:1;padding:10px;border:none;border-radius:12px;font-weight:700;background:#fff;cursor:pointer}
 .tabs button.on{background:#009444;color:#fff}
@@ -53,7 +52,7 @@ canvas{width:100%;height:180px;margin-top:12px}
 <div class="top"><div class="top-bar"><span>10:53</span><span>70%</span></div></div>
 <div class="header"><div><h1>WARUNG<br>PINTAR</h1></div><div style="display:flex;align-items:center;gap:10px"><p>Halo, Budi ange</p><div class="avatar">👤</div></div></div>
 
-<!-- ============ PAGE HOME ============ -->
+<!-- PAGE HOME -->
 <div id="page-home" class="page active">
   <div class="card">
     <button class="eye" onclick="toggleSaldo()">👁️</button>
@@ -70,7 +69,7 @@ canvas{width:100%;height:180px;margin-top:12px}
   <div class="trx"><div class="icon">🧾</div><div style="flex:1"><b>Pantene kondisioner x2,<br>Makarizo hair energy x2,<br>Hand sanitazier x2</b><small>🕒 17.57 • Bayar: Tunai • Kasir:<br>Budi ange</small></div><div class="price">Rp 224.000</div></div>
 </div>
 
-<!-- ============ PAGE LAPORAN ============ -->
+<!-- PAGE LAPORAN -->
 <div id="page-laporan" class="page">
   <div style="margin:16px"><h2 style="font-size:22px">📊 Laporan Penjualan</h2><p style="color:#666;font-size:13px">Total yang udah Tutup Buku masuk sini</p></div>
   <div class="tabs">
@@ -82,10 +81,7 @@ canvas{width:100%;height:180px;margin-top:12px}
     <small>Total: <b id="chartTotal" style="color:#009444">Rp 1.240.000</b></small>
     <canvas id="chart" width="320" height="180"></canvas>
   </div>
-  <div class="chart-box">
-    <h3>Detail Per Hari</h3>
-    <div id="barList"></div>
-  </div>
+  <div class="chart-box"><h3>Detail Per Hari</h3><div id="barList"></div></div>
   <div style="margin:0 16px 10px"><b>Riwayat Tutup Buku</b></div>
   <div id="laporanList"></div>
 </div>
@@ -131,7 +127,6 @@ function showPage(p){
   if(p==='laporan') drawChart();
   window.scrollTo(0,0);
 }
-// --- GRAFIK LAPORAN ---
 let dataMinggu=[{label:'Sen',val:180000},{label:'Sel',val:220000},{label:'Rab',val:150000},{label:'Kam',val:310000},{label:'Jum',val:90000},{label:'Sab',val:224000},{label:'Min',val:66000}];
 let dataBulan=[{label:'W1',val:850000},{label:'W2',val:1240000},{label:'W3',val:980000},{label:'W4',val:1120000}];
 let currentData=dataMinggu;
@@ -155,7 +150,6 @@ function drawChart(){
     ctx.fillStyle='#009444'; ctx.font='bold 10px sans-serif';
     ctx.fillText((d.val/1000)+'k', i*bw+bw/2, 132-h);
   });
-  // Garis total
   let total=currentData.reduce((a,b)=>a+b.val,0);
   document.getElementById('chartTotal').textContent='Rp '+formatRp(total);
   document.getElementById('barList').innerHTML=currentData.map(d=>{
