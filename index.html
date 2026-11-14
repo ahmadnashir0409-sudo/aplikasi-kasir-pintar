@@ -6,7 +6,7 @@
 <title>WARUNG PINTAR - Dashboard Kasir</title>
 <style>
 *{box-sizing:border-box} body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#DDF0E8;color:#12351F}
-button,input,select,textarea{font-family:inherit} button{cursor:pointer}
+button,input,select{font-family:inherit} button{cursor:pointer}
 .app{max-width:480px;margin:0 auto;min-height:100vh;background:#F2F7F0;position:relative;padding-bottom:92px}
 @media(min-width:768px){.app{max-width:760px}} @media(min-width:1100px){.app{max-width:1100px}}
 .page{display:none;padding:14px}.page.active{display:block}
@@ -15,12 +15,12 @@ button,input,select,textarea{font-family:inherit} button{cursor:pointer}
 .card{background:#fff;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
 .saldo{background:#6BB98A;color:#fff}.saldo h1{margin:6px 0;font-size:34px}.saldoRow{display:flex;justify-content:space-between;align-items:center}
 .badge{background:#DFF3E6;color:#147A43;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:800}
-.badge.warn{background:#FFE9B8;color:#8A5A00}.badge.red{background:#FFE0D6;color:#B42318}
-.btn{border:0;border-radius:14px;padding:13px;font-weight:900;width:100%}.btn-green{background:#159A4B;color:#fff}.btn-light{background:#EAF5EF;color:#147A43}.btn-pink{background:#F28B9A;color:#fff}
+.badge.warn{background:#FFE9B8;color:#8A5A00}
+.btn{border:0;border-radius:14px;padding:13px;font-weight:900;width:100%}.btn-green{background:#159A4B;color:#fff}.btn-light{background:#EAF5EF;color:#147A43}.btn-pink{background:#F28B9A;color:#fff}.btn-outline{background:#fff;color:#147A43;border:2px solid #147A43}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;background:#fff;border-radius:14px;margin-bottom:10px}
 .item small{color:#666}.thumb{width:52px;height:52px;border-radius:12px;background:#D8F0D3;display:grid;place-items:center;font-size:26px;flex-shrink:0}
-input,select,textarea{width:100%;padding:12px;border:1.5px solid #D9EADF;border-radius:12px;margin:6px 0 10px;background:#FFFDF5;outline:none}
+input,select{width:100%;padding:12px;border:1.5px solid #D9EADF;border-radius:12px;margin:6px 0 10px;background:#FFFDF5;outline:none}
 label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background:#fff;border-radius:999px;padding:8px 12px;font-weight:800}.chip.active{background:#147A43;color:#fff}
 .cartRow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #DDD}
 .bar{display:flex;align-items:end;gap:8px;height:110px}.bar div{flex:1;background:#2AA36A;border-radius:8px 8px 0 0;text-align:center;color:#fff;font-size:11px}
@@ -30,46 +30,46 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 .hidden{display:none}.flex{display:flex;gap:8px}.flex>*{flex:1}
 .progress{height:10px;background:#fff;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;width:62%;background:#FFF2A8}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:99;display:none;align-items:center;justify-content:center;padding:16px}.modal.open{display:flex}
-.modalBox{background:#fff;width:100%;max-width:420px;border-radius:18px;padding:16px;text-align:center}
+.modalBox{background:#fff;width:100%;max-width:420px;border-radius:18px;padding:16px;max-height:90vh;overflow:auto}
 .modalBox video{width:100%;border-radius:12px;background:#000;max-height:300px}
-.payBtn{border:2px solid #BFE3CB;background:#fff;border-radius:12px;padding:12px;font-weight:800}.payBtn.active{background:#147A43;color:#fff;border-color:#147A43}
-.switchRow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #EEE}
+.payItem{display:flex;justify-content:space-between;align-items:center;padding:13px;border:2px solid #E6EFE9;border-radius:14px;margin-bottom:10px;text-align:left;background:#fff;width:100%}
+.payItem.active{border-color:#147A43;background:#EAF5EF}
+.payItem small{color:#666}
 </style>
 </head>
 <body>
 <div class="app">
 <div class="top"><div><b>🏪 WARUNG PINTAR</b><small>Dashboard Kasir</small></div><div style="font-size:22px">🔔</div></div>
 
-<!-- HOME : TOMBOL KASIR DIHAPUS -->
+<!-- HOME : DAFTAR STOK -> RIWAYAT TRANSAKSI -->
 <div id="p-home" class="page active">
   <div class="card saldo"><div class="saldoRow"><span>✨ Saldo Untung Hari Ini</span><button onclick="toggleSaldo()" style="background:transparent;border:0;font-size:20px;color:#fff" id="eyeBtn">👁️</button></div>
   <h1 id="saldoText">Rp *****</h1><span class="badge">+12% dari hari lalu</span><p style="font-size:12px">Diperbarui hari ini • <span id="tgl"></span></p></div>
   <div class="flex"><h3 style="flex:2">Grafik Penjualan</h3><span style="text-align:right;color:#147A43">7 Hari Terakhir →</span></div>
   <div class="card"><div class="bar" id="chart"></div><p style="text-align:center;font-size:12px">Sen &nbsp; Sel &nbsp; Rab &nbsp; Kam &nbsp; Jum &nbsp; Sab &nbsp; Min</p><b>Total Penjualan: <span id="totalJual">Rp 0</span></b></div>
-  <div class="flex"><h3>Daftar Stok</h3><a href="#" onclick="go('produk');return false" style="text-align:right">+ Lihat Semua</a></div>
-  <div id="stokHome"></div>
+
+  <div id="alertStok"></div>
+
+  <div class="flex"><h3>🧾 Riwayat Transaksi</h3><a href="#" onclick="go('laporan');return false" style="text-align:right">Lihat Semua →</a></div>
+  <div id="riwayatHome"></div>
 </div>
 
-<!-- TRANSAKSI : DAFTAR PRODUK DIGANTI HASIL SCAN -->
+<!-- TRANSAKSI -->
 <div id="p-transaksi" class="page">
   <input id="cari" placeholder="🔍 Cari Barang (ketik nama / kode)" oninput="cariScan()">
   <div class="flex" style="flex-wrap:wrap"><button class="chip active" onclick="setKat('Semua',this)">Semua</button><button class="chip" onclick="setKat('Makanan',this)">Makanan</button><button class="chip" onclick="setKat('Minuman',this)">Minuman</button><button class="chip" onclick="setKat('Sembako',this)">Sembako</button><button class="chip" onclick="setKat('Rokok',this)">Rokok</button></div>
   <button class="btn btn-green" style="margin:10px 0" onclick="bukaKamera()">📷 Scan Barcode</button>
+  <div class="card"><b>📦 Hasil Scan</b><br><small>Barang yang sudah di-scan kamera / dicari</small><div id="hasilScan"><p style="color:#777">Belum ada barang di-scan. Klik Scan Barcode atau ketik nama barang di atas.</p></div></div>
 
-  <div class="card"><b>📦 Hasil Scan</b><br><small>Barang yang sudah di-scan kamera / dicari</small>
-  <div id="hasilScan"><p style="color:#777">Belum ada barang di-scan. Klik Scan Barcode atau ketik nama barang di atas.</p></div></div>
-
-  <div class="card"><b>🛒 Keranjang</b><small>Barang Siap Dibayar</small><div id="cartList"><p style="color:#777">Belum ada barang ditambahkan</p></div>
+  <div class="card"><b>🛒 Keranjang</b><small> Barang Siap Dibayar</small><div id="cartList"><p style="color:#777">Belum ada barang ditambahkan</p></div>
   <div class="flex"><b>Total</b><b id="cartTotal">Rp 0</b></div>
-  <h3 style="margin:10px 0 6px">Metode Pembayaran</h3>
-  <div id="payList" class="grid2"></div>
-  <!-- QRIS MUNCUL KALAU DIPILIH -->
-  <div id="qrisBox" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:14px;margin-top:12px">
-    <b id="qrisNama">QRIS Warung Pintar</b><br>
-    <img id="qrisImg" src="" style="width:200px;height:200px;margin:10px auto;display:block" alt="QRIS">
-    <small id="qrisKet">Scan QR ini pakai aplikasi bank / e-wallet pembeli</small><br>
-    <b id="qrisTotal" style="font-size:20px"></b>
-  </div>
+
+  <!-- METODE BAYAR JADI 1 TOMBOL + POPUP -->
+  <h3 style="margin:14px 0 6px">Metode Pembayaran</h3>
+  <button class="btn btn-outline" onclick="bukaPopupBayar()">💳 <span id="metodeTerpilihText">Tunai - Bayar Cash</span> &nbsp;▼</button>
+  <div id="metodeInfo" style="background:#F2F7F0;border-radius:12px;padding:10px;margin-top:8px;font-size:13px">Bayar langsung dengan uang tunai.</div>
+  <div id="qrisBoxTransaksi" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:14px;margin-top:10px"><b id="qrisNamaTransaksi">QRIS</b><br><img id="qrisImgTransaksi" src="" style="width:180px;height:180px;margin:8px auto;display:block"><small>Scan QR ini pakai aplikasi bank / e-wallet pembeli</small><br><b id="qrisTotalTransaksi" style="font-size:20px"></b></div>
+
   <button class="btn btn-green" style="margin-top:12px" onclick="bayar()">✅ Bayar Sekarang</button></div>
   <button class="btn btn-green" onclick="kirimWA()">💬 Kirim Struk via WA</button>
 </div>
@@ -99,21 +99,16 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="card"><h3>Data Pelanggan</h3><div id="pelanggan"></div></div>
 </div>
 
-<!-- PROFIL + METODE PEMBAYARAN -->
+<!-- PROFIL : TAMBAH METODE PEMBAYARAN VIA POPUP -->
 <div id="p-profil" class="page">
   <h2 style="text-align:center">Profil</h2>
   <div class="card" style="background:#6BB98A;color:#fff"><b>Profil Pengusaha</b>
   <div style="display:flex;gap:12px;align-items:center;margin-top:8px"><div style="width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:32px">👨</div><div><b>Warung Pintar Senen</b><br>Pemilik : Budi Santoso<br>WA : 0812-3456-7890<br>Alamat : Jl. Merdeka No. 12, Jakarta Pusat</div></div>
   <button class="btn" style="background:#fff;color:#147A43;margin-top:10px" onclick="editProfil()">Edit Profil</button></div>
 
-  <div class="card"><h3 style="margin:0">💳 Metode Pembayaran Warung</h3><small>Aktifkan yang warung lu punya. Yang aktif muncul di menu Transaksi.</small>
-    <div id="bankList"></div>
-    <label style="margin-top:12px;display:block">Nama QRIS / Nama Toko di QRIS</label><input id="qrisNamaInput" value="WARUNG PINTAR SENEN">
-    <label>ID / Nomor QRIS (kalau ada)</label><input id="qrisIdInput" value="ID10234567890">
-    <div class="switchRow"><span>📷 QRIS <small>(jika pemilik warung sudah punya QRIS)</small></span><select id="qrisAktif" style="width:110px;margin:0"><option value="1">Aktif ✅</option><option value="0">Nonaktif</option></select></div>
-    <button class="btn btn-green" style="margin-top:12px" onclick="simpanBayar()">💾 Simpan Metode Pembayaran</button>
-    <p style="font-size:12px;color:#666">Contoh QRIS di bawah ini dibuat otomatis dari nama + ID yang lu isi di atas.</p>
-    <div style="text-align:center"><img id="qrisPreview" src="" style="width:160px;height:160px"><br><small id="qrisPreviewText"></small></div>
+  <div class="card"><h3 style="margin:0">💳 Metode Pembayaran Warung</h3><small>Metode yang tersimpan akan muncul di menu Transaksi.</small>
+    <div id="daftarBayarTersimpan" style="margin-top:12px"></div>
+    <button class="btn btn-outline" style="margin-top:8px" onclick="bukaPopupTambahBayar()">+ Tambahkan Metode Pembayaran</button>
   </div>
 
   <div class="card" style="background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div><div class="flex" style="margin-top:10px"><button class="btn" style="background:#fff">⭐ Tukar Point</button><button class="btn" style="background:#fff">🎁 Lihat Reward</button></div></div>
@@ -129,14 +124,37 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button onclick="go('profil',this)">👤<br>Profil</button>
 </nav>
 
-<!-- MODAL KAMERA ASLI -->
+<!-- MODAL KAMERA -->
 <div id="camModal" class="modal"><div class="modalBox">
-  <h3 style="margin:0">📷 Scan Barcode</h3><p style="font-size:13px">Arahkan kamera ke barcode barang.<br><small>Harus izinkan kamera + buka lewat HTTPS (link github.io lu udah HTTPS)</small></p>
+  <h3 style="margin:0">📷 Scan Barcode</h3><p style="font-size:13px">Arahkan kamera ke barcode barang.<br><small>Harus izinkan kamera + buka lewat HTTPS</small></p>
   <video id="camVideo" playsinline muted></video>
   <p id="camStatus" style="font-size:13px;color:#B42318"></p>
   <button class="btn btn-green" onclick="simulasiScan()">🎲 Simulasi Scan (kalau kamera gak deteksi)</button>
   <button class="btn btn-light" style="margin-top:8px" onclick="tutupKamera()">Tutup Kamera</button>
   <input id="kodeManual" placeholder="Atau ketik kode barcode manual, contoh: 899001" style="margin-top:8px"><button class="btn btn-green" onclick="scanManual()">Cari Kode Ini</button>
+</div></div>
+
+<!-- POPUP PILIH METODE PEMBAYARAN DI TRANSAKSI -->
+<div id="popupBayar" class="modal"><div class="modalBox">
+  <div class="flex" style="align-items:center"><h3 style="margin:0">💳 Pilih Metode Pembayaran</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupBayar()">✕</button></div>
+  <p style="font-size:13px;color:#666">Klik salah satu untuk memilih.</p>
+  <div id="listPopupBayar"></div>
+  <div id="qrisDiPopup" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:12px;margin-top:8px"><b id="qrisNamaPopup">QRIS</b><br><img id="qrisImgPopup" src="" style="width:170px;height:170px;margin:8px auto;display:block"><small>Suruh pembeli scan QR ini</small><br><b id="qrisTotalPopup"></b></div>
+  <button class="btn btn-green" style="margin-top:12px" onclick="konfirmasiBayarPopup()">✅ Pakai Metode Ini</button>
+</div></div>
+
+<!-- POPUP TAMBAH METODE PEMBAYARAN DI PROFIL -->
+<div id="popupTambahBayar" class="modal"><div class="modalBox">
+  <div class="flex" style="align-items:center"><h3 style="margin:0">+ Tambah Metode Pembayaran</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupTambahBayar()">✕</button></div>
+  <label>Pilih Bank / Metode</label>
+  <select id="tambahBank" onchange="gantiLabelTambah()">
+    <option>BRI</option><option>BCA</option><option>Mandiri</option><option>BNI</option><option>BSI</option><option>SeaBank</option><option>DANA</option><option>GoPay</option><option>OVO</option><option>QRIS</option>
+  </select>
+  <label id="labelNoRek">Masukkan No Rekening</label>
+  <input id="tambahNoRek" placeholder="Contoh: 1234-5678-9012">
+  <label id="labelNamaPemilik">Nama Pemilik Bank</label>
+  <input id="tambahNamaPemilik" placeholder="Contoh: Budi Santoso">
+  <button class="btn btn-green" onclick="simpanMetodeBaru()">💾 Simpan</button>
 </div></div>
 
 <script>
@@ -151,54 +169,79 @@ let produk=[
  {nama:'Kopi Kapal Api',kat:'Minuman',harga:9500,stok:12,emoji:'☕',exp:'2027-02-10',kode:'899007'}
 ];
 let pelanggan=[['Budi Santoso','0812-3456-7890'],['Siti Nurhaliza','0821-9988-7766'],['Andi Pratama','0857-1122-3344']];
-let cart={}, katAktif='Semua', periode='Bulanan', riwayat=[], hasilScan=[], metodeDipilih='Tunai', streamCam=null;
-// DATA PEMBAYARAN DARI PROFIL
-let bayarSetting={
-  banks:{BRI:{no:'1234-5678-9012',aktif:true},BCA:{no:'123-456-7890',aktif:true},Mandiri:{no:'123-00-4567890',aktif:false},BNI:{no:'1234567890',aktif:false}},
-  qris:{nama:'WARUNG PINTAR SENEN',id:'ID10234567890',aktif:true}
-};
+let cart={}, katAktif='Semua', periode='Bulanan', hasilScan=[], streamCam=null;
+// RIWAYAT CONTOH + RIWAYAT ASLI DARI TRANSAKSI
+let riwayat=[
+ {jam:'14:20',items:'Indomie Goreng x2, Aqua 600ml x1',total:12000,metode:'QRIS'},
+ {jam:'13:05',items:'Gula Pasir 1kg x1',total:16000,metode:'BRI'},
+ {jam:'11:40',items:'Kopi Kapal Api x3',total:28500,metode:'Tunai'},
+ {jam:'10:15',items:'Beras 5kg x1',total:65000,metode:'BCA'},
+ {jam:'09:02',items:'Gudang Garam x1',total:32000,metode:'Tunai'}
+];
+// METODE BAYAR YANG TERSIMPAN DI PROFIL
+let metodeList=[
+ {bank:'BRI',no:'1234-5678-9012',nama:'Budi Santoso',aktif:true},
+ {bank:'BCA',no:'123-456-7890',nama:'Budi Santoso',aktif:true},
+ {bank:'QRIS',no:'ID10234567890',nama:'WARUNG PINTAR SENEN',aktif:true}
+];
+let metodeDipilih='Tunai', metodeSementara='Tunai';
 let fmt=n=>'Rp '+n.toLocaleString('id-ID');
 let fmtTgl=t=>{if(!t)return '-';return new Date(t+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})};
 document.getElementById('tgl').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
 function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');window.scrollTo(0,0)}
 function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';document.getElementById('eyeBtn').textContent=lihatSaldo?'🙈':'👁️'}
 function setKat(k,btn){katAktif=k;document.querySelectorAll('#p-transaksi .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');cariScan()}
-// === HASIL SCAN ===
 function cariScan(){let q=(document.getElementById('cari').value||'').toLowerCase();if(!q){hasilScan=[];renderScan();return}hasilScan=produk.filter(p=>(katAktif==='Semua'||p.kat===katAktif)&&(p.nama.toLowerCase().includes(q)||p.kode.includes(q)));renderScan()}
 function renderScan(){let el=document.getElementById('hasilScan');if(!hasilScan.length){el.innerHTML='<p style="color:#777">Belum ada barang di-scan. Klik Scan Barcode atau ketik nama barang di atas.</p>';return}el.innerHTML=hasilScan.map(p=>{let i=produk.indexOf(p);return `<div class="item"><span class="thumb">${p.emoji}</span><span style="flex:1"><b>${p.nama}</b><br><small>Harga: ${fmt(p.harga)}<br>📅 Expired: ${fmtTgl(p.exp)}<br>Kode: ${p.kode} • Stok: ${p.stok}</small></span><button class="btn btn-green" style="width:auto;padding:10px 14px" onclick="addCart(${i})">+ Keranjang</button></div>`}).join('')}
 function addCart(i){if(produk[i].stok<=0)return alert('Stok habis!');cart[i]=(cart[i]||0)+1;renderCart()}
 function renderCart(){let html='',total=0;for(let k in cart){let p=produk[k],sub=p.harga*cart[k];total+=sub;html+=`<div class="cartRow"><span>${p.nama} x ${cart[k]}<br><small>Exp: ${fmtTgl(p.exp)}</small></span><span>${fmt(sub)} <button onclick="ubahCart(${k},-1)">-</button> <button onclick="ubahCart(${k},1)">+</button></span></div>`}document.getElementById('cartList').innerHTML=html||'<p style="color:#777">Belum ada barang ditambahkan</p>';document.getElementById('cartTotal').textContent=fmt(total);updateQRISTotal(total)}
 function ubahCart(k,d){cart[k]+=d;if(cart[k]<=0)delete cart[k];renderCart()}
-// === KAMERA ASLI ===
+function getTotalCart(){return Object.keys(cart).reduce((s,k)=>s+produk[k].harga*cart[k],0)}
+function getMetodeObj(nama){if(nama==='Tunai')return{bank:'Tunai',no:'Bayar Cash',nama:'Bayar langsung'};return metodeList.find(m=>m.bank===nama)}
+// === POPUP BAYAR DI TRANSAKSI ===
+function bukaPopupBayar(){metodeSementara=metodeDipilih;renderPopupBayar();document.getElementById('popupBayar').classList.add('open')}
+function tutupPopupBayar(){document.getElementById('popupBayar').classList.remove('open')}
+function renderPopupBayar(){let list=[{bank:'Tunai',no:'Bayar Cash',nama:'Bayar langsung'},...metodeList.filter(m=>m.aktif)];document.getElementById('listPopupBayar').innerHTML=list.map(m=>`<button class="payItem ${metodeSementara===m.bank?'active':''}" onclick="pilihSementara('${m.bank}')"><span><b>${m.bank==='QRIS'?'📷 QRIS':'🏦 '+m.bank}</b><br><small>${m.bank==='QRIS'?'Nama: '+m.nama+' • ID: '+m.no:m.no+' • a.n '+m.nama}</small></span><span>${metodeSementara===m.bank?'✅':''}</span></button>`).join('');updateQRISPopup()}
+function pilihSementara(bank){metodeSementara=bank;renderPopupBayar()}
+function updateQRISPopup(){let total=getTotalCart();let isQRIS=metodeSementara==='QRIS';document.getElementById('qrisDiPopup').classList.toggle('hidden',!isQRIS);if(isQRIS){let q=metodeList.find(m=>m.bank==='QRIS');let data='QRIS|'+(q?q.nama:'')+'|'+(q?q.no:'');document.getElementById('qrisImgPopup').src='https://api.qrserver.com/v1/create-qr-code/?size=170x170&data='+encodeURIComponent(data);document.getElementById('qrisNamaPopup').textContent=q?q.nama:'QRIS';document.getElementById('qrisTotalPopup').textContent='Total bayar: '+fmt(total)}}
+function konfirmasiBayarPopup(){metodeDipilih=metodeSementara;let m=getMetodeObj(metodeDipilih);document.getElementById('metodeTerpilihText').textContent=metodeDipilih==='Tunai'?'Tunai - Bayar Cash':metodeDipilih+' - '+(m?m.no:'');document.getElementById('metodeInfo').textContent=metodeDipilih==='Tunai'?'Bayar langsung dengan uang tunai.':metodeDipilih==='QRIS'?'Pembeli scan QRIS di bawah ini.':('Transfer ke '+metodeDipilih+' '+m.no+' a.n '+m.nama);let box=document.getElementById('qrisBoxTransaksi');if(metodeDipilih==='QRIS'){box.classList.remove('hidden');let q=metodeList.find(x=>x.bank==='QRIS');let data='QRIS|'+(q?q.nama:'')+'|'+(q?q.no:'');document.getElementById('qrisImgTransaksi').src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(data);document.getElementById('qrisNamaTransaksi').textContent=q?q.nama:'QRIS';document.getElementById('qrisTotalTransaksi').textContent=fmt(getTotalCart())}else box.classList.add('hidden');tutupPopupBayar()}
+function updateQRISTotal(total){if(metodeDipilih==='QRIS')document.getElementById('qrisTotalTransaksi').textContent=fmt(total);if(metodeSementara==='QRIS')document.getElementById('qrisTotalPopup').textContent='Total bayar: '+fmt(total)}
+function bayar(){let total=getTotalCart();if(!total)return alert('Keranjang masih kosong!');if(metodeDipilih==='QRIS'&&!confirm('Pembeli sudah scan QRIS & bayar '+fmt(total)+'? Klik OK kalau sudah.'))return;let items=Object.keys(cart).map(k=>produk[k].nama+' x'+cart[k]).join(', ');riwayat.unshift({jam:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}),items,total,metode:metodeDipilih});saldoAsli+=total;produk.forEach((p,i)=>{if(cart[i])p.stok-=cart[i]});cart={};renderCart();renderAll();alert('Pembayaran '+metodeDipilih+' berhasil! Total '+fmt(total));document.getElementById('qrisBoxTransaksi').classList.add('hidden')}
+function kirimWA(){let total=getTotalCart();if(!total)return alert('Keranjang masih kosong!');let teks='Halo, struk Warung Pintar:%0A'+Object.keys(cart).map(k=>`- ${produk[k].nama} x ${cart[k]} = ${fmt(produk[k].harga*cart[k])}`).join('%0A')+`%0ATotal: ${fmt(total)}%0ABayar: ${metodeDipilih}`;window.open('https://wa.me/6281234567890?text='+teks,'_blank')}
+// === KAMERA ===
 async function bukaKamera(){document.getElementById('camModal').classList.add('open');let v=document.getElementById('camVideo'),st=document.getElementById('camStatus');st.textContent='Meminta izin kamera...';try{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)throw new Error('Browser ini tidak support kamera. Pakai Chrome di HP.');streamCam=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});v.srcObject=streamCam;await v.play();st.textContent='Kamera aktif ✅ Arahkan ke barcode, lalu klik Simulasi Scan / ketik kode manual.';mulaiDeteksiBarcode();}catch(e){st.textContent='Kamera gagal dibuka: '+e.message+' — Cek: 1) Klik Allow/Izinkan, 2) Tutup aplikasi kamera lain, 3) Buka lewat HTTPS.'}}
 async function mulaiDeteksiBarcode(){if(!('BarcodeDetector' in window))return;try{let det=new BarcodeDetector({formats:['ean_13','ean_8','code_128','qr_code']});let v=document.getElementById('camVideo');let loop=async()=>{if(!streamCam)return;try{let codes=await det.detect(v);if(codes.length){let kode=codes[0].rawValue;document.getElementById('kodeManual').value=kode;scanManual();return}}catch(e){}requestAnimationFrame(loop)};loop()}catch(e){}}
 function tutupKamera(){document.getElementById('camModal').classList.remove('open');if(streamCam){streamCam.getTracks().forEach(t=>t.stop());streamCam=null}}
 function simulasiScan(){let acak=produk[Math.floor(Math.random()*produk.length)];hasilScan=[acak];renderScan();tutupKamera();alert('Berhasil scan: '+acak.nama+' - '+fmt(acak.harga)+' - Exp: '+fmtTgl(acak.exp));go('transaksi')}
 function scanManual(){let kode=document.getElementById('kodeManual').value.trim();if(!kode)return alert('Isi kode dulu!');let p=produk.find(x=>x.kode===kode||x.nama.toLowerCase().includes(kode.toLowerCase()));if(!p)return alert('Kode '+kode+' tidak ketemu di stok!');hasilScan=[p];renderScan();tutupKamera();alert('Ketemu: '+p.nama)}
-// === PEMBAYARAN ===
-function renderPay(){let list=[{nama:'Tunai',ket:'Bayar Cash'}];for(let b in bayarSetting.banks){if(bayarSetting.banks[b].aktif)list.push({nama:b,ket:bayarSetting.banks[b].no})}if(bayarSetting.qris.aktif)list.push({nama:'QRIS',ket:bayarSetting.qris.nama});document.getElementById('payList').innerHTML=list.map(m=>`<button class="payBtn ${metodeDipilih===m.nama?'active':''}" onclick="pilihBayar('${m.nama}')">${m.nama}<br><small>${m.ket}</small></button>`).join('')}
-function pilihBayar(n){metodeDipilih=n;renderPay();let box=document.getElementById('qrisBox');if(n==='QRIS'){box.classList.remove('hidden');let data='QRIS|'+bayarSetting.qris.nama+'|'+bayarSetting.qris.id;document.getElementById('qrisImg').src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(data);document.getElementById('qrisNama').textContent=bayarSetting.qris.nama;let total=Object.keys(cart).reduce((s,k)=>s+produk[k].harga*cart[k],0);document.getElementById('qrisTotal').textContent=fmt(total)}else box.classList.add('hidden')}
-function updateQRISTotal(total){if(metodeDipilih==='QRIS')document.getElementById('qrisTotal').textContent=fmt(total)}
-function bayar(){let total=Object.keys(cart).reduce((s,k)=>s+produk[k].harga*cart[k],0);if(!total)return alert('Keranjang masih kosong!');if(metodeDipilih==='QRIS'&&!confirm('Pembeli sudah scan QRIS & bayar '+fmt(total)+'? Klik OK kalau sudah.'))return;riwayat.push({total,tgl:new Date(),metode:metodeDipilih});saldoAsli+=total;produk.forEach((p,i)=>{if(cart[i])p.stok-=cart[i]});cart={};renderCart();renderAll();alert('Pembayaran '+metodeDipilih+' berhasil! Total '+fmt(total));document.getElementById('qrisBox').classList.add('hidden')}
-function kirimWA(){let total=Object.keys(cart).reduce((s,k)=>s+produk[k].harga*cart[k],0);if(!total)return alert('Keranjang masih kosong!');let teks='Halo, struk Warung Pintar:%0A'+Object.keys(cart).map(k=>`- ${produk[k].nama} x ${cart[k]} = ${fmt(produk[k].harga*cart[k])}`).join('%0A')+`%0ATotal: ${fmt(total)}%0ABayar: ${metodeDipilih}`;window.open('https://wa.me/6281234567890?text='+teks,'_blank')}
 // === PRODUK ===
 function tambahStok(){let nama=document.getElementById('fNama').value.trim(),harga=+document.getElementById('fHarga').value,stok=+document.getElementById('fStok').value;if(!nama||!harga||!stok)return alert('Nama, harga, dan stok wajib diisi!');let ada=produk.find(p=>p.nama.toLowerCase()===nama.toLowerCase());let exp=document.getElementById('fExp').value||'2026-12-31';let kode=document.getElementById('fKode').value||('899'+Math.floor(Math.random()*900+100));if(ada){ada.stok+=stok;ada.harga=harga;ada.exp=exp;if(kode)ada.kode=kode}else produk.push({nama,kat:document.getElementById('fKat').value,harga,stok,emoji:'📦',exp,kode});['fNama','fHarga','fStok','fExp','fKode'].forEach(id=>document.getElementById(id).value='');renderAll();alert('Stok berhasil disimpan!')}
-function renderAll(){document.getElementById('stokHome').innerHTML=produk.slice(0,4).map(p=>`<div class="item"><span class="thumb">${p.emoji}</span><span style="flex:1"><b>${p.nama}</b><br><small>${p.stok} Stok • Exp ${fmtTgl(p.exp)}</small></span></div>`).join('');
-document.getElementById('produkList').innerHTML=produk.map(p=>`<div class="item"><span class="thumb">${p.emoji}</span><span style="flex:1"><b>${p.nama}</b><br><small>${fmt(p.harga)} • Stok: ${p.stok}<br>Exp: ${fmtTgl(p.exp)} • Kode: ${p.kode}</small></span><span class="badge ${p.stok<=4?'warn':'red'}">${p.stok<=4?'Hampir Habis':'Tersedia'}</span></div>`).join('');
-document.getElementById('hampirHabis').innerHTML=produk.filter(p=>p.stok<=4).map(p=>`<div class="item"><span>⚠️</span><span style="flex:1"><b>${p.nama}</b><br><small>Sisa ${p.stok} stok • Exp ${fmtTgl(p.exp)}</small></span><span class="badge warn">Hampir Habis</span></div>`).join('')||'<p>Semua stok aman 👍</p>';
-document.getElementById('pelanggan').innerHTML=pelanggan.map(p=>`<div class="item"><span class="thumb">${p[0][0]}</span><span style="flex:1"><b>${p[0]}</b><br><small>${p[1]}</small></span><a href="https://wa.me/62${p[1].slice(1)}" target="_blank">💬</a></div>`).join('');
-let totalBulan=riwayat.reduce((s,r)=>s+r.total,0)+12450000;document.getElementById('totalBulan').textContent=fmt(totalBulan);document.getElementById('totalJual').textContent=fmt(4250000+totalBulan-12450000);
-document.getElementById('chart').innerHTML=[30,45,35,55,48,95,60,70].map(v=>`<div style="height:${v}%">${v}</div>`).join('');
-document.getElementById('chartBulan').innerHTML=[40,55,50,60,45,70,55,80,65,75,85,95].map(v=>`<div style="height:${v}%"></div>`).join('')}
-function setPeriode(p,btn){periode=p;document.querySelectorAll('#p-laporan .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
-function tarikData(){let rows=[['Tanggal','Barang','Total','Metode'],...riwayat.map(r=>[r.tgl.toLocaleDateString('id-ID'),'Penjualan',r.total,r.metode||''])];if(riwayat.length===0)rows.push([new Date().toLocaleDateString('id-ID'),'Contoh',0,'']);let csv=rows.map(r=>r.join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='laporan-'+periode+'.csv';a.click();alert('Data '+periode+' berhasil ditarik!')}
+// === PROFIL : TAMBAH METODE VIA POPUP ===
+function bukaPopupTambahBayar(){document.getElementById('popupTambahBayar').classList.add('open');gantiLabelTambah()}
+function tutupPopupTambahBayar(){document.getElementById('popupTambahBayar').classList.remove('open')}
+function gantiLabelTambah(){let b=document.getElementById('tambahBank').value;let isQRIS=b==='QRIS';document.getElementById('labelNoRek').textContent=isQRIS?'ID / Nomor QRIS':'Masukkan No Rekening';document.getElementById('tambahNoRek').placeholder=isQRIS?'Contoh: ID10234567890':'Contoh: 1234-5678-9012';document.getElementById('labelNamaPemilik').textContent=isQRIS?'Nama QRIS / Nama Toko':'Nama Pemilik Bank';document.getElementById('tambahNamaPemilik').placeholder=isQRIS?'Contoh: WARUNG PINTAR SENEN':'Contoh: Budi Santoso'}
+function simpanMetodeBaru(){let bank=document.getElementById('tambahBank').value,no=document.getElementById('tambahNoRek').value.trim(),nama=document.getElementById('tambahNamaPemilik').value.trim();if(!no||!nama)return alert('No rekening & nama pemilik wajib diisi!');let ada=metodeList.find(m=>m.bank===bank);if(ada){ada.no=no;ada.nama=nama;ada.aktif=true}else metodeList.push({bank,no,nama,aktif:true});document.getElementById('tambahNoRek').value='';document.getElementById('tambahNamaPemilik').value='';tutupPopupTambahBayar();renderDaftarBayar();alert(bank+' berhasil disimpan!')}
+function renderDaftarBayar(){let el=document.getElementById('daftarBayarTersimpan');if(!metodeList.length){el.innerHTML='<p style="color:#777;font-size:13px">Belum ada metode pembayaran. Klik tombol di bawah untuk menambah.</p>';return}el.innerHTML=metodeList.map((m,i)=>`<div class="item" style="border:1px solid #E6EFE9"><span style="flex:1"><b>${m.bank==='QRIS'?'📷 QRIS':'🏦 '+m.bank}</b><br><small>${m.bank==='QRIS'?'ID: '+m.no+' • '+m.nama:m.no+' • a.n '+m.nama}</small><br><span class="badge ${m.aktif?'':'warn'}">${m.aktif?'Aktif ✅':'Nonaktif'}</span></span><button class="btn btn-light" style="width:auto;padding:8px 10px" onclick="toggleAktifBayar(${i})">${m.aktif?'Nonaktifkan':'Aktifkan'}</button><button class="btn btn-pink" style="width:auto;padding:8px 10px" onclick="hapusBayar(${i})">🗑️</button></div>`).join('')}
+function toggleAktifBayar(i){metodeList[i].aktif=!metodeList[i].aktif;renderDaftarBayar()}
+function hapusBayar(i){if(!confirm('Hapus '+metodeList[i].bank+'?'))return;let bankHapus=metodeList[i].bank;metodeList.splice(i,1);if(metodeDipilih===bankHapus)metodeDipilih='Tunai';renderDaftarBayar()}
 function editProfil(){let n=prompt('Nama Warung:', 'Warung Pintar Senen');if(n)alert('Profil disimpan: '+n)}
-// === PROFIL BAYAR ===
-function renderBankForm(){document.getElementById('bankList').innerHTML=Object.keys(bayarSetting.banks).map(b=>`<div class="switchRow"><span>🏦 ${b}<br><input id="bank-${b}" value="${bayarSetting.banks[b].no}" style="margin:4px 0 0;padding:8px"></span><select id="bankAktif-${b}" style="width:110px;margin:0"><option value="1" ${bayarSetting.banks[b].aktif?'selected':''}>Aktif ✅</option><option value="0" ${!bayarSetting.banks[b].aktif?'selected':''}>Nonaktif</option></select></div>`).join('');updateQRISPreview()}
-function updateQRISPreview(){let nama=document.getElementById('qrisNamaInput').value||bayarSetting.qris.nama;let id=document.getElementById('qrisIdInput').value||bayarSetting.qris.id;let data='QRIS|'+nama+'|'+id;document.getElementById('qrisPreview').src='https://api.qrserver.com/v1/create-qr-code/?size=160x160&data='+encodeURIComponent(data);document.getElementById('qrisPreviewText').textContent=nama+' • '+id}
-function simpanBayar(){for(let b in bayarSetting.banks){bayarSetting.banks[b].no=document.getElementById('bank-'+b).value;bayarSetting.banks[b].aktif=document.getElementById('bankAktif-'+b).value==='1'}bayarSetting.qris.nama=document.getElementById('qrisNamaInput').value;bayarSetting.qris.id=document.getElementById('qrisIdInput').value;bayarSetting.qris.aktif=document.getElementById('qrisAktif').value==='1';if(!['Tunai','QRIS',...Object.keys(bayarSetting.banks)].includes(metodeDipilih))metodeDipilih='Tunai';renderPay();updateQRISPreview();alert('Metode pembayaran tersimpan! Cek menu Transaksi.')}
-document.getElementById('qrisNamaInput').addEventListener('input',updateQRISPreview);document.getElementById('qrisIdInput').addEventListener('input',updateQRISPreview);
-renderPay();renderBankForm();renderAll();
+function setPeriode(p,btn){periode=p;document.querySelectorAll('#p-laporan .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
+function tarikData(){let rows=[['Tanggal','Barang','Total','Metode'],...riwayat.map(r=>[r.jam,r.items,r.total,r.metode||''])];let csv=rows.map(r=>r.join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='laporan-'+periode+'.csv';a.click();alert('Data '+periode+' berhasil ditarik!')}
+function renderAll(){
+ // Alert stok tipis
+ let tipis=produk.filter(p=>p.stok<=4);
+ document.getElementById('alertStok').innerHTML=tipis.length?`<div class="card" style="background:#FFF3CD;border:1px solid #FFE9B8">⚠️ <b>Stok Tipis:</b> ${tipis.map(p=>p.nama+' ('+p.stok+')').join(', ')} — buruan restock!</div>`:'';
+ // Riwayat di Home
+ document.getElementById('riwayatHome').innerHTML=riwayat.slice(0,5).map(r=>`<div class="item"><span class="thumb">🧾</span><span style="flex:1"><b>${r.items}</b><br><small>🕒 ${r.jam} • Bayar: ${r.metode}</small></span><b>${fmt(r.total)}</b></div>`).join('')||'<p style="color:#777">Belum ada transaksi hari ini.</p>';
+ document.getElementById('produkList').innerHTML=produk.map(p=>`<div class="item"><span class="thumb">${p.emoji}</span><span style="flex:1"><b>${p.nama}</b><br><small>${fmt(p.harga)} • Stok: ${p.stok}<br>Exp: ${fmtTgl(p.exp)} • Kode: ${p.kode}</small></span><span class="badge ${p.stok<=4?'warn':''}">${p.stok<=4?'Hampir Habis':'Tersedia'}</span></div>`).join('');
+ document.getElementById('hampirHabis').innerHTML=produk.filter(p=>p.stok<=4).map(p=>`<div class="item"><span>⚠️</span><span style="flex:1"><b>${p.nama}</b><br><small>Sisa ${p.stok} stok • Exp ${fmtTgl(p.exp)}</small></span><span class="badge warn">Hampir Habis</span></div>`).join('')||'<p>Semua stok aman 👍</p>';
+ document.getElementById('pelanggan').innerHTML=pelanggan.map(p=>`<div class="item"><span class="thumb">${p[0][0]}</span><span style="flex:1"><b>${p[0]}</b><br><small>${p[1]}</small></span><a href="https://wa.me/62${p[1].slice(1)}" target="_blank">💬</a></div>`).join('');
+ let totalBulan=riwayat.reduce((s,r)=>s+r.total,0)+12450000;document.getElementById('totalBulan').textContent=fmt(totalBulan);document.getElementById('totalJual').textContent=fmt(4250000+totalBulan-12450000);
+ document.getElementById('chart').innerHTML=[30,45,35,55,48,95,60,70].map(v=>`<div style="height:${v}%">${v}</div>`).join('');
+ document.getElementById('chartBulan').innerHTML=[40,55,50,60,45,70,55,80,65,75,85,95].map(v=>`<div style="height:${v}%"></div>`).join('');
+ renderDaftarBayar();
+}
+renderAll();
 </script>
 </body>
 </html>
