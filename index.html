@@ -122,7 +122,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <div class="card"><h3>Data Pelanggan</h3><div id="pelanggan"></div></div>
 </div>
 
-<!-- PROFIL - TOMBOL LUAR DINAMIS -->
+<!-- PROFIL - UDAH GAK ADA TOMBOL KUNCI / LOGOUT DI SINI -->
 <div id="p-profil" class="page">
   <h2 style="text-align:center">Profil</h2>
   <div class="card" style="background:#6BB98A;color:#fff"><b>Profil Pengusaha</b>
@@ -133,11 +133,12 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <button class="menuRow" onclick="go('pengaturan')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">⚙️</span><span>Pengaturan<small>PIN, Sidik Jari, No WA, Rekening & Akun Email</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="alert('Bantuan: Hubungi WA Warung Pintar di nomor yang ada di Profil Warung.')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">❓</span><span>Bantuan<small>Cara pakai, struk & transaksi</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="alert('Warung Pintar v1.0')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">ℹ️</span><span>Tentang Aplikasi<small>Warung Pintar v1.0</small></span></span><span>›</span></button>
-    <!-- TOMBOL LUAR - BERUBAH OTOMATIS -->
-    <button class="btn btn-green" id="btnProfilLuar" style="margin-top:12px" onclick="klikTombolLuar()">🟢 Login / Registrasi</button>
+    <!-- KALAU BELUM LOGIN, TOMBOL INI MUNCUL. KALAU UDAH LOGIN, TOMBOL INI ILANG, KARENA LOGOUT PINDAH KE PENGATURAN -->
+    <button class="btn btn-green" id="btnProfilLuar" style="margin-top:12px" onclick="bukaPopupAuth()">🟢 Login / Registrasi</button>
   </div>
 </div>
 
+<!-- PENGATURAN - LOGOUT PINDAH KE SINI, DI BAWAH POINT & DOMPET -->
 <div id="p-pengaturan" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('profil')">‹</button><h2 style="flex:1;margin:0;text-align:center">Pengaturan</h2><span style="width:52px"></span></div>
   <div class="card" style="padding:6px 14px;margin-top:14px">
@@ -148,9 +149,11 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <button class="menuRow" onclick="go('pengaturan-akun')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">🔗</span><span>Akun Terhubung<small>Rekening, QRIS, DANA, GoPay</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="go('pengaturan-point')" style="border-bottom:0"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">💰</span><span>Point & Dompet<small>1.250 Poin • Level Silver</small></span></span><span>›</span></button>
   </div>
+  <!-- LOGOUT - DI BAWAH POINT & DOMPET, SESUAI REQUEST LU -->
+  <button class="btn btn-pink" id="btnLogoutPengaturan" onclick="logoutAkun()">🚪 Logout</button>
+  <small id="logoutHint" style="color:#666;display:block;text-align:center;margin-top:8px">Logout akan mengembalikanmu ke halaman login. Data warung tetap aman.</small>
 </div>
 
-<!-- PROFILE SETTINGS - LOGOUT DI DALEM SINI -->
 <div id="p-pengaturan-profil" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">👤 Profile Settings</h2></div>
   <div class="card" style="margin-top:14px"><h3 style="margin:0">🏪 Profil Warung</h3>
@@ -162,7 +165,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   </div>
   <div class="card"><h3 style="margin:0">📧 Akun Email</h3><small>Login pakai email. Akun ini yang muncul di Profil.</small>
     <div id="akunBelumLogin">
-      <p style="font-size:13px;color:#666">Kamu belum login. Pencet tombol <b>Login / Registrasi</b> di halaman Profil, atau pakai form di bawah ini.</p>
+      <p style="font-size:13px;color:#666">Kamu belum login. Pencet tombol <b>Login / Registrasi</b> di halaman Profil.</p>
       <label style="margin-top:10px">Nama Lengkap</label><input id="regNama" placeholder="Contoh: Budi Santoso">
       <label>Email</label><input id="regEmail" type="email" placeholder="Contoh: budi@gmail.com">
       <label>Password</label><input id="regPass" type="password" placeholder="Minimal 6 karakter">
@@ -170,9 +173,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     </div>
     <div id="akunSudahLogin" class="hidden">
       <div class="item" style="border:1px solid #BFE3CB"><span style="flex:1"><b id="akunNamaTampil"></b><br><small id="akunEmailTampil"></small><br><span class="badge">Login ✅</span></span></div>
-      <!-- LOGOUT PINDAH KE SINI -->
       <button class="btn btn-pink" onclick="logoutAkun()">🚪 Logout Akun</button>
-      <small style="color:#666;display:block;text-align:center;margin-top:8px">Logout akan mengembalikanmu ke halaman login. Data warung tetap aman.</small>
     </div>
   </div>
 </div>
@@ -227,7 +228,6 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button onclick="go('profil',this)">👤<br>Profil</button>
 </nav>
 
-<!-- POPUP LOGIN / REGISTRASI -->
 <div id="popupAuth" class="modal"><div class="modalBox">
   <div class="flex" style="align-items:center"><h3 style="margin:0">👋 Selamat Datang</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupAuth()">✕</button></div>
   <p style="font-size:13px;color:#666">Udah punya akun? Login. Belum punya? Daftar dulu, gratis.</p>
@@ -312,9 +312,19 @@ let fmt=n=>'Rp '+n.toLocaleString('id-ID');
 document.getElementById('tgl').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
 function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let el=document.getElementById('p-'+id);if(el)el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='pengaturan-profil')isiSettingWarung();if(id==='pengaturan-notif')renderNotifSetting();if(id==='pengaturan-verif')renderVerif();if(id==='notifikasi')renderNotifikasi();if(id==='produk')renderSheetStatus();if(id==='profil')document.querySelectorAll('.nav button')[4].classList.add('active');window.scrollTo(0,0)}
 function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';document.getElementById('eyeBtn').textContent=lihatSaldo?'🙈':'👁️'}
-// === TOMBOL LUAR PROFIL - LOGIN / REGISTRASI <-> KUNCI ===
-function renderTombolLuar(){let btn=document.getElementById('btnProfilLuar');if(!currentUser){btn.className='btn btn-green';btn.textContent='🟢 Login / Registrasi';btn.style.marginTop='12px'}else{btn.className='btn btn-pink';btn.textContent='🔒 Kunci Aplikasi';btn.style.marginTop='12px'}}
-function klikTombolLuar(){if(!currentUser){bukaPopupAuth()}else{kunciAplikasi()}}
+// === TOMBOL LUAR PROFIL + LOGOUT DI PENGATURAN ===
+function renderTombolLuar(){
+  let btn=document.getElementById('btnProfilLuar');
+  let btnLogout=document.getElementById('btnLogoutPengaturan');
+  let hint=document.getElementById('logoutHint');
+  if(!currentUser){
+    btn.classList.remove('hidden'); btn.className='btn btn-green'; btn.textContent='🟢 Login / Registrasi';
+    if(btnLogout){btnLogout.classList.add('hidden'); hint.classList.add('hidden');}
+  } else {
+    btn.classList.add('hidden');
+    if(btnLogout){btnLogout.classList.remove('hidden'); btnLogout.className='btn btn-pink'; btnLogout.textContent='🚪 Logout'; hint.classList.remove('hidden');}
+  }
+}
 function bukaPopupAuth(){setTabPopupAuth('login');document.getElementById('popupAuth').classList.add('open')}
 function tutupPopupAuth(){document.getElementById('popupAuth').classList.remove('open')}
 function setTabPopupAuth(tab){document.getElementById('popupAuthLogin').classList.toggle('hidden',tab!=='login');document.getElementById('popupAuthReg').classList.toggle('hidden',tab!=='reg');document.getElementById('tabAuthLogin').className='btn '+(tab==='login'?'btn-outline':'btn-light');document.getElementById('tabAuthReg').className='btn '+(tab==='reg'?'btn-outline':'btn-light')}
@@ -352,12 +362,11 @@ function gantiPin(){let v=document.getElementById('pinBaru').value.trim();if(v.l
 document.getElementById('inputPin').addEventListener('keyup',e=>{if(e.key==='Enter')cekPin()});
 function hashPass(p){let h=0;for(let i=0;i<p.length;i++){h=((h<<5)-h)+p.charCodeAt(i);h=h&h}return 'h'+h}
 function renderAkun(){let login=!!currentUser;document.getElementById('akunBelumLogin').classList.toggle('hidden',login);document.getElementById('akunSudahLogin').classList.toggle('hidden',!login);if(login){document.getElementById('akunNamaTampil').textContent=currentUser.nama;document.getElementById('akunEmailTampil').textContent=currentUser.email;document.getElementById('topUser').textContent='Halo, '+currentUser.nama;document.getElementById('profilEmail').textContent='📧 '+currentUser.email+(verifEmail?' • Terverifikasi ✅':'')}else{document.getElementById('topUser').textContent='Dashboard Kasir';document.getElementById('profilEmail').textContent='📧 Belum login email'}renderTombolLuar()}
-function registerAkun(){let nama=document.getElementById('regNama').value.trim(),email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;if(!nama||!email||!pass)return alert('Nama, email, dan password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');users.push({nama,email,pass:hashPass(pass),credId:null});currentUser={nama,email};verifEmail=false;saveAll();renderAkun();tambahNotif('Akun Email Dibuat','Selamat datang, '+nama+'!','📧');alert('Akun berhasil dibuat!')}
+function registerAkun(){let nama=document.getElementById('regNama').value.trim(),email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;if(!nama||!email||!pass)return alert('Nama, email, dan password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');users.push({nama,email,pass:hashPass(pass),credId:null});saveAll();renderAkun();alert('Akun berhasil dibuat! Sekarang Login ya.')}
 function loginEmail(){let email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;return loginDengan(email,pass)}
 function loginEmailDariKunci(){let email=(document.getElementById('loginEmailInput').value||'').trim().toLowerCase(),pass=document.getElementById('loginPassInput').value;return loginDengan(email,pass)}
 function loginDengan(email,pass){if(!email||!pass){alert('Isi email & password dulu!');return false}let u=users.find(x=>x.email===email);if(!u){alert('Email belum terdaftar! Daftar dulu.');return false}if(u.pass!==hashPass(pass)){document.getElementById('pinError').textContent='❌ Email / password salah!';alert('Password salah!');return false}currentUser={nama:u.nama,email:u.email};if(u.warung){profil.warung=u.warung;profil.pemilik=u.nama;if(u.wa)profil.wa=u.wa;renderProfil()}saveAll();renderAkun();bukaAplikasi();alert('Login berhasil! Halo, '+u.nama);return true}
-function logoutAkun(){if(!confirm('Yakin mau logout? Nanti harus login lagi pake email & password.'))return;currentUser=null;verifEmail=false;saveAll();renderAkun();go('profil');alert('Berhasil logout. Pencet Login / Registrasi di bawah untuk masuk lagi.')}
-function logoutSemua(){logoutAkun()}
+function logoutAkun(){if(!confirm('Yakin mau logout? Nanti harus login lagi pake email & password.'))return;currentUser=null;verifEmail=false;saveAll();renderAkun();go('profil');alert('Berhasil logout. Pencet Login / Registrasi di Profil untuk masuk lagi.')}
 function updateStatusSidik(){let u=currentUser?users.find(x=>x.email===currentUser.email):users[0];let ada=u&&u.credId;document.getElementById('statusSidik').textContent=ada?'✅ Sudah terdaftar di HP ini':'Belum terdaftar';if(ada)document.getElementById('statusSidik').style.color='#147A43'}
 function bufToB64(buf){return btoa(String.fromCharCode(...new Uint8Array(buf)))}
 function b64ToBuf(b64){let s=atob(b64);let a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a.buffer}
