@@ -3,57 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WARUNG PINTAR - Dashboard Kasir</title>
+<title>WARUNG PINTAR - Dompet Digital Warung</title>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#DDF0E8;color:#12351F}
-button,input,select{font-family:inherit} button{cursor:pointer}
-.app{max-width:480px;margin:0 auto;min-height:100vh;background:#F2F7F0;position:relative;padding-bottom:92px}
+*{box-sizing:border-box} body{margin:0;font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;background:#E8EEE9;color:#101828;-webkit-tap-highlight-color:transparent}
+button,input,select{font-family:inherit} button{cursor:pointer;border:0}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:#F6F8F7;position:relative;padding-bottom:110px}
 @media(min-width:768px){.app{max-width:760px}} @media(min-width:1100px){.app{max-width:1100px}}
-.page{display:none;padding:14px}.page.active{display:block}
-.top{background:#147A43;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
-.top b{font-size:19px}.top small{display:block;font-size:12px;opacity:.9}
-.bellBtn{background:transparent;border:0;font-size:24px;position:relative;color:#fff;padding:4px}
-.bellBadge{position:absolute;top:-2px;right:-2px;background:#FF3B30;color:#fff;font-size:10px;font-weight:900;min-width:18px;height:18px;border-radius:999px;display:grid;place-items:center;padding:0 4px;border:2px solid #147A43}
-.card{background:#fff;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
-.saldo{background:#6BB98A;color:#fff}.saldo h1{margin:6px 0;font-size:34px}.saldoRow{display:flex;justify-content:space-between;align-items:center}
-.badge{background:#DFF3E6;color:#147A43;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:800}
-.badge.warn{background:#FFE9B8;color:#8A5A00}
-.btn{border:0;border-radius:14px;padding:13px;font-weight:900;width:100%}.btn-green{background:#159A4B;color:#fff}.btn-light{background:#EAF5EF;color:#147A43}.btn-pink{background:#F28B9A;color:#fff}.btn-outline{background:#fff;color:#147A43;border:2px solid #147A43}
-.btn-sm{padding:7px 8px;font-size:12px;border-radius:10px;width:auto}
-.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;background:#fff;border-radius:14px;margin-bottom:10px}
-.item small{color:#666}.thumb{width:52px;height:52px;border-radius:12px;background:#D8F0D3;display:grid;place-items:center;font-size:26px;flex-shrink:0}
-input,select{width:100%;padding:12px;border:1.5px solid #D9EADF;border-radius:12px;margin:6px 0 10px;background:#FFFDF5;outline:none}
-label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background:#fff;border-radius:999px;padding:8px 12px;font-weight:800}.chip.active{background:#147A43;color:#fff}
-.cartRow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #DDD}
-.bar{display:flex;align-items:end;gap:8px;height:110px}.bar div{flex:1;background:#2AA36A;border-radius:8px 8px 0 0;text-align:center;color:#fff;font-size:11px}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;display:flex;justify-content:space-around;padding:10px 6px;border-radius:22px 22px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.08);z-index:30}
-@media(min-width:768px){.nav{max-width:760px}} @media(min-width:1100px){.nav{max-width:1100px}}
-.nav button{border:0;background:transparent;font-weight:700;color:#777;font-size:12px}.nav button.active{color:#147A43}
+.page{display:none;padding:16px}.page.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* PREMIUM HEADER */
+.top{background:linear-gradient(135deg,#062E1F 0%,#0E7A4B 55%,#14B86B 100%);color:#fff;padding:18px 18px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;border-radius:0 0 26px 26px;box-shadow:0 10px 30px rgba(6,46,31,.25)}
+.top b{font-size:20px;letter-spacing:.2px}.top small{display:block;font-size:12px;opacity:.85;margin-top:2px}
+.topAvatar{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.35);display:grid;place-items:center;font-size:22px;backdrop-filter:blur(8px)}
+.bellBtn{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);width:44px;height:44px;border-radius:50%;font-size:22px;position:relative;color:#fff;display:grid;place-items:center}
+.bellBadge{position:absolute;top:-2px;right:-2px;background:#FF3B30;color:#fff;font-size:10px;font-weight:900;min-width:19px;height:19px;border-radius:999px;display:grid;place-items:center;padding:0 4px;border:2px solid #0E7A4B}
+.card{background:#fff;border-radius:24px;padding:18px;margin-bottom:14px;box-shadow:0 8px 24px rgba(16,24,40,.06);border:1px solid #EEF2EF}
+/* WALLET CARD - PREMIUM */
+.saldo{background:linear-gradient(135deg,#0A2E1F 0%,#0F6B42 45%,#1BC47A 100%);color:#fff;position:relative;overflow:hidden;padding:20px;border:0}
+.saldo:before{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.25),transparent 70%)}
+.saldo:after{content:"";position:absolute;left:-20px;bottom:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,120,.35),transparent 70%)}
+.saldo h1{margin:8px 0 4px;font-size:36px;letter-spacing:-.5px;position:relative;z-index:1}
+.saldoRow{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.badge{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.25);padding:6px 11px;border-radius:999px;font-size:12px;font-weight:800;backdrop-filter:blur(6px)}
+.badge.warn{background:#FFF3CD;color:#8A5A00;border-color:#FFE9B8}
+.badge.light{background:#E6F4EB;color:#0E7A4B;border-color:#D1EAD9}
+.btn{border-radius:16px;padding:14px;font-weight:900;width:100%;font-size:15px;transition:.15s}.btn:active{transform:scale(.98)}
+.btn-green{background:linear-gradient(135deg,#0E9A52,#14C06A);color:#fff;box-shadow:0 8px 18px rgba(14,154,82,.35)}
+.btn-light{background:#EAF5EF;color:#0E7A4B}.btn-pink{background:linear-gradient(135deg,#FF6B7A,#F43F5E);color:#fff;box-shadow:0 8px 18px rgba(244,63,94,.3)}
+.btn-outline{background:#fff;color:#0E7A4B;border:1.5px solid #D1EAD9;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.btn-sm{padding:8px 10px;font-size:12px;border-radius:11px;width:auto}
+.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px;background:#fff;border:1px solid #EEF2EF;border-radius:18px;margin-bottom:10px;box-shadow:0 3px 10px rgba(0,0,0,.03)}
+.item small{color:#667085}.thumb{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#E6F7EE,#D1F2DC);display:grid;place-items:center;font-size:26px;flex-shrink:0}
+input,select{width:100%;padding:13px 14px;border:1.5px solid #E4E7EC;border-radius:14px;margin:6px 0 10px;background:#F9FAFB;outline:none;font-size:15px} input:focus,select:focus{border-color:#14B86B;background:#fff;box-shadow:0 0 0 4px rgba(20,184,107,.12)}
+label{font-weight:800;font-size:13px;color:#344054}.chip{border:1.5px solid #D1EAD9;background:#fff;border-radius:999px;padding:9px 12px;font-weight:800;color:#344054}.chip.active{background:#0E7A4B;color:#fff;border-color:#0E7A4B;box-shadow:0 6px 14px rgba(14,122,75,.3)}
+.cartRow{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed #E4E7EC}
+.bar{display:flex;align-items:end;gap:8px;height:110px}.bar div{flex:1;background:linear-gradient(180deg,#14B86B,#0E7A4B);border-radius:10px 10px 4px 4px;text-align:center;color:#fff;font-size:11px}
+/* FLOATING PILL NAV */
+.nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:452px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);display:flex;justify-content:space-around;padding:8px 6px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.14);border:1px solid #EEF2EF;z-index:30}
+@media(min-width:768px){.nav{max-width:732px}} @media(min-width:1100px){.nav{max-width:1072px}}
+.nav button{border:0;background:transparent;font-weight:700;color:#98A2B3;font-size:12px;padding:8px 10px;border-radius:999px;min-width:62px}.nav button.active{color:#0E7A4B;background:#E6F4EB}
 .hidden{display:none}.flex{display:flex;gap:8px}.flex>*{flex:1}
-.progress{height:10px;background:#fff;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;width:62%;background:#FFF2A8}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:99;display:none;align-items:center;justify-content:center;padding:16px}.modal.open{display:flex}
-.modalBox{background:#fff;width:100%;max-width:420px;border-radius:18px;padding:16px;max-height:90vh;overflow:auto}
-.payItem{display:flex;justify-content:space-between;align-items:center;padding:13px;border:2px solid #E6EFE9;border-radius:14px;margin-bottom:10px;text-align:left;background:#fff;width:100%}
-.payItem.active{border-color:#147A43;background:#EAF5EF}
-.payItem small{color:#666}
-.qtyBtn{width:32px;height:32px;border-radius:50%;border:0;font-size:20px;font-weight:900;background:#EAF5EF;color:#147A43}
-.qtyBtn.plus{background:#147A43;color:#fff}
-.qtyBox{display:flex;align-items:center;gap:8px;justify-content:center}
+.progress{height:10px;background:rgba(255,255,255,.25);border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;width:62%;background:linear-gradient(90deg,#FFE27A,#FFB800);border-radius:999px}
+.modal{position:fixed;inset:0;background:rgba(6,20,14,.65);backdrop-filter:blur(4px);z-index:99;display:none;align-items:flex-end;justify-content:center;padding:0}.modal.open{display:flex}
+.modalBox{background:#fff;width:100%;max-width:480px;border-radius:26px 26px 0 0;padding:20px;max-height:92vh;overflow:auto}
+@media(min-width:768px){.modal{align-items:center}.modalBox{border-radius:26px}}
+.payItem{display:flex;justify-content:space-between;align-items:center;padding:14px;border:1.5px solid #E4E7EC;border-radius:16px;margin-bottom:10px;text-align:left;background:#fff;width:100%}
+.payItem.active{border-color:#0E7A4B;background:#EAF5EF}
+.payItem small{color:#667085}
+.qtyBtn{width:34px;height:34px;border-radius:50%;border:0;font-size:20px;font-weight:900;background:#EAF5EF;color:#0E7A4B}
+.qtyBtn.plus{background:#0E7A4B;color:#fff;box-shadow:0 4px 10px rgba(14,122,75,.3)}
+.qtyBox{display:flex;align-items:center;gap:10px;justify-content:center}
 .gridProduk{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.pCard{background:#fff;border-radius:16px;padding:12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05);display:flex;flex-direction:column;gap:6px}
-.pCard .emoji{font-size:36px;background:#D8F0D3;border-radius:12px;padding:10px}
+.pCard{background:#fff;border-radius:20px;padding:14px;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.05);border:1px solid #EEF2EF;display:flex;flex-direction:column;gap:7px}
+.pCard .emoji{font-size:36px;background:linear-gradient(135deg,#E6F7EE,#FFF7D6);border-radius:16px;padding:12px}
 .pCard b{font-size:14px;line-height:1.2}
-.pCard small{color:#666}
-.emptyBox{background:#fff;border:2px dashed #C8E2D0;border-radius:16px;padding:22px;text-align:center;color:#777}
-.kembalianBox{background:#FFF3CD;border:1px solid #FFE9B8;border-radius:12px;padding:10px;margin-top:10px;font-size:14px}
-.tabAuth{display:flex;gap:8px;margin-bottom:10px}.tabAuth button{flex:1}
-.menuRow{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid #EEF3EF;text-align:left;width:100%;background:transparent;border-top:0;border-left:0;border-right:0;font-size:16px;color:#12351F}.menuRow small{display:block;color:#777;font-size:12px;font-weight:400}
-.menuRow .mIco{width:36px;height:36px;border-radius:10px;background:#EAF5EF;display:grid;place-items:center;font-size:19px;flex-shrink:0}
+.pCard small{color:#667085}
+.emptyBox{background:#fff;border:1.5px dashed #D1EAD9;border-radius:20px;padding:22px;text-align:center;color:#667085}
+.kembalianBox{background:#FFFBEA;border:1px solid #FFE9B8;border-radius:14px;padding:12px;margin-top:10px;font-size:14px}
+.tabAuth{display:flex;gap:8px;margin-bottom:12px;background:#F2F4F3;padding:5px;border-radius:999px}.tabAuth button{flex:1;border-radius:999px}
+.menuRow{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid #EEF2EF;text-align:left;width:100%;background:transparent;border-top:0;border-left:0;border-right:0;font-size:15px;color:#101828}.menuRow small{display:block;color:#667085;font-size:12px;font-weight:400}
+.menuRow .mIco{width:40px;height:40px;border-radius:14px;background:#EAF5EF;display:grid;place-items:center;font-size:19px;flex-shrink:0}
 .notifDot{width:10px;height:10px;border-radius:50%;background:#FF3B30;flex-shrink:0;margin-top:6px}
-.switch{position:relative;width:48px;height:26px;background:#D9EADF;border-radius:999px;flex-shrink:0;border:0}.switch.on{background:#147A43}.switch i{position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s}.switch.on i{left:25px}
-.sheetBox{background:#EAF5EF;border:1.5px solid #BFE3CB;border-radius:14px;padding:12px;margin-bottom:12px;font-size:13px}
-.infoBox{background:#F2F7F0;border:1px solid #D9EADF;border-radius:12px;padding:10px;font-size:13px;color:#666}
-.faq{border:1px solid #E6EFE9;border-radius:12px;margin-bottom:8px;overflow:hidden}.faq button{width:100%;text-align:left;background:#fff;border:0;padding:12px;font-weight:800;display:flex;justify-content:space-between}.faq div{padding:0 12px 12px;font-size:13px;color:#444;line-height:1.5;display:none}.faq.open div{display:block}
+.switch{position:relative;width:50px;height:28px;background:#E4E7EC;border-radius:999px;flex-shrink:0;border:0}.switch.on{background:#0E7A4B}.switch i{position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 2px 6px rgba(0,0,0,.2)}.switch.on i{left:25px}
+.sheetBox{background:linear-gradient(135deg,#EAF5EF,#FFFBEA);border:1px solid #D1EAD9;border-radius:20px;padding:14px;margin-bottom:12px;font-size:13px}
+.infoBox{background:#F2F4F3;border:1px solid #E4E7EC;border-radius:14px;padding:12px;font-size:13px;color:#475467}
+.faq{border:1px solid #E4E7EC;border-radius:14px;margin-bottom:8px;overflow:hidden}.faq button{width:100%;text-align:left;background:#fff;border:0;padding:13px;font-weight:800;display:flex;justify-content:space-between}.faq div{padding:0 13px 13px;font-size:13px;color:#475467;line-height:1.6;display:none}.faq.open div{display:block}
+.sectionTitle{font-size:18px;font-weight:900;letter-spacing:-.2px;margin:6px 0 12px}
+.pillRow{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.pillRow::-webkit-scrollbar{display:none}
+.quickCard{background:#fff;border:1px solid #EEF2EF;border-radius:18px;padding:14px;text-align:center;min-width:96px;box-shadow:0 4px 12px rgba(0,0,0,.04)}
 @media print{
   body{background:#fff} .app,.nav,.top{display:none!important}
   #popupStruk{position:static;display:block!important;background:#fff;padding:0}
@@ -65,41 +82,52 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 </head>
 <body>
 <div class="app">
-<div class="top"><div><b>🏪 WARUNG PINTAR</b><small id="topUser">Dashboard Kasir</small></div><button class="bellBtn" onclick="bukaNotifikasi()">🔔<span id="bellBadge" class="bellBadge hidden">0</span></button></div>
+<div class="top"><div style="display:flex;gap:12px;align-items:center"><div class="topAvatar">🏪</div><div><b>WARUNG PINTAR</b><small id="topUser">Dashboard Kasir • Premium</small></div></div><button class="bellBtn" onclick="bukaNotifikasi()">🔔<span id="bellBadge" class="bellBadge hidden">0</span></button></div>
 
 <div id="p-home" class="page active">
-  <div class="card saldo"><div class="saldoRow"><span>✨ Saldo Untung Hari Ini</span><button onclick="toggleSaldo()" style="background:transparent;border:0;font-size:20px;color:#fff" id="eyeBtn">👁️</button></div>
-  <h1 id="saldoText">Rp 0</h1><span class="badge">Belum ada penjualan hari ini</span><p style="font-size:12px">Diperbarui hari ini • <span id="tgl"></span></p></div>
-  <div class="flex"><h3 style="flex:2">Grafik Penjualan</h3><span style="text-align:right;color:#147A43">7 Hari Terakhir →</span></div>
-  <div class="card"><div class="bar" id="chart"></div><p style="text-align:center;font-size:12px">Sen &nbsp; Sel &nbsp; Rab &nbsp; Kam &nbsp; Jum &nbsp; Sab &nbsp; Min</p><b>Total Penjualan: <span id="totalJual">Rp 0</span></b></div>
+  <!-- WALLET CARD PREMIUM -->
+  <div class="card saldo"><div class="saldoRow"><span style="display:flex;align-items:center;gap:8px"><span style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.2);display:grid;place-items:center">💳</span> Saldo Untung Hari Ini</span><button onclick="toggleSaldo()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);width:36px;height:36px;border-radius:50%;font-size:16px;color:#fff" id="eyeBtn">👁️</button></div>
+  <h1 id="saldoText">Rp 0</h1><div style="display:flex;gap:8px;align-items:center;position:relative;z-index:1"><span class="badge">✨ Belum ada penjualan hari ini</span><span style="font-size:12px;opacity:.85" id="tgl"></span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;position:relative;z-index:1;font-size:12px;opacity:.9"><span>WARUNG PINTAR •••• 1234</span><span>PREMIUM • SILVER</span></div></div>
+
+  <div class="pillRow">
+    <div class="quickCard" onclick="go('transaksi')"><div style="font-size:24px">💸</div><b style="font-size:13px">Jualan</b><br><small style="color:#667085">Transaksi baru</small></div>
+    <div class="quickCard" onclick="go('produk')"><div style="font-size:24px">📦</div><b style="font-size:13px">Stok</b><br><small style="color:#667085">Tambah barang</small></div>
+    <div class="quickCard" onclick="go('laporan')"><div style="font-size:24px">📊</div><b style="font-size:13px">Laporan</b><br><small style="color:#667085">Tarik data</small></div>
+    <div class="quickCard" onclick="go('bantuan')"><div style="font-size:24px">❓</div><b style="font-size:13px">Bantuan</b><br><small style="color:#667085">Panduan</small></div>
+  </div>
+
+  <div class="flex" style="align-items:center;margin-top:6px"><h3 class="sectionTitle" style="flex:2">Grafik Penjualan</h3><span style="text-align:right;color:#0E7A4B;font-size:13px;font-weight:700">7 Hari Terakhir →</span></div>
+  <div class="card"><div class="bar" id="chart"></div><p style="text-align:center;font-size:12px;color:#667085">Sen &nbsp; Sel &nbsp; Rab &nbsp; Kam &nbsp; Jum &nbsp; Sab &nbsp; Min</p><b>Total Penjualan: <span id="totalJual">Rp 0</span></b></div>
   <div id="alertStok"></div>
-  <div class="flex"><h3>🧾 Riwayat Transaksi</h3><a href="#" onclick="go('laporan');return false" style="text-align:right">Lihat Semua →</a></div>
+  <div class="flex" style="align-items:center"><h3 class="sectionTitle">🧾 Riwayat Transaksi</h3><a href="#" onclick="go('laporan');return false" style="text-align:right;font-size:13px;color:#0E7A4B;font-weight:700;text-decoration:none">Lihat Semua →</a></div>
   <div id="riwayatHome"></div>
 </div>
 
 <div id="p-transaksi" class="page">
+  <h2 class="sectionTitle">Transaksi Baru</h2>
   <input id="cari" placeholder="🔍 Cari Barang..." oninput="renderProdukTransaksi()">
   <h3 style="margin:14px 0 8px">🛍️ Pilih Produk</h3>
   <div id="produkTransaksi"></div>
   <div class="card"><b>🛒 Keranjang</b>
-  <div id="cartList"><p style="color:#777">Belum ada barang dipilih. Pencet + di produk di atas.</p></div>
+  <div id="cartList"><p style="color:#667085">Belum ada barang dipilih. Pencet + di produk di atas.</p></div>
   <div class="flex"><b>Total</b><b id="cartTotal">Rp 0</b></div>
-  <label style="margin-top:12px">📱 No WA Customer <span style="font-weight:400;color:#777">(opsional)</span></label>
+  <label style="margin-top:12px">📱 No WA Customer <span style="font-weight:400;color:#667085">(opsional)</span></label>
   <input id="waCustomer" placeholder="Contoh: 0812-3456-7890" oninput="syncWaCustomer('transaksi')">
   <h3 style="margin-top:14px">Metode Pembayaran</h3>
   <button class="btn btn-outline" onclick="bukaPopupBayar()">💳 <span id="metodeTerpilihText">Tunai - Bayar Cash</span> &nbsp;▼</button>
-  <div id="metodeInfo" style="background:#F2F7F0;border-radius:12px;padding:10px;margin-top:8px;font-size:13px">Bayar langsung dengan uang tunai.</div>
-  <div id="qrisBoxTransaksi" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:14px;margin-top:10px"><b id="qrisNamaTransaksi">QRIS</b><br><img id="qrisImgTransaksi" src="" style="width:180px;height:180px;margin:8px auto;display:block"><small>Scan QR ini pakai aplikasi bank / e-wallet pembeli</small><br><b id="qrisTotalTransaksi" style="font-size:20px"></b></div>
+  <div id="metodeInfo" style="background:#F6F8F7;border-radius:12px;padding:11px;margin-top:8px;font-size:13px">Bayar langsung dengan uang tunai.</div>
+  <div id="qrisBoxTransaksi" class="hidden" style="text-align:center;border:2px dashed #0E7A4B;border-radius:16px;padding:14px;margin-top:10px"><b id="qrisNamaTransaksi">QRIS</b><br><img id="qrisImgTransaksi" src="" style="width:180px;height:180px;margin:8px auto;display:block;border-radius:12px"><small>Scan QR ini pakai aplikasi bank / e-wallet pembeli</small><br><b id="qrisTotalTransaksi" style="font-size:20px"></b></div>
   <div id="tunaiBox">
     <label style="margin-top:12px">💵 Uang Diterima Customer</label>
     <input id="uangDiterima" type="number" placeholder="Contoh: 50000" oninput="hitungKembalian()">
-    <div id="kembalianBox" class="kembalianBox hidden"><div class="flex"><span>Uang Diterima</span><b id="kembalianUang">Rp 0</b></div><div class="flex"><span>Total</span><b id="kembalianTotal">Rp 0</b></div><div class="flex" style="font-size:17px"><b>💰 Kembalian</b><b id="kembalianNilai" style="color:#147A43">Rp 0</b></div><small id="kembalianPesan" style="color:#B00"></small></div>
+    <div id="kembalianBox" class="kembalianBox hidden"><div class="flex"><span>Uang Diterima</span><b id="kembalianUang">Rp 0</b></div><div class="flex"><span>Total</span><b id="kembalianTotal">Rp 0</b></div><div class="flex" style="font-size:17px"><b>💰 Kembalian</b><b id="kembalianNilai" style="color:#0E7A4B">Rp 0</b></div><small id="kembalianPesan" style="color:#B00"></small></div>
   </div>
   <button class="btn btn-green" style="margin-top:12px" onclick="bayar()">✅ Bayar Sekarang</button></div>
 </div>
 
 <div id="p-produk" class="page">
-  <div class="card" style="background:#7BC69A;color:#fff;text-align:center"><h2 style="margin:0">Produk</h2></div>
+  <div class="card" style="background:linear-gradient(135deg,#0E7A4B,#14B86B);color:#fff;text-align:center;border:0"><h2 style="margin:0">📦 Produk</h2><small style="opacity:.9">Kelola stok warungmu di sini</small></div>
   <button class="btn btn-green" onclick="bukaFormStok()">+ Tambah Stok Barang</button>
   <div id="formStok" class="card hidden"><h3 id="judulFormStok">Tambah Stok Barang</h3>
     <label>Nama Barang</label><input id="fNama" placeholder="Contoh: Indomie Goreng">
@@ -111,35 +139,33 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <b>📊 Google Sheets</b><br><span id="sheetStatusText">Belum ada Sheets yang ditautkan.</span>
     <div class="flex" style="margin-top:10px"><button class="btn btn-outline" onclick="bukaPopupSheets()">🔗 Tautkan Link Sheets</button><button class="btn btn-light hidden" id="btnSyncSheets" onclick="syncSheets()">🔄 Sync Sekarang</button></div>
     <button class="btn btn-pink btn-sm hidden" id="btnPutusSheets" style="margin-top:8px" onclick="putuskanSheets()">❌ Putuskan Tautan</button>
-    <small style="color:#666">Gak punya Sheets? Gak apa-apa, pakai cara Manual di atas aja.</small>
+    <small style="color:#667085">Gak punya Sheets? Gak apa-apa, pakai cara Manual di atas aja.</small>
   </div>
   <h3>Daftar Data Stok Barang</h3><div id="produkList"></div>
   <h3>Stok Hampir Habis ⚠️</h3><div id="hampirHabis"></div>
 </div>
 
-<!-- LAPORAN - DATA PELANGGAN DIHAPUS, DIGANTI RIWAYAT PENARIKAN DATA -->
 <div id="p-laporan" class="page">
-  <h2 style="text-align:center">Laporan</h2>
-  <div class="card" style="background:#CDEBCF"><b>GRAFIK RINGKASAN PENJUALAN BULANAN</b><div class="bar" id="chartBulan"></div><p>Jan Feb Mar Apr Mei Jun Jul Agu Sep Okt Nov Des</p><b>Total penjualan bulan ini<br><span id="totalBulan">Rp 0</span></b></div>
-  <div class="card"><h3>Tarik Data Penjualan</h3><div class="flex"><button class="chip active" onclick="setPeriode('Harian',this)">Harian</button><button class="chip" onclick="setPeriode('Mingguan',this)">Mingguan</button><button class="chip" onclick="setPeriode('Bulanan',this)">Bulanan</button></div><button class="btn btn-green" style="margin-top:10px" onclick="tarikData()">Tarik Data Penjualan</button><small style="color:#666">File CSV akan terdownload ke HP kamu.</small></div>
+  <h2 class="sectionTitle" style="text-align:center">📊 Laporan</h2>
+  <div class="card" style="background:linear-gradient(135deg,#E6F7EE,#FFFBEA)"><b>GRAFIK RINGKASAN PENJUALAN BULANAN</b><div class="bar" id="chartBulan"></div><p style="font-size:12px;color:#667085">Jan Feb Mar Apr Mei Jun Jul Agu Sep Okt Nov Des</p><b>Total penjualan bulan ini<br><span id="totalBulan">Rp 0</span></b></div>
+  <div class="card"><h3>Tarik Data Penjualan</h3><div class="flex"><button class="chip active" onclick="setPeriode('Harian',this)">Harian</button><button class="chip" onclick="setPeriode('Mingguan',this)">Mingguan</button><button class="chip" onclick="setPeriode('Bulanan',this)">Bulanan</button></div><button class="btn btn-green" style="margin-top:10px" onclick="tarikData()">Tarik Data Penjualan</button><small style="color:#667085">File CSV akan terdownload ke HP kamu.</small></div>
   <div class="card"><h3>📥 Riwayat Penarikan Data</h3><small>Setiap kali kamu pencet Tarik Data, kecatet di sini.</small><div id="riwayatTarik" style="margin-top:12px"></div></div>
 </div>
 
 <div id="p-profil" class="page">
-  <h2 style="text-align:center">Profil</h2>
-  <div class="card" style="background:#6BB98A;color:#fff"><b>Profil Pengusaha</b>
-  <div style="display:flex;gap:12px;align-items:center;margin-top:8px"><div style="width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:32px">👨</div><div><b id="profilNamaWarung">Warung Pintar Senen</b><br><span id="profilPemilik">Pemilik : Budi Santoso</span><br><span id="profilWa">WA : 0812-3456-7890</span><br><span id="profilAlamat">Alamat : Jl. Merdeka No. 12, Jakarta Pusat</span><br><span id="profilEmail" style="font-size:13px;opacity:.95">📧 Belum login email</span></div></div>
-  <button class="btn" style="background:#fff;color:#147A43;margin-top:10px" onclick="go('pengaturan-profil')">Edit Profil</button></div>
-  <div class="card" style="background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div><div class="flex" style="margin-top:10px"><button class="btn" style="background:#fff" onclick="go('pengaturan-point')">⭐ Tukar Point</button><button class="btn" style="background:#fff" onclick="go('pengaturan-point')">🎁 Lihat Reward</button></div></div>
+  <h2 class="sectionTitle" style="text-align:center">Profil</h2>
+  <div class="card" style="background:linear-gradient(135deg,#0A2E1F,#0F6B42);color:#fff;border:0"><b>Profil Pengusaha</b>
+  <div style="display:flex;gap:12px;align-items:center;margin-top:10px"><div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.35);display:grid;place-items:center;font-size:32px">👨</div><div><b id="profilNamaWarung">Warung Pintar Senen</b><br><span id="profilPemilik" style="font-size:13px;opacity:.9">Pemilik : Budi Santoso</span><br><span id="profilWa" style="font-size:13px;opacity:.9">WA : 0812-3456-7890</span><br><span id="profilAlamat" style="font-size:13px;opacity:.9">Alamat : Jl. Merdeka No. 12, Jakarta Pusat</span><br><span id="profilEmail" style="font-size:13px;opacity:.95">📧 Belum login email</span></div></div>
+  <button class="btn" style="background:#fff;color:#0E7A4B;margin-top:12px" onclick="go('pengaturan-profil')">Edit Profil</button></div>
+  <div class="card" style="background:linear-gradient(135deg,#0A2E1F,#0F6B42);color:#fff;border:0"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div><div class="flex" style="margin-top:12px"><button class="btn" style="background:#fff;color:#101828" onclick="go('pengaturan-point')">⭐ Tukar Point</button><button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)" onclick="go('pengaturan-point')">🎁 Lihat Reward</button></div></div>
   <div class="card"><b>Umum</b>
     <button class="menuRow" onclick="go('pengaturan')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">⚙️</span><span>Pengaturan<small>PIN, Sidik Jari, No WA, Rekening & Akun Email</small></span></span><span>›</span></button>
     <button class="menuRow" onclick="go('bantuan')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">❓</span><span>Pusat Bantuan<small>Petunjuk penggunaan & penyelesaian masalah</small></span></span><span>›</span></button>
-    <button class="menuRow" onclick="alert('Warung Pintar v1.0')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">ℹ️</span><span>Tentang Aplikasi<small>Warung Pintar v1.0</small></span></span><span>›</span></button>
+    <button class="menuRow" onclick="alert('Warung Pintar v1.0 - Dompet Digital Warung Premium')"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">ℹ️</span><span>Tentang Aplikasi<small>Warung Pintar v1.0 • Premium</small></span></span><span>›</span></button>
     <button class="btn btn-green" id="btnProfilLuar" style="margin-top:12px" onclick="bukaPopupAuth()">🟢 Login / Registrasi</button>
   </div>
 </div>
 
-<!-- PUSAT BANTUAN - BARU -->
 <div id="p-bantuan" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('profil')">‹</button><h2 style="flex:1;margin:0">❓ Pusat Bantuan</h2></div>
   <div class="card" style="margin-top:14px"><h3 style="margin:0">📖 Petunjuk Penggunaan</h3><small>Langkah-langkah paling sering dipakai.</small>
@@ -150,15 +176,15 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <div class="faq"><button onclick="toggleFaq(this)">5. Cara Logout <span>▼</span></button><div>Buka <b>Profil > Pengaturan</b> > Scroll paling bawah, di bawah <b>Point & Dompet</b> > Pencet <b>Logout</b>. Kalau cuma mau kunci bentar, pakai <b>Pengaturan > Security Settings > Kunci Aplikasi Sekarang</b>, bukan Logout.</div></div>
   </div>
   <div class="card"><h3 style="margin:0">🛠️ Penyelesaian Masalah</h3><small>Klik masalahnya untuk liat solusinya.</small>
-    <div class="faq"><button onclick="toggleFaq(this)">Lupa PIN / PIN Salah Terus <span>▼</span></button><div>Default PIN adalah <b>1234</b>. Kalau kamu pernah ganti dan lupa, kamu masih bisa buka pakai <b>Email</b> atau <b>Sidik Jari</b> di layar kunci. Setelah masuk, ganti PIN di <b>Pengaturan > Security Settings > PIN Kasir</b>. Kalau email juga lupa, kamu harus daftar akun baru.</div></div>
-    <div class="faq"><button onclick="toggleFaq(this)">Gagal Login - Email / Password Salah <span>▼</span></button><div>Pastikan email ditulis lengkap pakai @gmail.com, dan huruf kecil semua. Password minimal 6 karakter dan harus sama persis kayak pas daftar. Cek tombol Caps Lock. Kalau masih gagal, coba daftar lagi pakai email yang sama, kalau muncul pesan <i>Email sudah terdaftar</i>, berarti password-nya yang salah.</div></div>
-    <div class="faq"><button onclick="toggleFaq(this)">Sidik Jari Tidak Kedeteksi Padahal HP Ada <span>▼</span></button><div>Ini paling sering karena 3 hal:<br>1. Kamu buka link dari <b>dalam WhatsApp / Instagram</b>. Web di dalam WhatsApp tidak boleh akses sidik jari. Solusi: Copy link-nya, paste langsung di <b>Safari (iPhone)</b> atau <b>Chrome (Android)</b>.<br>2. Face ID / Sidik Jari belum diaktifkan untuk browser. iPhone: <b>Pengaturan > Face ID & Kode Sandi</b> > aktifkan. Lalu <b>Pengaturan > Safari</b> > pastikan tidak mode Private.<br>3. Browser masih mode Private / Incognito. Keluar dari mode itu dulu.<br><br>Kalau masih gagal, pakai <b>PIN</b> aja, itu yang paling aman dan selalu bisa.</div></div>
-    <div class="faq"><button onclick="toggleFaq(this)">Google Sheets Gagal Sync / Gagal Narik Data <span>▼</span></button><div>99% karena Sheets-nya belum dibagikan. Cek lagi: Buka Sheets > <b>Bagikan</b> > pilih <b>Siapa saja yang memiliki link bisa melihat</b> > <b>Selesai</b>. Terus cek formatnya: Baris 1 harus <b>Nama | Harga | Stok</b>, harga harus angka, bukan <i>Rp 3.500</i>. Kalau masih gagal, coba putuskan tautan dulu, lalu tautkan ulang.</div></div>
-    <div class="faq"><button onclick="toggleFaq(this)">Struk Tidak Terkirim ke WA Customer <span>▼</span></button><div>Pastikan <b>No WA Customer</b> diisi sebelum pencet Bayar, diawali 08, contoh 0812-3456-7890. Setelah bayar, di struk pencet <b>Kirim WA</b>, nanti WhatsApp kebuka otomatis, kamu tinggal pencet Kirim. Kalau nomornya salah, struk tidak akan sampai. Nomor customer tidak disimpan otomatis, jadi isi tiap transaksi.</div></div>
-    <div class="faq"><button onclick="toggleFaq(this)">Tidak Menerima Email Verifikasi <span>▼</span></button><div>Saat ini email verifikasi <b>belum dikirim beneran</b> karena aplikasi belum terhubung ke server email (belum pakai Firebase). Tombol Verifikasi yang kamu pencet itu hanya menandai <b>Terverifikasi Secara Lokal</b> di HP ini aja. Jadi wajar kalau inbox kamu kosong. Untuk kirim email beneran, aplikasi harus dihubungkan ke Firebase Auth dulu. Sementara ini, abaikan saja, akunmu tetap bisa dipakai jualan.</div></div>
-    <div class="faq"><button onclick="toggleFaq(this)">Data Hilang Setelah Ganti HP / Hapus Cache <span>▼</span></button><div>Data Warung Pintar saat ini tersimpan di <b>HP masing-masing</b> (localStorage), bukan di cloud. Jadi kalau ganti HP atau hapus data browser, data di HP lama tidak ikut. Solusi sementara: Sebelum ganti HP, <b>Tarik Data Penjualan</b> di menu Laporan untuk simpan laporan, dan pastikan produkmu sudah ada di <b>Google Sheets</b> yang ditautkan, supaya produk bisa di-sync lagi di HP baru.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Lupa PIN / PIN Salah Terus <span>▼</span></button><div>Default PIN adalah <b>1234</b>. Kalau kamu pernah ganti dan lupa, kamu masih bisa buka pakai <b>Email</b> atau <b>Sidik Jari</b> di layar kunci. Setelah masuk, ganti PIN di <b>Pengaturan > Security Settings > PIN Kasir</b>.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Gagal Login - Email / Password Salah <span>▼</span></button><div>Pastikan email ditulis lengkap pakai @gmail.com, dan huruf kecil semua. Password minimal 6 karakter dan harus sama persis kayak pas daftar.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Sidik Jari Tidak Kedeteksi Padahal HP Ada <span>▼</span></button><div>Ini paling sering karena 3 hal:<br>1. Kamu buka link dari <b>dalam WhatsApp / Instagram</b>. Web di dalam WhatsApp tidak boleh akses sidik jari. Solusi: Copy link-nya, paste langsung di <b>Safari (iPhone)</b> atau <b>Chrome (Android)</b>.<br>2. Face ID / Sidik Jari belum diaktifkan untuk browser. iPhone: <b>Pengaturan > Face ID & Kode Sandi</b> > aktifkan.<br>3. Browser masih mode Private / Incognito.<br><br>Kalau masih gagal, pakai <b>PIN</b> aja, itu yang paling aman dan selalu bisa.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Google Sheets Gagal Sync <span>▼</span></button><div>99% karena Sheets-nya belum dibagikan. Cek lagi: Buka Sheets > <b>Bagikan</b> > pilih <b>Siapa saja yang memiliki link bisa melihat</b>. Terus cek formatnya: Baris 1 harus <b>Nama | Harga | Stok</b>, harga harus angka.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Struk Tidak Terkirim ke WA Customer <span>▼</span></button><div>Pastikan <b>No WA Customer</b> diisi sebelum pencet Bayar, diawali 08, contoh 0812-3456-7890. Setelah bayar, di struk pencet <b>Kirim WA</b>, nanti WhatsApp kebuka otomatis.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Tidak Menerima Email Verifikasi <span>▼</span></button><div>Saat ini email verifikasi <b>belum dikirim beneran</b> karena aplikasi belum terhubung ke server email (belum pakai Firebase). Tombol Verifikasi itu hanya menandai <b>Terverifikasi Secara Lokal</b> di HP ini aja. Jadi wajar kalau inbox kamu kosong.</div></div>
+    <div class="faq"><button onclick="toggleFaq(this)">Data Hilang Setelah Ganti HP / Hapus Cache <span>▼</span></button><div>Data Warung Pintar saat ini tersimpan di <b>HP masing-masing</b> (localStorage), bukan di cloud. Jadi kalau ganti HP atau hapus data browser, data di HP lama tidak ikut. Solusi sementara: Sebelum ganti HP, <b>Tarik Data Penjualan</b> di menu Laporan, dan pastikan produkmu sudah ada di <b>Google Sheets</b> yang ditautkan.</div></div>
   </div>
-  <div class="card" style="text-align:center"><h3 style="margin:0">Masih Belum Bisa?</h3><p style="font-size:13px;color:#666">Chat admin, sertakan screenshot masalahnya + nama warungmu.</p><button class="btn btn-green" onclick="chatAdminWA()">💬 Chat Admin via WA</button><small style="color:#666">Admin akan balas di jam kerja.</small></div>
+  <div class="card" style="text-align:center"><h3 style="margin:0">Masih Belum Bisa?</h3><p style="font-size:13px;color:#667085">Chat admin, sertakan screenshot masalahnya + nama warungmu.</p><button class="btn btn-green" onclick="chatAdminWA()">💬 Chat Admin via WA</button></div>
 </div>
 
 <div id="p-pengaturan" class="page">
@@ -172,7 +198,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <button class="menuRow" onclick="go('pengaturan-point')" style="border-bottom:0"><span style="display:flex;gap:10px;align-items:center"><span class="mIco">💰</span><span>Point & Dompet<small>1.250 Poin • Level Silver</small></span></span><span>›</span></button>
   </div>
   <button class="btn btn-pink" id="btnLogoutPengaturan" onclick="logoutAkun()">🚪 Logout</button>
-  <small id="logoutHint" style="color:#666;display:block;text-align:center;margin-top:8px">Logout akan mengembalikanmu ke halaman login. Data warung tetap aman.</small>
+  <small id="logoutHint" style="color:#667085;display:block;text-align:center;margin-top:8px">Logout akan mengembalikanmu ke halaman login. Data warung tetap aman.</small>
 </div>
 
 <div id="p-pengaturan-profil" class="page">
@@ -186,14 +212,14 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   </div>
   <div class="card"><h3 style="margin:0">📧 Akun Email</h3><small>Login pakai email. Akun ini yang muncul di Profil.</small>
     <div id="akunBelumLogin">
-      <p style="font-size:13px;color:#666">Kamu belum login. Pencet tombol <b>Login / Registrasi</b> di halaman Profil.</p>
+      <p style="font-size:13px;color:#667085">Kamu belum login. Pencet tombol <b>Login / Registrasi</b> di halaman Profil.</p>
       <label style="margin-top:10px">Nama Lengkap</label><input id="regNama" placeholder="Contoh: Budi Santoso">
       <label>Email</label><input id="regEmail" type="email" placeholder="Contoh: budi@gmail.com">
       <label>Password</label><input id="regPass" type="password" placeholder="Minimal 6 karakter">
       <div class="flex"><button class="btn btn-green" onclick="registerAkun()">📝 Daftar</button><button class="btn btn-outline" onclick="loginEmail()">🔓 Login</button></div>
     </div>
     <div id="akunSudahLogin" class="hidden">
-      <div class="item" style="border:1px solid #BFE3CB"><span style="flex:1"><b id="akunNamaTampil"></b><br><small id="akunEmailTampil"></small><br><span class="badge">Login ✅</span></span></div>
+      <div class="item" style="border:1px solid #D1EAD9"><span style="flex:1"><b id="akunNamaTampil"></b><br><small id="akunEmailTampil"></small><br><span class="badge light">Login ✅</span></span></div>
       <button class="btn btn-pink" onclick="logoutAkun()">🚪 Logout Akun</button>
     </div>
   </div>
@@ -209,7 +235,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <button class="btn btn-outline" id="btnDaftarSidik" style="margin-top:10px" onclick="daftarSidikJari()">👆 Daftarin Sidik Jari Sekarang</button>
     <div id="sidikNotSupport" class="infoBox hidden" style="margin-top:10px">ℹ️ <span id="sidikAlasan">Browser ini belum terdeteksi mendukung sidik jari.</span><br><br>Coba: 1) Buka link ini langsung di <b>Safari (iPhone)</b> / <b>Chrome (Android)</b>, jangan dari dalam WhatsApp. 2) Aktifkan Face ID / Sidik Jari untuk browser di Pengaturan HP. 3) Keluar dari mode Private / Incognito.<br><br>Kalau masih gagal, pakai <b>PIN</b> aja, itu udah aman.</div>
     <small id="sidikError" style="color:#B00;display:block;margin-top:8px"></small>
-    <small id="sidikDetail" style="color:#666;display:block;margin-top:4px"></small>
+    <small id="sidikDetail" style="color:#667085;display:block;margin-top:4px"></small>
   </div>
   <button class="btn btn-outline" onclick="kunciAplikasi()">🔒 Kunci Aplikasi Sekarang</button>
 </div>
@@ -224,11 +250,10 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
   <button class="btn btn-green" onclick="bukaNotifikasi()">🔔 Lihat Semua Notifikasi</button>
 </div>
 
-<!-- VERIFIKASI - JUJUR, BELUM KIRIM EMAIL BENERAN -->
 <div id="p-pengaturan-verif" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">✅ Verifikasi</h2></div>
-  <div class="card" style="margin-top:14px;text-align:center"><div style="font-size:44px" id="verifIcon">📧</div><h3 id="verifJudul">Email Belum Terverifikasi</h3><p style="color:#666;font-size:13px" id="verifIsi">Login dulu pakai email, lalu verifikasi biar akunmu lebih aman.</p>
-    <div class="infoBox" style="text-align:left"><b>⚠️ Penting - Baca Dulu:</b><br>Saat ini <b>email verifikasi belum dikirim beneran</b> ke inbox kamu, karena aplikasi belum terhubung ke server email (belum pakai Firebase Auth). Tombol di bawah ini hanya menandai <b>Terverifikasi Secara Lokal</b> di HP ini aja. Jadi wajar kalau kamu tidak menerima email. Akunmu tetap bisa dipakai jualan seperti biasa.</div>
+  <div class="card" style="margin-top:14px;text-align:center"><div style="font-size:44px" id="verifIcon">📧</div><h3 id="verifJudul">Email Belum Terverifikasi</h3><p style="color:#667085;font-size:13px" id="verifIsi">Login dulu pakai email, lalu verifikasi biar akunmu lebih aman.</p>
+    <div class="infoBox" style="text-align:left"><b>⚠️ Penting - Baca Dulu:</b><br>Saat ini <b>email verifikasi belum dikirim beneran</b> ke inbox kamu, karena aplikasi belum terhubung ke server email (belum pakai Firebase Auth). Tombol di bawah ini hanya menandai <b>Terverifikasi Secara Lokal</b> di HP ini aja. Jadi wajar kalau kamu tidak menerima email. Akunmu tetap bisa dipakai jualan.</div>
     <button class="btn btn-green" id="verifBtn" style="margin-top:12px" onclick="verifikasiEmail()">✅ Tandai Terverifikasi Secara Lokal</button>
     <button class="btn btn-outline" style="margin-top:8px" onclick="bukaGmailInbox()">📧 Cek Inbox Email Saya</button>
   </div>
@@ -241,7 +266,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 
 <div id="p-pengaturan-point" class="page">
   <div class="flex" style="align-items:center"><button class="btn btn-light" style="width:52px" onclick="go('pengaturan')">‹</button><h2 style="flex:1;margin:0">💰 Point & Dompet</h2></div>
-  <div class="card" style="margin-top:14px;background:#6BB98A;color:#fff"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div></div>
+  <div class="card" style="margin-top:14px;background:linear-gradient(135deg,#0A2E1F,#0F6B42);color:#fff;border:0"><b>Point Pengusaha</b><div class="flex"><span>🏆 Total Point</span><b style="font-size:24px">1.250 Poin</b></div><small>Level: Silver • 250 / 2000 ke Gold</small><div class="progress"><i></i></div></div>
 </div>
 
 <div id="p-notifikasi" class="page">
@@ -253,7 +278,7 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 
 <nav class="nav">
   <button class="active" onclick="go('home',this)">🏠<br>Home</button>
-  <button onclick="go('transaksi',this)">⇄<br>Transaksi</button>
+  <button onclick="go('transaksi',this)">💸<br>Transaksi</button>
   <button onclick="go('produk',this)">📦<br>Produk</button>
   <button onclick="go('laporan',this)">📊<br>Laporan</button>
   <button onclick="go('profil',this)">👤<br>Profil</button>
@@ -261,13 +286,13 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
 
 <div id="popupAuth" class="modal"><div class="modalBox">
   <div class="flex" style="align-items:center"><h3 style="margin:0">👋 Selamat Datang</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupAuth()">✕</button></div>
-  <p style="font-size:13px;color:#666">Udah punya akun? Login. Belum punya? Daftar dulu, gratis.</p>
+  <p style="font-size:13px;color:#667085">Udah punya akun? Login. Belum punya? Daftar dulu, gratis.</p>
   <div class="tabAuth"><button class="btn btn-outline" id="tabAuthLogin" onclick="setTabPopupAuth('login')">🔓 Login</button><button class="btn btn-light" id="tabAuthReg" onclick="setTabPopupAuth('reg')">📝 Registrasi</button></div>
   <div id="popupAuthLogin">
     <label>Email</label><input id="authLoginEmail" type="email" placeholder="Contoh: budi@gmail.com">
     <label>Password</label><input id="authLoginPass" type="password" placeholder="Password">
     <button class="btn btn-green" onclick="loginDariPopupAuth()">🔓 Login</button>
-    <small style="color:#666;display:block;text-align:center;margin-top:8px">Belum punya akun? Pencet tab <b>Registrasi</b> di atas.</small>
+    <small style="color:#667085;display:block;text-align:center;margin-top:8px">Belum punya akun? Pencet tab <b>Registrasi</b> di atas.</small>
   </div>
   <div id="popupAuthReg" class="hidden">
     <label>Nama Warung</label><input id="authRegWarung" placeholder="Contoh: Warung Pintar Senen">
@@ -276,32 +301,32 @@ label{font-weight:800;font-size:13px}.chip{border:1.5px solid #BFE3CB;background
     <label>Email</label><input id="authRegEmail" type="email" placeholder="Contoh: budi@gmail.com">
     <label>Password</label><input id="authRegPass" type="password" placeholder="Minimal 6 karakter">
     <button class="btn btn-green" onclick="registerDariPopupAuth()">📝 Daftar Akun Baru</button>
-    <small style="color:#666;display:block;text-align:center;margin-top:8px">Abis daftar, kamu akan diminta login lagi.</small>
+    <small style="color:#667085;display:block;text-align:center;margin-top:8px">Abis daftar, kamu akan diminta login lagi.</small>
   </div>
 </div></div>
 
 <div id="popupSheets" class="modal"><div class="modalBox">
   <div class="flex" style="align-items:center"><h3 style="margin:0">🔗 Tautkan Google Sheets</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupSheets()">✕</button></div>
-  <p style="font-size:13px;color:#666">Paste link Google Sheets. Sheets harus di-setting <b>Siapa saja yang memiliki link bisa melihat</b>.</p>
+  <p style="font-size:13px;color:#667085">Paste link Google Sheets. Sheets harus di-setting <b>Siapa saja yang memiliki link bisa melihat</b>.</p>
   <label>Link Google Sheets</label><input id="inputLinkSheets" placeholder="Paste link di sini...">
-  <div style="background:#F2F7F0;border-radius:12px;padding:10px;font-size:13px"><b>Format Sheets:</b><br>Baris 1: <b>Nama | Harga | Stok</b><br>Baris 2: Indomie Goreng | 3500 | 10<br><button class="btn btn-light btn-sm" style="margin-top:6px" onclick="copyContohSheets()">📋 Salin Contoh Format</button></div>
+  <div style="background:#F6F8F7;border-radius:14px;padding:12px;font-size:13px"><b>Format Sheets:</b><br>Baris 1: <b>Nama | Harga | Stok</b><br>Baris 2: Indomie Goreng | 3500 | 10<br><button class="btn btn-light btn-sm" style="margin-top:6px" onclick="copyContohSheets()">📋 Salin Contoh Format</button></div>
   <button class="btn btn-green" style="margin-top:12px" onclick="tautkanSheets()">🔗 Tautkan Link</button>
   <div id="sheetPreview" class="hidden" style="margin-top:12px"></div>
 </div></div>
 
 <div id="popupPin" class="modal"><div class="modalBox" style="text-align:center">
-  <div style="font-size:44px">🔒</div><h3 style="margin:6px 0">Warung Pintar Terkunci</h3><p style="font-size:13px;color:#666">Pilih cara buka: PIN atau Email. Sidik jari hanya muncul kalau HP & browser-nya support.</p>
+  <div style="font-size:44px">🔒</div><h3 style="margin:6px 0">Warung Pintar Terkunci</h3><p style="font-size:13px;color:#667085">Pilih cara buka: PIN atau Email. Sidik jari hanya muncul kalau HP & browser-nya support.</p>
   <div class="tabAuth"><button class="btn btn-outline" id="tabBtnPin" onclick="setTabAuth('pin')">🔢 PIN</button><button class="btn btn-light" id="tabBtnEmail" onclick="setTabAuth('email')">📧 Email</button><button class="btn btn-light" id="tabBtnBio" onclick="setTabAuth('bio')">👆 Sidik Jari</button></div>
-  <div id="authPin"><input id="inputPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" style="text-align:center;font-size:26px;letter-spacing:12px"><button class="btn btn-green" onclick="cekPin()">🔓 Buka pake PIN</button><small style="color:#666">Default PIN: 1234</small></div>
+  <div id="authPin"><input id="inputPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" style="text-align:center;font-size:26px;letter-spacing:12px"><button class="btn btn-green" onclick="cekPin()">🔓 Buka pake PIN</button><small style="color:#667085">Default PIN: 1234</small></div>
   <div id="authEmail" class="hidden"><input id="loginEmailInput" type="email" placeholder="Email"><input id="loginPassInput" type="password" placeholder="Password"><button class="btn btn-green" onclick="loginEmailDariKunci()">🔓 Buka pake Email</button></div>
-  <div id="authBio" class="hidden"><div id="bioNotSupport" class="infoBox hidden">Browser ini tidak mendukung sidik jari. Pakai PIN aja. Buka lewat Safari / Chrome asli, bukan dari WhatsApp.</div><button class="btn btn-green" id="btnBioBuka" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button><small id="bioDetail" style="color:#666;display:block;margin-top:6px"></small></div>
+  <div id="authBio" class="hidden"><div id="bioNotSupport" class="infoBox hidden">Browser ini tidak mendukung sidik jari. Pakai PIN aja. Buka lewat Safari / Chrome asli, bukan dari WhatsApp.</div><button class="btn btn-green" id="btnBioBuka" onclick="bukaSidikJari()">👆 Tempel Sidik Jari / Face ID</button><small id="bioDetail" style="color:#667085;display:block;margin-top:6px"></small></div>
   <small id="pinError" style="color:#B00;display:block;margin-top:8px"></small>
 </div></div>
 
 <div id="popupBayar" class="modal"><div class="modalBox">
   <div class="flex" style="align-items:center"><h3 style="margin:0">💳 Pilih Metode Pembayaran</h3><button class="btn btn-light" style="width:44px" onclick="tutupPopupBayar()">✕</button></div>
   <div id="listPopupBayar"></div>
-  <div id="qrisDiPopup" class="hidden" style="text-align:center;border:2px dashed #147A43;border-radius:14px;padding:12px;margin-top:8px"><b id="qrisNamaPopup">QRIS</b><br><img id="qrisImgPopup" src="" style="width:170px;height:170px;margin:8px auto;display:block"><small>Suruh pembeli scan QR ini</small><br><b id="qrisTotalPopup"></b></div>
+  <div id="qrisDiPopup" class="hidden" style="text-align:center;border:2px dashed #0E7A4B;border-radius:16px;padding:12px;margin-top:8px"><b id="qrisNamaPopup">QRIS</b><br><img id="qrisImgPopup" src="" style="width:170px;height:170px;margin:8px auto;display:block;border-radius:12px"><small>Suruh pembeli scan QR ini</small><br><b id="qrisTotalPopup"></b></div>
   <button class="btn btn-green" style="margin-top:12px" onclick="konfirmasiBayarPopup()">✅ Pakai Metode Ini</button>
 </div></div>
 
@@ -346,8 +371,7 @@ function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.re
 function toggleSaldo(){lihatSaldo=!lihatSaldo;document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';document.getElementById('eyeBtn').textContent=lihatSaldo?'🙈':'👁️'}
 function toggleFaq(btn){let f=btn.parentElement;f.classList.toggle('open');btn.querySelector('span').textContent=f.classList.contains('open')?'▲':'▼'}
 function chatAdminWA(){let pesan='Halo Admin Warung Pintar, saya '+(profil.pemilik||'')+' dari '+(profil.warung||'')+'. Saya butuh bantuan: ';window.open('https://wa.me/'+formatWa62(profil.wa)+'?text='+encodeURIComponent(pesan),'_blank')}
-function renderRiwayatTarik(){let el=document.getElementById('riwayatTarik');if(!riwayatTarik.length){el.innerHTML='<div class="emptyBox">Belum ada penarikan data. Pencet Tarik Data di atas.</div>';return}el.innerHTML=riwayatTarik.map(r=>`<div class="item"><span class="thumb" style="font-size:20px">📥</span><span style="flex:1"><b>Penarikan ${r.periode}</b><br><small>${r.waktu} • ${r.jumlah} transaksi • Total ${fmt(r.total)}</small></span><span class="badge">CSV</span></div>`).join('')}
-// === SIDIK JARI - DETEKSI BENER, PAKAI API RESMI ===
+function renderRiwayatTarik(){let el=document.getElementById('riwayatTarik');if(!riwayatTarik.length){el.innerHTML='<div class="emptyBox">Belum ada penarikan data. Pencet Tarik Data di atas.</div>';return}el.innerHTML=riwayatTarik.map(r=>`<div class="item"><span class="thumb" style="font-size:20px">📥</span><span style="flex:1"><b>Penarikan ${r.periode}</b><br><small>${r.waktu} • ${r.jumlah} transaksi • Total ${fmt(r.total)}</small></span><span class="badge light">CSV</span></div>`).join('')}
 async function cekSupportSidik(){
   let support=false, alasan='';
   try{
@@ -367,7 +391,7 @@ async function cekSupportSidik(){
   let detail=document.getElementById('sidikDetail');
   let bioDetail=document.getElementById('bioDetail');
   let alasanEl=document.getElementById('sidikAlasan');
-  if(status){let u=currentUser?users.find(x=>x.email===currentUser.email):users[0];let ada=u&&u.credId;status.textContent=ada?'✅ Sudah terdaftar di HP ini':(support?'✅ Perangkat mendukung sidik jari':'⚠️ Belum terdeteksi');if(ada)status.style.color='#147A43';else status.style.color='';}
+  if(status){let u=currentUser?users.find(x=>x.email===currentUser.email):users[0];let ada=u&&u.credId;status.textContent=ada?'✅ Sudah terdaftar di HP ini':(support?'✅ Perangkat mendukung sidik jari':'⚠️ Belum terdeteksi');if(ada)status.style.color='#0E7A4B';else status.style.color='';}
   if(btn)btn.classList.toggle('hidden',!support);
   if(info)info.classList.toggle('hidden',support);
   if(alasanEl)alasanEl.textContent=alasan;
@@ -425,7 +449,7 @@ function kunciAplikasi(){cekSupportSidik();document.getElementById('popupPin').c
 function gantiPin(){let v=document.getElementById('pinBaru').value.trim();if(v.length!==4||isNaN(v))return alert('PIN harus 4 angka!');pinKasir=v;saveAll();document.getElementById('pinBaru').value='';tambahNotif('PIN Berhasil Diganti','PIN kasir berhasil diganti 🔐','🔐');alert('PIN berhasil diganti jadi '+v)}
 document.getElementById('inputPin').addEventListener('keyup',e=>{if(e.key==='Enter')cekPin()});
 function hashPass(p){let h=0;for(let i=0;i<p.length;i++){h=((h<<5)-h)+p.charCodeAt(i);h=h&h}return 'h'+h}
-function renderAkun(){let login=!!currentUser;document.getElementById('akunBelumLogin').classList.toggle('hidden',login);document.getElementById('akunSudahLogin').classList.toggle('hidden',!login);if(login){document.getElementById('akunNamaTampil').textContent=currentUser.nama;document.getElementById('akunEmailTampil').textContent=currentUser.email;document.getElementById('topUser').textContent='Halo, '+currentUser.nama;document.getElementById('profilEmail').textContent='📧 '+currentUser.email+(verifEmail?' • Terverifikasi (Lokal) ✅':'')}else{document.getElementById('topUser').textContent='Dashboard Kasir';document.getElementById('profilEmail').textContent='📧 Belum login email'}renderTombolLuar()}
+function renderAkun(){let login=!!currentUser;document.getElementById('akunBelumLogin').classList.toggle('hidden',login);document.getElementById('akunSudahLogin').classList.toggle('hidden',!login);if(login){document.getElementById('akunNamaTampil').textContent=currentUser.nama;document.getElementById('akunEmailTampil').textContent=currentUser.email;document.getElementById('topUser').textContent='Halo, '+currentUser.nama;document.getElementById('profilEmail').textContent='📧 '+currentUser.email+(verifEmail?' • Terverifikasi (Lokal) ✅':'')}else{document.getElementById('topUser').textContent='Dashboard Kasir • Premium';document.getElementById('profilEmail').textContent='📧 Belum login email'}renderTombolLuar()}
 function registerAkun(){let nama=document.getElementById('regNama').value.trim(),email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;if(!nama||!email||!pass)return alert('Nama, email, dan password wajib diisi!');if(!email.includes('@'))return alert('Emailnya gak valid!');if(pass.length<6)return alert('Password minimal 6 karakter!');if(users.find(u=>u.email===email))return alert('Email ini sudah terdaftar, langsung Login aja!');users.push({nama,email,pass:hashPass(pass),credId:null});saveAll();renderAkun();alert('Akun berhasil dibuat! Sekarang Login ya.')}
 function loginEmail(){let email=(document.getElementById('regEmail').value||'').trim().toLowerCase(),pass=document.getElementById('regPass').value;return loginDengan(email,pass)}
 function loginEmailDariKunci(){let email=(document.getElementById('loginEmailInput').value||'').trim().toLowerCase(),pass=document.getElementById('loginPassInput').value;return loginDengan(email,pass)}
@@ -456,7 +480,7 @@ function hitungKembalian(){let total=getTotalCart(),uang=+document.getElementByI
 function renderProfil(){document.getElementById('profilNamaWarung').textContent=profil.warung;document.getElementById('profilPemilik').textContent='Pemilik : '+profil.pemilik;document.getElementById('profilWa').textContent='WA : '+profil.wa;document.getElementById('profilAlamat').textContent='Alamat : '+profil.alamat;document.getElementById('strukNamaWarung').textContent=profil.warung.toUpperCase();document.getElementById('strukAlamat').textContent=profil.alamat;document.getElementById('strukWaWarung').textContent=profil.wa}
 function renderProdukTransaksi(){let q=(document.getElementById('cari').value||'').toLowerCase();let list=produk.filter(p=>p.nama.toLowerCase().includes(q));let el=document.getElementById('produkTransaksi');if(!list.length){el.innerHTML=`<div class="emptyBox">📦 <b>Belum ada produk</b><br>Tambah dulu di menu <b>Produk</b></div>`;return}el.innerHTML=`<div class="gridProduk">`+list.map(p=>{let i=produk.indexOf(p);let jml=cart[i]||0;return `<div class="pCard"><div class="emoji">${p.emoji}</div><b>${p.nama}</b><small>${fmt(p.harga)} • Stok: ${p.stok}</small><div class="qtyBox"><button class="qtyBtn" onclick="ubahQty(${i},-1)">−</button><b>${jml}</b><button class="qtyBtn plus" onclick="ubahQty(${i},1)">+</button></div></div>`}).join('')+`</div>`}
 function ubahQty(i,d){let baru=(cart[i]||0)+d;if(baru<0)baru=0;if(baru>produk[i].stok){alert('Stok '+produk[i].nama+' cuma '+produk[i].stok);return}if(baru===0)delete cart[i];else cart[i]=baru;renderProdukTransaksi();renderCart();hitungKembalian()}
-function renderCart(){let html='',total=0;for(let k in cart){let p=produk[k],sub=p.harga*cart[k];total+=sub;html+=`<div class="cartRow"><span>${p.nama} x ${cart[k]}</span><span>${fmt(sub)}</span></div>`}document.getElementById('cartList').innerHTML=html||'<p style="color:#777">Belum ada barang dipilih.</p>';document.getElementById('cartTotal').textContent=fmt(total);if(metodeDipilih==='QRIS')document.getElementById('qrisTotalTransaksi').textContent=fmt(total);if(metodeSementara==='QRIS')document.getElementById('qrisTotalPopup').textContent='Total bayar: '+fmt(getTotalCart())}
+function renderCart(){let html='',total=0;for(let k in cart){let p=produk[k],sub=p.harga*cart[k];total+=sub;html+=`<div class="cartRow"><span>${p.nama} x ${cart[k]}</span><span>${fmt(sub)}</span></div>`}document.getElementById('cartList').innerHTML=html||'<p style="color:#667085">Belum ada barang dipilih.</p>';document.getElementById('cartTotal').textContent=fmt(total);if(metodeDipilih==='QRIS')document.getElementById('qrisTotalTransaksi').textContent=fmt(total);if(metodeSementara==='QRIS')document.getElementById('qrisTotalPopup').textContent='Total bayar: '+fmt(getTotalCart())}
 function getTotalCart(){return Object.keys(cart).reduce((s,k)=>s+produk[k].harga*cart[k],0)}
 function getMetodeObj(nama){if(nama==='Tunai')return{bank:'Tunai',no:'Bayar Cash',nama:'Bayar langsung'};return metodeList.find(m=>m.bank===nama)}
 function bukaPopupBayar(){metodeSementara=metodeDipilih;renderPopupBayar();document.getElementById('popupBayar').classList.add('open')}
@@ -475,21 +499,21 @@ function bukaPopupTambahBayar(){document.getElementById('popupTambahBayar').clas
 function tutupPopupTambahBayar(){document.getElementById('popupTambahBayar').classList.remove('open')}
 function gantiLabelTambah(){let b=document.getElementById('tambahBank').value;let isQRIS=b==='QRIS';document.getElementById('labelNoRek').textContent=isQRIS?'ID / Nomor QRIS':'Masukkan No Rekening';document.getElementById('tambahNoRek').placeholder=isQRIS?'Contoh: ID10234567890':'Contoh: 1234-5678-9012';document.getElementById('labelNamaPemilik').textContent=isQRIS?'Nama QRIS / Nama Toko':'Nama Pemilik Bank';document.getElementById('tambahNamaPemilik').placeholder=isQRIS?'Contoh: WARUNG PINTAR SENEN':'Contoh: Budi Santoso'}
 function simpanMetodeBaru(){let bank=document.getElementById('tambahBank').value,no=document.getElementById('tambahNoRek').value.trim(),nama=document.getElementById('tambahNamaPemilik').value.trim();if(!no||!nama)return alert('No rekening & nama pemilik wajib diisi!');let ada=metodeList.find(m=>m.bank===bank);if(ada){ada.no=no;ada.nama=nama;ada.aktif=true}else metodeList.push({bank,no,nama,aktif:true});document.getElementById('tambahNoRek').value='';document.getElementById('tambahNamaPemilik').value='';tutupPopupTambahBayar();renderDaftarBayar();saveAll();tambahNotif('Metode Pembayaran Ditambah',bank+' berhasil ditambahkan.','💳');alert(bank+' berhasil disimpan!')}
-function renderDaftarBayar(){let el=document.getElementById('daftarBayarTersimpan');if(!metodeList.length){el.innerHTML='<p style="color:#777;font-size:13px">Belum ada metode pembayaran.</p>';return}el.innerHTML=metodeList.map((m,i)=>`<div class="item" style="border:1px solid #E6EFE9"><span style="flex:1"><b>${m.bank==='QRIS'?'📷 QRIS':'🏦 '+m.bank}</b><br><small>${m.bank==='QRIS'?'ID: '+m.no+' • '+m.nama:m.no+' • a.n '+m.nama}</small><br><span class="badge ${m.aktif?'':'warn'}">${m.aktif?'Aktif ✅':'Nonaktif'}</span></span><button class="btn btn-light btn-sm" onclick="toggleAktifBayar(${i})">${m.aktif?'Nonaktifkan':'Aktifkan'}</button><button class="btn btn-pink btn-sm" onclick="hapusBayar(${i})">🗑️</button></div>`).join('')}
+function renderDaftarBayar(){let el=document.getElementById('daftarBayarTersimpan');if(!metodeList.length){el.innerHTML='<p style="color:#667085;font-size:13px">Belum ada metode pembayaran.</p>';return}el.innerHTML=metodeList.map((m,i)=>`<div class="item"><span style="flex:1"><b>${m.bank==='QRIS'?'📷 QRIS':'🏦 '+m.bank}</b><br><small>${m.bank==='QRIS'?'ID: '+m.no+' • '+m.nama:m.no+' • a.n '+m.nama}</small><br><span class="badge ${m.aktif?'light':'warn'}">${m.aktif?'Aktif ✅':'Nonaktif'}</span></span><button class="btn btn-light btn-sm" onclick="toggleAktifBayar(${i})">${m.aktif?'Nonaktifkan':'Aktifkan'}</button><button class="btn btn-pink btn-sm" onclick="hapusBayar(${i})">🗑️</button></div>`).join('')}
 function toggleAktifBayar(i){metodeList[i].aktif=!metodeList[i].aktif;renderDaftarBayar();saveAll()}
 function hapusBayar(i){if(!confirm('Hapus '+metodeList[i].bank+'?'))return;let bankHapus=metodeList[i].bank;metodeList.splice(i,1);if(metodeDipilih===bankHapus)metodeDipilih='Tunai';renderDaftarBayar();saveAll()}
 function setPeriode(p,btn){periode=p;document.querySelectorAll('#p-laporan .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
-function tarikData(){if(!riwayat.length)return alert('Belum ada transaksi!');let total=riwayat.reduce((s,r)=>s+r.total,0);riwayatTarik.unshift({periode,waktu:new Date().toLocaleString('id-ID'),jumlah:riwayat.length,total});saveAll();renderRiwayatTarik();let rows=[['Tanggal','Barang','Total','Metode','WA Customer','Uang','Kembalian','Kasir'],...riwayat.map(r=>[r.jam,r.items,r.total,r.metode||'',r.wa||'',r.uang||'',r.kembali||'',r.kasir||''])];let csv=rows.map(r=>r.join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='laporan-'+periode+'.csv';a.click();alert('Data '+periode+' berhasil ditarik! Riwayat penarikan kecatet di bawah.')}
+function tarikData(){if(!riwayat.length)return alert('Belum ada transaksi!');let rows=[['Tanggal','Barang','Total','Metode','WA Customer','Uang','Kembalian','Kasir'],...riwayat.map(r=>[r.jam,r.items,r.total,r.metode||'',r.wa||'',r.uang||'',r.kembali||'',r.kasir||''])];let csv=rows.map(r=>r.join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='laporan-'+periode+'.csv';a.click();let total=riwayat.reduce((s,r)=>s+r.total,0);riwayatTarik.unshift({periode,waktu:new Date().toLocaleString('id-ID'),jumlah:riwayat.length,total});if(riwayatTarik.length>20)riwayatTarik=riwayatTarik.slice(0,20);saveAll();renderRiwayatTarik();alert('Data '+periode+' berhasil ditarik!')}
 function renderAll(){
  let tipis=produk.filter(p=>p.stok<=4);
- document.getElementById('alertStok').innerHTML=tipis.length?`<div class="card" style="background:#FFF3CD;border:1px solid #FFE9B8">⚠️ <b>Stok Tipis:</b> ${tipis.map(p=>p.nama+' ('+p.stok+')').join(', ')} — buruan restock!</div>`:'';
+ document.getElementById('alertStok').innerHTML=tipis.length?`<div class="card" style="background:#FFFBEA;border:1px solid #FFE9B8">⚠️ <b>Stok Tipis:</b> ${tipis.map(p=>p.nama+' ('+p.stok+')').join(', ')} — buruan restock!</div>`:'';
  document.getElementById('riwayatHome').innerHTML=riwayat.length?riwayat.slice(0,5).map(r=>`<div class="item"><span class="thumb">🧾</span><span style="flex:1"><b>${r.items}</b><br><small>🕒 ${r.jam} • Bayar: ${r.metode}${r.kasir?' • Kasir: '+r.kasir:''}</small></span><b>${fmt(r.total)}</b></div>`).join(''):'<div class="emptyBox">🧾 Belum ada transaksi hari ini.</div>';
- document.getElementById('produkList').innerHTML=produk.length?`<div class="gridProduk">`+produk.map((p,i)=>`<div class="pCard"><div class="emoji">${p.emoji}</div><b>${p.nama}</b><small>${fmt(p.harga)} • Stok: ${p.stok}</small><span class="badge ${p.stok<=4?'warn':''}">${p.stok<=4?'Hampir Habis':'Tersedia'}</span><div class="flex"><button class="btn btn-light btn-sm" onclick="editProduk(${i})">✏️ Edit</button><button class="btn btn-pink btn-sm" onclick="hapusProduk(${i})">🗑️ Hapus</button></div></div>`).join('')+`</div>`:`<div class="emptyBox">📦 <b>Belum ada stok</b><br>Isi dulu lewat tombol <b>+ Tambah Stok Barang</b> atau <b>🔗 Tautkan Google Sheets</b>.</div>`;
+ document.getElementById('produkList').innerHTML=produk.length?`<div class="gridProduk">`+produk.map((p,i)=>`<div class="pCard"><div class="emoji">${p.emoji}</div><b>${p.nama}</b><small>${fmt(p.harga)} • Stok: ${p.stok}</small><span class="badge ${p.stok<=4?'warn':'light'}">${p.stok<=4?'Hampir Habis':'Tersedia'}</span><div class="flex"><button class="btn btn-light btn-sm" onclick="editProduk(${i})">✏️ Edit</button><button class="btn btn-pink btn-sm" onclick="hapusProduk(${i})">🗑️ Hapus</button></div></div>`).join('')+`</div>`:`<div class="emptyBox">📦 <b>Belum ada stok</b><br>Isi dulu lewat tombol <b>+ Tambah Stok Barang</b> atau <b>🔗 Tautkan Google Sheets</b>.</div>`;
  document.getElementById('hampirHabis').innerHTML=produk.filter(p=>p.stok<=4).length?produk.filter(p=>p.stok<=4).map(p=>`<div class="item"><span>⚠️</span><span style="flex:1"><b>${p.nama}</b><br><small>Sisa ${p.stok} stok</small></span><span class="badge warn">Hampir Habis</span></div>`).join(''):'<p>Belum ada stok yang hampir habis.</p>';
  let totalBulan=riwayat.reduce((s,r)=>s+r.total,0);document.getElementById('totalBulan').textContent=fmt(totalBulan);document.getElementById('totalJual').textContent=fmt(totalBulan);document.getElementById('saldoText').textContent=lihatSaldo?fmt(saldoAsli):'Rp *****';
  document.getElementById('chart').innerHTML=[0,0,0,0,0,0,0,0].map(v=>`<div style="height:8%"></div>`).join('');
  document.getElementById('chartBulan').innerHTML=[0,0,0,0,0,0,0,0,0,0,0,0].map(v=>`<div style="height:8%"></div>`).join('');
- renderDaftarBayar();renderProfil();renderAkun();renderRiwayatTarik();renderNotifSetting();renderVerif();updateBadge();renderSheetStatus();cekSupportSidik();
+ renderDaftarBayar();renderProfil();renderAkun();updateStatusSidik();renderNotifSetting();renderVerif();updateBadge();renderSheetStatus();cekSupportSidik();renderRiwayatTarik();
 }
 renderProdukTransaksi();renderAll();
 </script>
