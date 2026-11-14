@@ -6,95 +6,114 @@
 <title>WARUNG PINTAR</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
-body{background:#eef2ef;padding-bottom:90px}
-.top{background:#0a5c2e;color:#fff;padding:14px 16px 0}
-.top-bar{display:flex;justify-content:space-between}
-.header{background:#009444;padding:18px 16px 22px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 22px 22px;color:#fff}
-.header h1{font-size:28px;line-height:1;font-weight:900}
-.avatar{width:44px;height:44px;background:#cde8d4;border-radius:50%;display:grid;place-items:center;font-size:22px}
-.card{background:#0a4d2a;color:#fff;margin:16px;border-radius:20px;padding:18px;position:relative}
-.saldo{font-size:44px;font-weight:900;margin:10px 0 4px}
-.date{font-weight:700;font-size:19px}.sub{opacity:.75;font-size:14px;margin-top:6px}
-.eye{position:absolute;right:18px;top:18px;font-size:22px;background:none;border:none;color:#fff;cursor:pointer}
-.card-foot{background:#6aab85;margin:18px -18px -18px;padding:10px 18px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}
-.badge{background:#fff;color:#0a4d2a;padding:3px 8px;border-radius:6px;font-size:11px}
-.tutup{margin:0 16px;background:#fff;border:2.5px solid #009444;color:#009444;border-radius:16px;padding:14px;text-align:center;font-size:22px;font-weight:900;cursor:pointer}
-.note{text-align:center;font-size:13px;color:#444;margin:8px 16px 16px}
-.box{background:#fff;margin:0 16px 16px;border-radius:20px;padding:16px}
-.box h2{text-align:center;font-size:24px;margin-bottom:14px}
-.cal{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:6px}
-.cal div{padding:9px 0;font-size:16px}.cal .head{color:#777;font-size:14px}.cal .today{background:#009444;color:#fff;border-radius:50%;font-weight:800}
-.riwayat-head{display:flex;justify-content:space-between;align-items:center;margin:4px 16px 10px}
-.riwayat-head h3{font-size:20px}.riwayat-head a{color:#009444;text-decoration:none;font-weight:700;font-size:14px}
-.trx{background:#fff;margin:0 16px 12px;border-radius:18px;padding:14px;display:flex;gap:12px}
-.trx .icon{background:#e2f3e5;width:68px;height:68px;border-radius:12px;display:grid;place-items:center;font-size:28px;flex-shrink:0}
-.trx b{font-size:16px;line-height:1.4}.trx .price{font-weight:800;white-space:nowrap}.trx small{color:#888;font-size:13px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0 18px;border-top:1px solid #eee;z-index:20}
-.nav div{text-align:center;font-size:12px;color:#888;cursor:pointer}.nav .on{color:#009444;font-weight:700}
+body{background:#eef2ef;padding-bottom:110px}
+.topbar{background:#0a5c2e;color:#fff;padding:12px 16px 0;display:flex;justify-content:space-between;font-size:14px}
+.header{background:linear-gradient(135deg,#009444,#0a5c2e);padding:16px 16px 22px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 24px 24px;color:#fff}
+.header-left{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;background:#fff;border-radius:50%;display:grid;place-items:center;font-size:24px}
+.header h1{font-size:26px;line-height:1;font-weight:900}.header p{font-size:14px;opacity:.9}
+.bell{font-size:28px;background:rgba(255,255,255,.15);width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+.card-saldo{background:linear-gradient(135deg,#0a6a33,#0a4d2a);color:#fff;margin:16px;border-radius:20px;padding:18px;position:relative;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.saldo{font-size:42px;font-weight:900;margin:10px 0 8px}.pill{display:inline-block;background:rgba(255,255,255,.18);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700}
+.card-foot{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;opacity:.85}
+.eye{position:absolute;right:18px;top:18px;font-size:22px;background:rgba(255,255,255,.18);border:none;color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer}
+.tutup{margin:0 16px;background:#fff;border:2.5px solid #009444;color:#009444;border-radius:16px;padding:14px;text-align:center;font-size:20px;font-weight:900;cursor:pointer}
+.note{text-align:center;font-size:12px;color:#555;margin:8px 16px 16px}
+.box{background:#fff;margin:0 16px 16px;border-radius:20px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.box h2{font-size:20px;margin-bottom:6px}.box h3{font-size:18px;margin-bottom:8px}.box small{color:#888}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:6px;margin-top:10px}.cal div{padding:9px 0;font-size:15px}.cal .head{color:#777;font-size:13px}.cal .today{background:#009444;color:#fff;border-radius:50%;font-weight:800}
+.riwayat-head{display:flex;justify-content:space-between;align-items:center;margin:4px 16px 10px}.riwayat-head h3{font-size:19px}.riwayat-head a{color:#009444;text-decoration:none;font-weight:700;font-size:14px}
+.trx{background:#fff;margin:0 16px 12px;border-radius:18px;padding:14px;display:flex;gap:12px;box-shadow:0 4px 10px rgba(0,0,0,.04)}
+.trx .icon{background:#e2f3e5;width:64px;height:64px;border-radius:12px;display:grid;place-items:center;font-size:26px;flex-shrink:0}
+.trx b{font-size:15px}.trx .price{font-weight:800;white-space:nowrap}.trx small{color:#888;font-size:12px}
+.nav{position:fixed;bottom:12px;left:12px;right:12px;background:#fff;display:flex;justify-content:space-around;padding:10px 6px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:20}
+.nav div{text-align:center;font-size:12px;color:#888;cursor:pointer;padding:6px 10px;border-radius:16px}.nav .on{color:#009444;font-weight:800;background:#e8f5ec}
 .page{display:none}.page.active{display:block}
-.tabs{display:flex;gap:8px;margin:16px}.tabs button{flex:1;padding:10px;border:none;border-radius:12px;font-weight:700;background:#fff;cursor:pointer}.tabs button.on{background:#009444;color:#fff}
-.chart-box{background:#fff;margin:0 16px 16px;border-radius:20px;padding:16px}
-canvas{width:100%;height:180px;margin-top:12px}
+.tabs{display:flex;gap:8px;margin:0 16px 12px}.tabs button{flex:1;padding:10px;border:none;border-radius:12px;font-weight:700;background:#fff;cursor:pointer}.tabs button.on{background:#009444;color:#fff}
+canvas{width:100%;height:180px;margin-top:8px}
 .bar-row{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:13px}.bar-row span:first-child{width:32px}.bar{height:22px;background:#009444;border-radius:6px;color:#fff;font-size:11px;display:flex;align-items:center;padding:0 8px;min-width:50px}
-.lap-item{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;display:flex;justify-content:space-between}
-.prod{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.prod b{font-size:15px}.prod small{color:#888}
-.btn{background:#009444;color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
-.btn2{background:#eee;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
-input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin:8px 0;font-size:15px}
-.cart{background:#0a4d2a;color:#fff;margin:16px;border-radius:16px;padding:14px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center;padding:20px;z-index:30}.modal.show{display:grid}.modal-box{background:#fff;border-radius:18px;padding:20px;text-align:center;width:100%;max-width:360px}.modal-box button{border:none;padding:12px 18px;border-radius:10px;font-weight:700;margin-top:14px;cursor:pointer}.btn-yes{background:#009444;color:#fff}.btn-no{background:#eee;margin-left:8px}
+.prod{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;box-shadow:0 4px 10px rgba(0,0,0,.04)}
+.prod-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.prod b{font-size:15px}.prod small{color:#888}
+.btn{background:#009444;color:#fff;border:none;padding:11px 14px;border-radius:12px;font-weight:800;cursor:pointer}
+.btn2{background:#eef2ef;border:none;padding:12px 14px;border-radius:12px;font-weight:700;cursor:pointer;width:100%}
+.btn-sm{background:#009444;color:#fff;border:none;width:34px;height:34px;border-radius:10px;font-weight:900;font-size:18px;cursor:pointer}
+.btn-sm.min{background:#eee;color:#333}
+input,select{width:100%;padding:13px;border:1.5px solid #e5e5e5;border-radius:14px;margin:8px 0;font-size:15px;outline:none}
+input:focus{border-color:#009444}
+.cart{background:linear-gradient(135deg,#0a6a33,#0a4d2a);color:#fff;margin:16px;border-radius:18px;padding:16px}
+.cart-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.12);padding:10px;border-radius:12px;margin:8px 0}
+.qty{display:flex;align-items:center;gap:8px}.qty b{width:22px;text-align:center}
+.pay{display:flex;gap:8px;margin:8px 0}.pay button{flex:1;padding:12px;border:2px solid #fff;background:transparent;color:#fff;border-radius:12px;font-weight:800;cursor:pointer}.pay button.on{background:#fff;color:#0a4d2a}
+.lap-item{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;display:flex;justify-content:space-between;box-shadow:0 4px 10px rgba(0,0,0,.04)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center;padding:20px;z-index:30}.modal.show{display:grid}.modal-box{background:#fff;border-radius:20px;padding:20px;text-align:center;width:100%;max-width:360px}.modal-box button{border:none;padding:12px 18px;border-radius:12px;font-weight:700;margin-top:14px;cursor:pointer}.btn-yes{background:#009444;color:#fff}.btn-no{background:#eee;margin-left:8px}
+.badge{background:#e8f5ec;color:#009444;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800}
+.search{margin:0 16px 12px}.search input{margin:0;background:#fff}
 </style>
 </head>
 <body>
-<div class="top"><div class="top-bar"><span>10:53</span><span>70%</span></div></div>
-<div class="header"><div><h1>WARUNG<br>PINTAR</h1></div><div style="display:flex;align-items:center;gap:10px"><p>Halo, Budi ange</p><div class="avatar">👤</div></div></div>
+<div class="topbar"><span>10:53</span><span>70%</span></div>
+<div class="header"><div class="header-left"><div class="logo">🏪</div><div><h1>WARUNG<br>PINTAR</h1><p>Halo, <span id="namaHeader">Manurung</span></p></div></div><div class="bell">🔔</div></div>
 
-<!-- HOME -->
+<!-- BERANDA TETEP LAMA -->
 <div id="page-home" class="page active">
-  <div class="card">
+  <div class="card-saldo">
     <button class="eye" onclick="toggleSaldo()">👁️</button>
-    <small>Saldo Untung Periode Ini</small>
-    <div class="saldo">Rp <span id="saldoVal">224.000</span></div>
-    <div class="date">14 Nov 2026 📅</div>
-    <div class="sub" id="subText">Belum ada penjualan hari ini</div>
-    <div class="card-foot"><span>WARUNG PINTAR .... 1234</span><span class="badge">PREMIUM SILVER</span></div>
+    <small>💳 &nbsp; Saldo Untung Hari Ini</small>
+    <div class="saldo">Rp <span id="saldoVal">445.000</span></div>
+    <span class="pill">✨ <span id="subText">Belum ada penjualan hari ini</span></span>
+    <span style="margin-left:8px;font-size:14px">14 Nov 2026</span>
+    <div class="card-foot"><span>WARUNG PINTAR •••• 1234</span><span>PREMIUM • SILVER</span></div>
   </div>
   <div class="tutup" onclick="openModal()">📖 Tutup Buku</div>
   <p class="note">Saldo akan direset jadi Rp 0 & disimpan ke Laporan</p>
-  <div class="box"><h2>November 2026</h2><div class="cal" id="calendar"></div></div>
-  <div class="riwayat-head"><h3>📋 Riwayat Transaksi</h3><a href="#" onclick="showPage('laporan');return false">Lihat Semua →</a></div>
+  <div class="riwayat-head"><h3>📈 Grafik Penjualan</h3><a href="#" onclick="showPage('laporan');return false">7 Hari Terakhir →</a></div>
+  <div class="box"><div style="display:flex;justify-content:space-between"><div><small>Total Penjualan • 7 Hari</small><div style="font-size:26px;font-weight:900">Rp 445.000</div></div><span class="badge">▲ +81.8%</span></div><canvas id="chartHome" width="320" height="160"></canvas><div style="display:flex;justify-content:space-between;font-size:12px;color:#888"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div></div>
+  <div class="box"><h2 style="text-align:center">November 2026</h2><div class="cal" id="calendar"></div></div>
+  <div class="riwayat-head"><h3>🧾 Riwayat Transaksi</h3><a href="#" onclick="showPage('laporan');return false">Lihat Semua →</a></div>
   <div id="riwayatList"></div>
 </div>
 
-<!-- TRANSAKSI -->
+<!-- TRANSAKSI LENGKAP -->
 <div id="page-transaksi" class="page">
-  <div style="margin:16px"><h2>💸 Transaksi Baru</h2><p style="color:#666;font-size:13px">Klik + buat nambah ke keranjang</p></div>
+  <div class="box"><h2>💸 Transaksi Baru</h2><small>Cari produk, atur qty +/-, pilih pembayaran</small></div>
+  <div class="search"><input id="cariProduk" placeholder="🔍 Cari produk... contoh: Pantene / Indomie" oninput="renderProduk()"></div>
   <div id="produkTransaksi"></div>
-  <div class="cart"><b>Keranjang: <span id="cartCount">0</span> item</b><br><span>Total: Rp <span id="cartTotal">0</span></span><br><br><button class="btn" style="background:#fff;color:#0a4d2a;width:100%" onclick="checkout()">Bayar Tunai - Selesaikan</button></div>
+  <div class="cart">
+    <b>Keranjang (<span id="cartCount">0</span> item)</b>
+    <div id="cartList"></div>
+    <div style="display:flex;justify-content:space-between;margin-top:10px"><span>Total</span><b style="font-size:20px">Rp <span id="cartTotal">0</span></b></div>
+    <div style="margin-top:12px"><b>Metode Pembayaran</b><div class="pay">
+      <button id="payTunai" class="on" onclick="setPay('Tunai')">💵 Tunai</button>
+      <button id="payQRIS" onclick="setPay('QRIS')">📱 QRIS</button>
+      <button id="payTransfer" onclick="setPay('Transfer')">🏦 Transfer</button>
+    </div></div>
+    <div id="bayarWrap"><input id="bayarInput" type="number" placeholder="Bayar: contoh 50000" oninput="hitungKembalian()" style="background:#fff"><div style="font-size:14px">Kembalian: Rp <b id="kembalian">0</b></div></div>
+    <button class="btn" style="background:#fff;color:#0a4d2a;width:100%;padding:13px;margin-top:10px" onclick="checkout()">Bayar - Selesaikan ✅</button>
+  </div>
 </div>
 
-<!-- PRODUK -->
+<!-- PRODUK LENGKAP -->
 <div id="page-produk" class="page">
-  <div style="margin:16px"><h2>📦 Daftar Produk</h2></div>
-  <div class="box"><h3 style="text-align:left">+ Tambah Produk</h3><input id="namaBaru" placeholder="Nama produk, contoh: Rinso 500g"><input id="hargaBaru" type="number" placeholder="Harga jual, contoh: 15000"><button class="btn" style="width:100%" onclick="tambahProduk()">Simpan Produk</button></div>
+  <div class="box"><h2>📦 Daftar Produk</h2><small>Atur stok + / -, tambah manual & Google Sheets</small></div>
+  <div class="search"><input id="cariProduk2" placeholder="🔍 Cari produk di daftar..." oninput="renderProduk()"></div>
+  <div class="box"><h3>+ Tambah Produk Manual</h3><input id="namaBaru" placeholder="Nama produk"><input id="hargaBaru" type="number" placeholder="Harga jual"><input id="stokBaru" type="number" placeholder="Stok awal, contoh: 20"><button class="btn" style="width:100%;padding:13px" onclick="tambahProduk()">Simpan Produk</button></div>
+  <div class="box"><h3>📊 Import dari Google Sheets</h3><small>Di Sheets: File → Share → Publish → Copy link CSV. Paste di bawah. Format: Nama,Harga,Stok</small><input id="sheetUrl" placeholder="Paste link CSV Google Sheets..."><button class="btn2" onclick="importSheet()">Import dari Sheets</button><br><br><button class="btn2" onclick="contohSheet()">Coba Data Contoh Sheets</button></div>
   <div id="produkList"></div>
 </div>
 
-<!-- LAPORAN -->
+<!-- LAPORAN LENGKAP -->
 <div id="page-laporan" class="page">
-  <div style="margin:16px"><h2>📊 Laporan Penjualan</h2></div>
+  <div class="box"><h2>📊 Laporan Penjualan</h2><small>Bisa di-download ke Excel</small><br><br><button class="btn" style="width:100%" onclick="exportExcel()">⬇️ Download Excel (.csv)</button></div>
   <div class="tabs"><button class="on" onclick="setRange('minggu',this)">Mingguan</button><button onclick="setRange('bulan',this)">Bulanan</button></div>
-  <div class="chart-box"><h3 id="chartTitle">Grafik Penjualan - Minggu Ini</h3><small>Total: <b id="chartTotal" style="color:#009444">Rp 1.240.000</b></small><canvas id="chart" width="320" height="180"></canvas></div>
-  <div class="chart-box"><h3>Detail Per Hari</h3><div id="barList"></div></div>
+  <div class="box"><h3 id="chartTitle">Grafik Penjualan - Minggu Ini</h3><small>Total: <b id="chartTotal" style="color:#009444">Rp 1.240.000</b></small><canvas id="chart" width="320" height="180"></canvas></div>
+  <div class="box"><h3>Detail Per Hari</h3><div id="barList"></div></div>
   <div style="margin:0 16px 10px"><b>Riwayat Tutup Buku</b></div><div id="laporanList"></div>
 </div>
 
-<!-- PROFIL -->
+<!-- PROFIL LENGKAP -->
 <div id="page-profil" class="page">
-  <div style="margin:16px"><h2>👤 Profil</h2></div>
-  <div class="box"><div style="text-align:center;font-size:50px">👤</div><h3 style="text-align:center">Budi ange</h3><p style="text-align:center;color:#888">Kasir - WARUNG PINTAR .... 1234<br>PREMIUM SILVER</p></div>
-  <div class="box"><b>Pengaturan</b><br><br><button class="btn2" style="width:100%" onclick="toggleSaldo()">Sembunyikan / Tampilkan Saldo 👁️</button><br><br><button class="btn2" style="width:100%" onclick="if(confirm('Hapus semua data?')){localStorage.clear();location.reload()}">Hapus Semua Data (Reset)</button></div>
+  <div class="box" style="text-align:center"><div style="font-size:58px">👤</div><h2 style="text-align:center" id="namaProfil">Manurung</h2><p style="color:#888;font-size:14px" id="warungProfil">WARUNG PINTAR •••• 1234<br>PREMIUM • SILVER</p><span class="badge" style="margin-top:8px;display:inline-block">PREMIUM SILVER</span></div>
+  <div class="box"><h3>✏️ Edit Profil</h3><input id="editNama" placeholder="Nama kasir"><input id="editWarung" placeholder="Nama warung"><input id="editHp" placeholder="No. HP / WA"><button class="btn" style="width:100%" onclick="saveProfil()">Simpan Profil</button></div>
+  <div class="box"><h3>Pengaturan</h3><button class="btn2" onclick="toggleSaldo()">Sembunyikan / Tampilkan Saldo 👁️</button><br><br><button class="btn2" onclick="exportExcel()">Download Laporan Excel</button><br><br><button class="btn2" onclick="if(confirm('Hapus semua data?')){localStorage.clear();location.reload()}">Hapus Semua Data (Reset)</button></div>
 </div>
 
 <div class="nav">
@@ -105,42 +124,100 @@ input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;ma
   <div id="nav-profil" onclick="showPage('profil')">👤<br>Profil</div>
 </div>
 
-<div class="modal" id="modal"><div class="modal-box"><h3>Tutup Buku?</h3><p style="margin-top:8px;color:#555">Saldo <b id="modalSaldo">Rp 224.000</b> akan direset jadi Rp 0 & disimpan ke Laporan.</p><button class="btn-yes" onclick="doTutupBuku()">Ya, Tutup Buku</button><button class="btn-no" onclick="closeModal()">Batal</button></div></div>
+<div class="modal" id="modal"><div class="modal-box"><h3>Tutup Buku?</h3><p style="margin-top:8px;color:#555">Saldo <b id="modalSaldo">Rp 445.000</b> akan direset jadi Rp 0 & disimpan ke Laporan.</p><button class="btn-yes" onclick="doTutupBuku()">Ya, Tutup Buku</button><button class="btn-no" onclick="closeModal()">Batal</button></div></div>
 
 <script>
-let saldo=224000, hidden=false;
+let saldo=445000, hidden=false, payMethod='Tunai';
 let produk=[
-  {nama:'Pantene kondisioner',harga:45000},
-  {nama:'Makarizo hair energy',harga:52000},
-  {nama:'Hand sanitazier',harga:15000},
-  {nama:'Indomie Goreng',harga:3500},
-  {nama:'Aqua 600ml',harga:4000},
+ {nama:'Pantene kondisioner',harga:45000,stok:20},
+ {nama:'Makarizo hair energy',harga:52000,stok:20},
+ {nama:'Hand sanitazier',harga:15000,stok:20},
+ {nama:'Indomie Goreng',harga:3500,stok:20},
+ {nama:'Aqua 600ml',harga:4000,stok:20},
 ];
-let cart=[];
-let riwayat=[{items:'Pantene kondisioner x2, Makarizo hair energy x2, Hand sanitazier x2',total:224000,waktu:'17.57 - Bayar: Tunai - Kasir: Budi ange'}];
+let cart={}; // nama -> qty
+let riwayat=[{items:'Pantene kondisioner x2, Makarizo hair energy x2, Hand sanitazier x2',total:224000,waktu:'17.57 • Bayar: Tunai • Kasir: Manurung',pay:'Tunai'}];
 let formatRp=n=>n.toLocaleString('id-ID');
 function renderSaldo(){document.getElementById('saldoVal').textContent=hidden?'****':formatRp(saldo);document.getElementById('modalSaldo').textContent='Rp '+formatRp(saldo);document.getElementById('subText').textContent=saldo===0?'Buku sudah ditutup. Saldo direset ke Rp 0':'Belum ada penjualan hari ini'}
 function toggleSaldo(){hidden=!hidden;renderSaldo()}
 let heads=['Sen','Sel','Rab','Kam','Jum','Sab','Min'],html='';heads.forEach(h=>html+=`<div class="head">${h}</div>`);for(let i=0;i<6;i++)html+=`<div></div>`;for(let d=1;d<=30;d++)html+=`<div class="${d===14?'today':''}">${d}</div>`;document.getElementById('calendar').innerHTML=html;
 function openModal(){document.getElementById('modal').classList.add('show')}function closeModal(){document.getElementById('modal').classList.remove('show')}
-function doTutupBuku(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');lap.push({tanggal:'14 Nov 2026',total:saldo});localStorage.setItem('laporan',JSON.stringify(lap));saldo=0;renderSaldo();closeModal();renderLaporan();showPage('laporan')}
-function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');['home','transaksi','produk','laporan','profil'].forEach(k=>document.getElementById('nav-'+k).classList.toggle('on',k===p));if(p==='laporan')drawChart();window.scrollTo(0,0)}
-function renderRiwayat(){document.getElementById('riwayatList').innerHTML=riwayat.map(r=>`<div class="trx"><div class="icon">🧾</div><div style="flex:1"><b>${r.items}</b><small>🕒 ${r.waktu}</small></div><div class="price">Rp ${formatRp(r.total)}</div></div>`).join('')}
-function renderProduk(){
-  document.getElementById('produkList').innerHTML=produk.map((p,i)=>`<div class="prod"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)} • Stok: 20</small></div><button class="btn" onclick="addToCart(${i})">+ Tambah</button></div>`).join('');
-  document.getElementById('produkTransaksi').innerHTML=produk.map((p,i)=>`<div class="prod"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)}</small></div><button class="btn" onclick="addToCart(${i})">+ Keranjang</button></div>`).join('');
+function doTutupBuku(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');lap.push({tanggal:'14 Nov 2026',total:saldo,pay:payMethod});localStorage.setItem('laporan',JSON.stringify(lap));saldo=0;renderSaldo();closeModal();renderLaporan();showPage('laporan')}
+function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');['home','transaksi','produk','laporan','profil'].forEach(k=>document.getElementById('nav-'+k).classList.toggle('on',k===p));if(p==='laporan')drawChart();if(p==='home')drawHomeChart();window.scrollTo(0,0)}
+function renderRiwayat(){document.getElementById('riwayatList').innerHTML=riwayat.map(r=>`<div class="trx"><div class="icon">🧾</div><div style="flex:1"><b>${r.items}</b><br><small>🕒 ${r.waktu} • ${r.pay||'Tunai'}</small></div><div class="price">Rp ${formatRp(r.total)}</div></div>`).join('')}
+// TRANSAKSI: SEARCH + QTY +/- + PAY
+function setPay(m){payMethod=m;['Tunai','QRIS','Transfer'].forEach(x=>document.getElementById('pay'+x).classList.toggle('on',x===m));document.getElementById('bayarWrap').style.display=m==='Tunai'?'block':'none';hitungKembalian()}
+function getFiltered(){
+  let q=(document.getElementById('cariProduk')?.value||'').toLowerCase();
+  let q2=(document.getElementById('cariProduk2')?.value||'').toLowerCase();
+  let query=q||q2;
+  return produk.filter(p=>p.nama.toLowerCase().includes(query));
 }
-function addToCart(i){cart.push(produk[i]);updateCart();showPage('transaksi')}
-function updateCart(){let total=cart.reduce((a,b)=>a+b.harga,0);document.getElementById('cartCount').textContent=cart.length;document.getElementById('cartTotal').textContent=formatRp(total)}
-function checkout(){if(!cart.length)return alert('Keranjang masih kosong bre');let total=cart.reduce((a,b)=>a+b.harga,0);let items=cart.map(c=>c.nama+' x1').join(', ');saldo+=total;riwayat.unshift({items,total,waktu:'Baru saja - Bayar: Tunai - Kasir: Budi ange'});cart=[];updateCart();renderRiwayat();renderSaldo();alert('Transaksi berhasil! Rp '+formatRp(total)+' masuk ke saldo.');showPage('home')}
-function tambahProduk(){let n=document.getElementById('namaBaru').value,h=parseInt(document.getElementById('hargaBaru').value);if(!n||!h)return alert('Isi nama & harga dulu bre');produk.push({nama:n,harga:h});document.getElementById('namaBaru').value='';document.getElementById('hargaBaru').value='';renderProduk();alert('Produk ditambah!')}
+function renderProduk(){
+  let list=getFiltered();
+  document.getElementById('produkTransaksi').innerHTML=list.map(p=>{
+    let idx=produk.indexOf(p); let qty=cart[p.nama]||0;
+    return `<div class="prod"><div class="prod-top"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)} • Stok: ${p.stok}</small></div><div class="qty"><button class="btn-sm min" onclick="ubahQty('${p.nama}',-1)">-</button><b>${qty}</b><button class="btn-sm" onclick="ubahQty('${p.nama}',1)">+</button></div></div></div>`;
+  }).join('')||'<div class="box"><small>Produk gak ketemu bre, coba kata lain.</small></div>';
+  document.getElementById('produkList').innerHTML=list.map(p=>{
+    let idx=produk.indexOf(p);
+    return `<div class="prod"><div class="prod-top"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)} • Stok: <b style="color:#009444">${p.stok}</b></small></div><div class="qty"><button class="btn-sm min" onclick="ubahStok(${idx},-1)">-</button><b>${p.stok}</b><button class="btn-sm" onclick="ubahStok(${idx},1)">+</button></div></div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn2" style="flex:1;padding:8px" onclick="tambahStokManual(${idx})">+ Tambah Stok Manual</button><button class="btn2" style="flex:1;padding:8px" onclick="editHarga(${idx})">Edit Harga</button><button class="btn2" style="flex:1;padding:8px;color:red" onclick="hapusProduk(${idx})">Hapus</button></div></div>`;
+  }).join('');
+  updateCart();
+}
+function ubahQty(nama,delta){cart[nama]=(cart[nama]||0)+delta; if(cart[nama]<=0) delete cart[nama]; renderProduk()}
+function ubahStok(i,delta){produk[i].stok=Math.max(0,produk[i].stok+delta); renderProduk()}
+function tambahStokManual(i){let v=prompt('Tambah stok berapa untuk '+produk[i].nama+'?','10'); if(v===null)return; let n=parseInt(v); if(!isNaN(n)){produk[i].stok+=n; renderProduk();}}
+function editHarga(i){let v=prompt('Harga baru untuk '+produk[i].nama+'?',produk[i].harga); if(v===null)return; let n=parseInt(v); if(!isNaN(n)){produk[i].harga=n; renderProduk();}}
+function hapusProduk(i){if(confirm('Hapus '+produk[i].nama+'?')){produk.splice(i,1);renderProduk()}}
+function updateCart(){
+  let items=Object.entries(cart); let total=items.reduce((a,[n,q])=>{let p=produk.find(x=>x.nama===n); return a+(p?p.harga*q:0)},0);
+  document.getElementById('cartCount').textContent=items.reduce((a,b)=>a+b[1],0);
+  document.getElementById('cartTotal').textContent=formatRp(total);
+  document.getElementById('cartList').innerHTML=items.map(([n,q])=>{let p=produk.find(x=>x.nama===n); return `<div class="cart-row"><span>${n} x${q}</span><div class="qty"><button class="btn-sm min" onclick="ubahQty('${n}',-1)" style="background:#fff;color:#0a4d2a">-</button><b>${q}</b><button class="btn-sm" onclick="ubahQty('${n}',1)" style="background:#fff;color:#0a4d2a">+</button><b style="margin-left:6px">Rp ${formatRp(p.harga*q)}</b></div></div>`}).join('')||'<div style="opacity:.8;font-size:13px;margin-top:8px">Keranjang masih kosong, pilih produk dulu bre</div>';
+  hitungKembalian();
+}
+function hitungKembalian(){let total=Object.entries(cart).reduce((a,[n,q])=>{let p=produk.find(x=>x.nama===n);return a+(p?p.harga*q:0)},0); let bayar=parseInt(document.getElementById('bayarInput')?.value||0); document.getElementById('kembalian').textContent=formatRp(Math.max(0,bayar-total));}
+function checkout(){
+  let items=Object.entries(cart); if(!items.length) return alert('Keranjang masih kosong bre');
+  let total=items.reduce((a,[n,q])=>{let p=produk.find(x=>x.nama===n);return a+(p?p.harga*q:0)},0);
+  if(payMethod==='Tunai'){let bayar=parseInt(document.getElementById('bayarInput').value||0); if(bayar<total) return alert('Bayarnya kurang bre! Total Rp '+formatRp(total));}
+  let itemsStr=items.map(([n,q])=>n+' x'+q).join(', ');
+  items.forEach(([n,q])=>{let p=produk.find(x=>x.nama===n); if(p) p.stok=Math.max(0,p.stok-q);});
+  saldo+=total; riwayat.unshift({items:itemsStr,total,waktu:'Baru saja • Bayar: '+payMethod+' • Kasir: Manurung',pay:payMethod});
+  cart={}; document.getElementById('bayarInput').value=''; updateCart(); renderRiwayat(); renderSaldo(); renderProduk(); alert('Berhasil! Rp '+formatRp(total)+' • '+payMethod+' • Kembalian Rp '+formatRp(Math.max(0,(parseInt(document.getElementById('bayarInput').value||0)-total)))); showPage('home');
+}
+function tambahProduk(){let n=document.getElementById('namaBaru').value,h=parseInt(document.getElementById('hargaBaru').value),s=parseInt(document.getElementById('stokBaru').value||0); if(!n||!h) return alert('Isi nama & harga dulu bre'); produk.push({nama:n,harga:h,stok:s}); document.getElementById('namaBaru').value='';document.getElementById('hargaBaru').value='';document.getElementById('stokBaru').value=''; renderProduk(); alert('Produk ditambah!')}
+function importSheet(){
+  let url=document.getElementById('sheetUrl').value.trim(); if(!url) return alert('Paste link CSV-nya dulu bre');
+  fetch(url).then(r=>r.text()).then(t=>{parseCSV(t);}).catch(()=>alert('Gagal ambil Sheets. Pastiin udah Publish to Web → CSV ya bre'));
+}
+function contohSheet(){let csv='Nama,Harga,Stok\nSusu Bendera,12000,15\nKopi Kapal Api,8000,30\nMinyak Goreng 1L,18000,10'; parseCSV(csv);}
+function parseCSV(t){
+  let lines=t.trim().split('\n'); let count=0;
+  lines.slice(1).forEach(l=>{let [nama,harga,stok]=l.split(','); if(nama&&harga){produk.push({nama:nama.trim(),harga:parseInt(harga),stok:parseInt(stok||0)}); count++;}});
+  renderProduk(); alert(count+' produk berhasil di-import dari Sheets!');
+}
+function exportExcel(){
+  let csv='Tanggal,Produk,Total,Metode Pembayaran\n';
+  riwayat.forEach(r=>{csv+=`"14 Nov 2026","${r.items}",${r.total},${r.pay||'Tunai'}\n`});
+  let lap=JSON.parse(localStorage.getItem('laporan')||'[]'); lap.forEach(l=>{csv+=`"${l.tanggal}","Tutup Buku",${l.total},-\n`});
+  let blob=new Blob([csv],{type:'text/csv'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='laporan-warung-pintar.csv'; a.click(); alert('Excel berhasil di-download! Buka di Excel / Google Sheets ya bre');
+}
+function saveProfil(){
+  let n=document.getElementById('editNama').value, w=document.getElementById('editWarung').value, hp=document.getElementById('editHp').value;
+  if(n){document.getElementById('namaHeader').textContent=n; document.getElementById('namaProfil').textContent=n;}
+  if(w){document.getElementById('warungProfil').innerHTML=w+' •••• 1234<br>PREMIUM • SILVER';}
+  alert('Profil disimpan! Nama: '+(n||'Manurung')+' • Warung: '+(w||'WARUNG PINTAR')+' • HP: '+(hp||'-'));
+}
+function drawHomeChart(){let c=document.getElementById('chartHome'); if(!c) return; let ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); ctx.strokeStyle='#ddd'; ctx.setLineDash([5,5]); ctx.beginPath(); ctx.moveTo(0,120); ctx.lineTo(c.width,120); ctx.stroke(); ctx.setLineDash([]); ctx.strokeStyle='#009444'; ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(10,110); ctx.lineTo(60,80); ctx.lineTo(110,85); ctx.lineTo(160,60); ctx.lineTo(210,70); ctx.lineTo(260,35); ctx.lineTo(310,60); ctx.stroke(); ctx.fillStyle='rgba(0,148,68,.1)'; ctx.lineTo(310,140); ctx.lineTo(10,140); ctx.closePath(); ctx.fill(); ctx.fillStyle='#009444'; ctx.beginPath(); ctx.arc(310,60,6,0,Math.PI*2); ctx.fill();}
 let dataMinggu=[{label:'Sen',val:180000},{label:'Sel',val:220000},{label:'Rab',val:150000},{label:'Kam',val:310000},{label:'Jum',val:90000},{label:'Sab',val:224000},{label:'Min',val:66000}];
 let dataBulan=[{label:'W1',val:850000},{label:'W2',val:1240000},{label:'W3',val:980000},{label:'W4',val:1120000}];
 let currentData=dataMinggu;
 function setRange(r,btn){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');currentData=r==='minggu'?dataMinggu:dataBulan;document.getElementById('chartTitle').textContent=r==='minggu'?'Grafik Penjualan - Minggu Ini':'Grafik Penjualan - Bulan Ini';drawChart()}
 function drawChart(){let c=document.getElementById('chart'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);let max=Math.max(...currentData.map(d=>d.val));let bw=c.width/currentData.length;currentData.forEach((d,i)=>{let h=(d.val/max)*120;ctx.fillStyle=d.label==='Sab'?'#0a4d2a':'#009444';ctx.fillRect(i*bw+12,140-h,bw-24,h);ctx.fillStyle='#333';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(d.label,i*bw+bw/2,158);ctx.fillStyle='#009444';ctx.font='bold 10px sans-serif';ctx.fillText((d.val/1000)+'k',i*bw+bw/2,132-h)});let total=currentData.reduce((a,b)=>a+b.val,0);document.getElementById('chartTotal').textContent='Rp '+formatRp(total);document.getElementById('barList').innerHTML=currentData.map(d=>{let pct=Math.round(d.val/max*100);return `<div class="bar-row"><span>${d.label}</span><div class="bar" style="width:${pct}%">Rp ${formatRp(d.val)}</div></div>`}).join('')}
 function renderLaporan(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');document.getElementById('laporanList').innerHTML=lap.length?lap.map(l=>`<div class="lap-item"><div><b>Tutup Buku - ${l.tanggal}</b><br><small style="color:#888">Saldo periode</small></div><b style="color:#009444">Rp ${formatRp(l.total)}</b></div>`).join(''):`<div class="lap-item"><span style="color:#888">Belum ada Tutup Buku.</span></div>`}
-renderSaldo();renderRiwayat();renderProduk();renderLaporan();drawChart();updateCart();
+renderSaldo();renderRiwayat();renderProduk();renderLaporan();drawChart();drawHomeChart();updateCart();
 </script>
 </body>
 </html>
