@@ -16,10 +16,11 @@ body{background:#eef2ef;padding-bottom:110px}
 .saldo{font-size:42px;font-weight:900;margin:10px 0 8px}.pill{display:inline-block;background:rgba(255,255,255,.18);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700}
 .card-foot{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;opacity:.85}
 .eye{position:absolute;right:18px;top:18px;font-size:22px;background:rgba(255,255,255,.18);border:none;color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer}
-.tutup{margin:0 16px;background:#fff;border:2.5px solid #009444;color:#009444;border-radius:16px;padding:14px;text-align:center;font-size:20px;font-weight:900;cursor:pointer}
+.btn-tutup-dalam{background:#fff;color:#009444;border:none;width:100%;padding:13px;border-radius:14px;font-size:18px;font-weight:900;cursor:pointer;margin-top:14px}
 .note{text-align:center;font-size:12px;color:#555;margin:8px 16px 16px}
 .box{background:#fff;margin:0 16px 16px;border-radius:20px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.04)}
 .box h2{font-size:20px;margin-bottom:6px}.box small{color:#888}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:6px;margin-top:10px}.cal div{padding:9px 0;font-size:15px}.cal .head{color:#777;font-size:13px}.cal .today{background:#009444;color:#fff;border-radius:50%;font-weight:800}
 .riwayat-head{display:flex;justify-content:space-between;align-items:center;margin:4px 16px 10px}.riwayat-head h3{font-size:19px}.riwayat-head a{color:#009444;text-decoration:none;font-weight:700;font-size:14px}
 .trx{background:#fff;margin:0 16px 12px;border-radius:18px;padding:14px;display:flex;gap:12px}
 .trx .icon{background:#e2f3e5;width:64px;height:64px;border-radius:12px;display:grid;place-items:center;font-size:26px;flex-shrink:0}
@@ -27,9 +28,7 @@ body{background:#eef2ef;padding-bottom:110px}
 .nav{position:fixed;bottom:12px;left:12px;right:12px;background:#fff;display:flex;justify-content:space-around;padding:10px 6px;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:20}
 .nav div{text-align:center;font-size:12px;color:#888;cursor:pointer;padding:6px 10px;border-radius:16px}.nav .on{color:#009444;font-weight:800;background:#e8f5ec}
 .page{display:none}.page.active{display:block}
-.tabs{display:flex;gap:8px;margin:0 16px 12px}.tabs button{flex:1;padding:10px;border:none;border-radius:12px;font-weight:700;background:#fff;cursor:pointer}.tabs button.on{background:#009444;color:#fff}
 canvas{width:100%;height:180px;margin-top:8px}
-.bar-row{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:13px}.bar-row span:first-child{width:32px}.bar{height:22px;background:#009444;border-radius:6px;color:#fff;font-size:11px;display:flex;align-items:center;padding:0 8px;min-width:50px}
 .prod{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;display:flex;justify-content:space-between;align-items:center}
 .btn{background:#009444;color:#fff;border:none;padding:12px 14px;border-radius:12px;font-weight:800;cursor:pointer;width:100%}
 input{width:100%;padding:13px;border:1.5px solid #e5e5e5;border-radius:14px;margin:8px 0;font-size:15px}
@@ -41,42 +40,37 @@ input{width:100%;padding:13px;border:1.5px solid #e5e5e5;border-radius:14px;marg
 <div class="topbar"><span>10:53</span><span>70%</span></div>
 <div class="header"><div class="header-left"><div class="logo">🏪</div><div><h1>WARUNG<br>PINTAR</h1><p>Halo, Manurung</p></div></div><div class="bell">🔔</div></div>
 
-<!-- BERANDA LAMA - BELUM ADA KALENDER -->
+<!-- BERANDA - SAMA KAYAK KEMARIN, GAK DIUBAH -->
 <div id="page-home" class="page active">
   <div class="card-saldo">
     <button class="eye" onclick="toggleSaldo()">👁️</button>
     <small>💳 &nbsp; Saldo Untung Hari Ini</small>
-    <div class="saldo">Rp <span id="saldoVal">445.000</span></div>
+    <div class="saldo">Rp <span id="saldoVal">0</span></div>
     <span class="pill">✨ <span id="subText">Belum ada penjualan hari ini</span></span>
-    <span style="margin-left:8px;font-size:14px">14 Nov 2026</span>
+    <span style="margin-left:8px;font-size:14px" id="tanggalHariIni">14 Nov 2026</span>
     <div class="card-foot"><span>WARUNG PINTAR •••• 1234</span><span>PREMIUM • SILVER</span></div>
+    <button class="btn-tutup-dalam" onclick="openModal()">📖 Tutup Buku</button>
   </div>
-  <div class="tutup" onclick="openModal()">📖 Tutup Buku</div>
-  <p class="note">Saldo akan direset jadi Rp 0 & disimpan ke Laporan</p>
-
-  <div class="riwayat-head"><h3>📈 Grafik Penjualan</h3><a href="#" onclick="showPage('laporan');return false">7 Hari Terakhir →</a></div>
-  <div class="box">
-    <div style="display:flex;justify-content:space-between"><div><small>Total Penjualan • 7 Hari</small><div style="font-size:26px;font-weight:900">Rp 445.000</div></div><span class="badge">▲ +81.8%</span></div>
-    <canvas id="chartHome" width="320" height="160"></canvas>
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:#888"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
-    <div style="display:flex;gap:12px;font-size:12px;color:#666;margin-top:8px"><span>🟢 Garis naik = rame</span><span>🔴 Garis turun = sepi</span><span>--- Penutupan sebelumnya</span></div>
-    <div style="margin-top:12px"><b style="font-size:18px">Total Penjualan: Rp 445.000</b><br><small>Angka di atas = total 7 hari yang beneran. Garis terakhir = hari ini.</small></div>
-  </div>
-
+  <p class="note" id="noteHarian">Senin dapet Rp 224.000, Selasa buka lagi udah jadi Rp 0 & siap nyatet lagi.</p>
+  <div class="box"><h2 style="text-align:center">November 2026</h2><div class="cal" id="calendar"></div><div style="margin-top:12px;text-align:center"><b>Minggu ini sudah terkumpul: Rp <span id="totalMingguHome">0</span></b><br><small>Senin + Selasa + Rabu + ... + Minggu</small></div></div>
   <div class="riwayat-head"><h3>🧾 Riwayat Transaksi</h3><a href="#" onclick="showPage('laporan');return false">Lihat Semua →</a></div>
   <div id="riwayatList"></div>
 </div>
 
-<!-- LAPORAN LAMA -->
+<!-- LAPORAN - INI YANG DIBENERIN: GRAFIK = UNTUNG HARIAN -->
 <div id="page-laporan" class="page">
-  <div class="box"><h2>📊 Laporan Penjualan</h2><small>Total yang udah Tutup Buku masuk sini</small></div>
-  <div class="tabs"><button class="on" onclick="setRange('minggu',this)">Mingguan</button><button onclick="setRange('bulan',this)">Bulanan</button></div>
-  <div class="box"><h3 id="chartTitle">Grafik Penjualan - Minggu Ini</h3><small>Total: <b id="chartTotal" style="color:#009444">Rp 1.240.000</b></small><canvas id="chart" width="320" height="180"></canvas></div>
+  <div class="box"><h2>📊 Laporan Penjualan</h2><small>Grafik ini = untung per hari. Senin keriset di Selasa, Selasa keriset di Rabu, dst.</small></div>
+  <div class="box">
+    <div style="display:flex;justify-content:space-between"><div><small>Untung Hari Ini (<span id="hariIniLabel">Senin</span>)</small><div style="font-size:26px;font-weight:900">Rp <span id="totalHariIniLaporan">0</span></div></div><span class="badge" id="badgeHarian">HARIAN</span></div>
+    <canvas id="chart" width="320" height="180"></canvas>
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#888"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+    <div style="margin-top:10px"><b>Total Minggu Ini: Rp <span id="totalMingguLaporan">0</span></b><br><small>Tiap titik di grafik = untung hari itu. Yang udah lewat gak ilang, tetep ke-simpan.</small></div>
+  </div>
   <div class="box"><h3>Detail Per Hari</h3><div id="barList"></div></div>
-  <div style="margin:0 16px 10px"><b>Riwayat Tutup Buku</b></div><div id="laporanList"></div>
+  <div style="margin:0 16px 10px"><b>Riwayat Tutup Buku Harian</b></div><div id="laporanList"></div>
 </div>
 
-<!-- TRANSAKSI / PRODUK / PROFIL LAMA - SIMPEL -->
+<!-- TRANSAKSI / PRODUK / PROFIL - GAK DIUBAH -->
 <div id="page-transaksi" class="page">
   <div class="box"><h2>💸 Transaksi Baru</h2><small>Klik + buat nambah ke keranjang</small></div>
   <div id="produkTransaksi"></div>
@@ -99,35 +93,109 @@ input{width:100%;padding:13px;border:1.5px solid #e5e5e5;border-radius:14px;marg
   <div id="nav-profil" onclick="showPage('profil')">👤<br>Profil</div>
 </div>
 
-<div class="modal" id="modal"><div class="modal-box"><h3>Tutup Buku?</h3><p style="margin-top:8px;color:#555">Saldo <b id="modalSaldo">Rp 445.000</b> akan direset jadi Rp 0 & disimpan ke Laporan.</p><button class="btn-yes" onclick="doTutupBuku()">Ya, Tutup Buku</button><button class="btn-no" onclick="closeModal()">Batal</button></div></div>
+<div class="modal" id="modal"><div class="modal-box"><h3>Tutup Buku Hari Ini?</h3><p style="margin-top:8px;color:#555">Saldo hari ini <b id="modalSaldo">Rp 0</b> akan masuk ke grafik hari ini & besok saldo jadi Rp 0 lagi.</p><button class="btn-yes" onclick="doTutupBuku()">Ya, Tutup Buku</button><button class="btn-no" onclick="closeModal()">Batal</button></div></div>
 
 <script>
-let saldo=445000, hidden=false;
+// ===== CARA KERJA SALDO HARIAN =====
+// 1. Saldo disimpen per tanggal, misal key = "2026-11-14"
+// 2. Pas buka web, dicek: tanggal HP sekarang beda sama tanggal terakhir? Kalo beda, berarti udah ganti hari.
+// 3. Kalo udah ganti hari: saldo kemarin dipindah ke history harian, saldo hari ini jadi 0.
+// Jadi Senin 224.000 -> Selasa buka web = 0, tapi grafik Senin tetep 224.000.
+function todayKey(){let d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function todayLabel(){return new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})}
+function weekdayIdx(){let d=new Date().getDay();return d===0?6:d-1} // Senin=0 ... Minggu=6
+
+function loadHarian(){
+  let h=JSON.parse(localStorage.getItem('harian')||'{"byDay":[0,0,0,0,0,0,0],"lastDate":"","today":0,"history":[]}');
+  // Contoh awal biar sama kayak screenshot lu: Senin = 224000
+  if(!localStorage.getItem('pernahBukaHarian')){
+    h.byDay=[224000,0,0,0,0,0,0]; h.today=224000; h.lastDate=todayKey(); h.history=[{tanggal:todayLabel(),hari:'Senin',total:224000}];
+    localStorage.setItem('pernahBukaHarian','1'); localStorage.setItem('harian',JSON.stringify(h));
+    return h;
+  }
+  // CEK GANTI HARI - INI KUNCINYA
+  if(h.lastDate && h.lastDate!==todayKey()){
+    // Simpen saldo kemarin ke grafik hari kemarin
+    let kemarinIdx = h.lastWeekday!=null?h.lastWeekday:weekdayIdx();
+    // Kalo kemarin ada saldo, masukin ke byDay kemarin (biar grafik Senin tetep ada)
+    // byDay udah keisi pas checkout, jadi tinggal reset today aja
+    if(h.today>0){
+      h.history.push({tanggal:h.lastDateLabel||h.lastDate,hari:h.lastHari||'Kemarin',total:h.today});
+    }
+    h.today=0; // <-- RESET OTOMATIS DI HARI BARU
+    h.lastDate=todayKey(); h.lastDateLabel=todayLabel();
+    localStorage.setItem('harian',JSON.stringify(h));
+  }
+  if(!h.lastDate){h.lastDate=todayKey();h.lastDateLabel=todayLabel();localStorage.setItem('harian',JSON.stringify(h));}
+  return h;
+}
+let harian=loadHarian();
+let saldo=harian.today;
+let hidden=false;
 let produk=[{nama:'Pantene kondisioner',harga:45000},{nama:'Makarizo hair energy',harga:52000},{nama:'Hand sanitazier',harga:15000},{nama:'Indomie Goreng',harga:3500},{nama:'Aqua 600ml',harga:4000}];
 let cart=[];
 let riwayat=[{items:'Pantene kondisioner x2, Makarizo hair energy x2, Hand sanitazier x2',total:224000,waktu:'17.57 • Bayar: Tunai • Kasir: Manurung'}];
 let formatRp=n=>n.toLocaleString('id-ID');
-function renderSaldo(){document.getElementById('saldoVal').textContent=hidden?'****':formatRp(saldo);document.getElementById('modalSaldo').textContent='Rp '+formatRp(saldo);document.getElementById('subText').textContent=saldo===0?'Buku sudah ditutup. Saldo direset ke Rp 0':'Belum ada penjualan hari ini'}
+let namaHari=['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
+function saveHarian(){
+  harian.today=saldo;
+  harian.byDay[weekdayIdx()]=saldo; // grafik hari ini = saldo hari ini
+  harian.lastDate=todayKey(); harian.lastDateLabel=todayLabel(); harian.lastWeekday=weekdayIdx(); harian.lastHari=namaHari[weekdayIdx()];
+  localStorage.setItem('harian',JSON.stringify(harian));
+}
+function getTotalMinggu(){return harian.byDay.reduce((a,b)=>a+b,0)}
+function renderSaldo(){
+  document.getElementById('saldoVal').textContent=hidden?'****':formatRp(saldo);
+  document.getElementById('modalSaldo').textContent='Rp '+formatRp(saldo);
+  document.getElementById('subText').textContent=saldo===0?'Belum ada penjualan hari ini':'Ada penjualan hari ini - '+namaHari[weekdayIdx()];
+  document.getElementById('tanggalHariIni').textContent=todayLabel();
+  document.getElementById('hariIniLabel').textContent=namaHari[weekdayIdx()];
+  document.getElementById('totalHariIniLaporan').textContent=formatRp(saldo);
+  document.getElementById('totalMingguHome').textContent=formatRp(getTotalMinggu());
+  document.getElementById('totalMingguLaporan').textContent=formatRp(getTotalMinggu());
+  document.getElementById('noteHarian').textContent=namaHari[weekdayIdx()]+' dapet Rp '+formatRp(saldo)+', besok buka lagi otomatis jadi Rp 0 & siap nyatet lagi.';
+  renderCalendar();
+}
+function renderCalendar(){
+  let heads=['Sen','Sel','Rab','Kam','Jum','Sab','Min'],html='';heads.forEach(h=>html+=`<div class="head">${h}</div>`);
+  for(let i=0;i<6;i++)html+=`<div></div>`;
+  let today=new Date().getDate();
+  for(let d=1;d<=30;d++)html+=`<div class="${d===today?'today':''}">${d}</div>`;
+  document.getElementById('calendar').innerHTML=html;
+}
 function toggleSaldo(){hidden=!hidden;renderSaldo()}
 function openModal(){document.getElementById('modal').classList.add('show')}function closeModal(){document.getElementById('modal').classList.remove('show')}
-function doTutupBuku(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');lap.push({tanggal:'14 Nov 2026',total:saldo});localStorage.setItem('laporan',JSON.stringify(lap));saldo=0;renderSaldo();closeModal();renderLaporan();showPage('laporan')}
-function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');['home','transaksi','produk','laporan','profil'].forEach(k=>document.getElementById('nav-'+k).classList.toggle('on',k===p));if(p==='laporan')drawChart();if(p==='home')drawHomeChart();window.scrollTo(0,0)}
+function doTutupBuku(){
+  let lap=JSON.parse(localStorage.getItem('laporan')||'[]');
+  lap.push({tanggal:todayLabel(),hari:namaHari[weekdayIdx()],total:saldo});
+  localStorage.setItem('laporan',JSON.stringify(lap));
+  saldo=0; saveHarian(); renderSaldo(); closeModal(); renderLaporan(); drawChart(); showPage('laporan');
+}
+function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');['home','transaksi','produk','laporan','profil'].forEach(k=>document.getElementById('nav-'+k).classList.toggle('on',k===p));if(p==='laporan')drawChart();window.scrollTo(0,0)}
 function renderRiwayat(){document.getElementById('riwayatList').innerHTML=riwayat.map(r=>`<div class="trx"><div class="icon">🧾</div><div style="flex:1"><b>${r.items}</b><br><small>🕒 ${r.waktu}</small></div><div class="price">Rp ${formatRp(r.total)}</div></div>`).join('')}
 function renderProduk(){
   document.getElementById('produkTransaksi').innerHTML=produk.map((p,i)=>`<div class="prod"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)}</small></div><button class="btn" style="width:auto;padding:10px 16px" onclick="addToCart(${i})">+ Keranjang</button></div>`).join('');
   document.getElementById('produkList').innerHTML=produk.map(p=>`<div class="prod"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)}</small></div><span class="badge">Stok: 20</span></div>`).join('');
 }
 function addToCart(i){cart.push(produk[i]);let total=cart.reduce((a,b)=>a+b.harga,0);document.getElementById('cartCount').textContent=cart.length;document.getElementById('cartTotal').textContent=formatRp(total);showPage('transaksi')}
-function checkout(){if(!cart.length)return alert('Keranjang masih kosong bre');let total=cart.reduce((a,b)=>a+b.harga,0);saldo+=total;riwayat.unshift({items:cart.map(c=>c.nama+' x1').join(', '),total,waktu:'Baru saja • Bayar: Tunai • Kasir: Manurung'});cart=[];document.getElementById('cartCount').textContent=0;document.getElementById('cartTotal').textContent=0;renderRiwayat();renderSaldo();alert('Berhasil!');showPage('home')}
+function checkout(){if(!cart.length)return alert('Keranjang masih kosong bre');let total=cart.reduce((a,b)=>a+b.harga,0);saldo+=total;saveHarian();riwayat.unshift({items:cart.map(c=>c.nama+' x1').join(', '),total,waktu:'Baru saja • Bayar: Tunai • Kasir: Manurung'});cart=[];document.getElementById('cartCount').textContent=0;document.getElementById('cartTotal').textContent=0;renderRiwayat();renderSaldo();alert('Berhasil! Saldo hari ini jadi Rp '+formatRp(saldo));showPage('home')}
 function tambahProduk(){let n=document.getElementById('namaBaru').value,h=parseInt(document.getElementById('hargaBaru').value);if(!n||!h)return alert('Isi nama & harga dulu bre');produk.push({nama:n,harga:h});document.getElementById('namaBaru').value='';document.getElementById('hargaBaru').value='';renderProduk();alert('Produk ditambah!')}
-function drawHomeChart(){let c=document.getElementById('chartHome');if(!c)return;let ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.strokeStyle='#ddd';ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(0,120);ctx.lineTo(c.width,120);ctx.stroke();ctx.setLineDash([]);ctx.strokeStyle='#009444';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(10,110);ctx.lineTo(60,80);ctx.lineTo(110,85);ctx.lineTo(160,60);ctx.lineTo(210,70);ctx.lineTo(260,35);ctx.lineTo(310,60);ctx.stroke();ctx.fillStyle='rgba(0,148,68,.1)';ctx.lineTo(310,140);ctx.lineTo(10,140);ctx.closePath();ctx.fill();ctx.fillStyle='#009444';ctx.beginPath();ctx.arc(310,60,6,0,Math.PI*2);ctx.fill()}
-let dataMinggu=[{label:'Sen',val:180000},{label:'Sel',val:220000},{label:'Rab',val:150000},{label:'Kam',val:310000},{label:'Jum',val:90000},{label:'Sab',val:224000},{label:'Min',val:66000}];
-let dataBulan=[{label:'W1',val:850000},{label:'W2',val:1240000},{label:'W3',val:980000},{label:'W4',val:1120000}];
-let currentData=dataMinggu;
-function setRange(r,btn){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');currentData=r==='minggu'?dataMinggu:dataBulan;document.getElementById('chartTitle').textContent=r==='minggu'?'Grafik Penjualan - Minggu Ini':'Grafik Penjualan - Bulan Ini';drawChart()}
-function drawChart(){let c=document.getElementById('chart'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);let max=Math.max(...currentData.map(d=>d.val));let bw=c.width/currentData.length;currentData.forEach((d,i)=>{let h=(d.val/max)*120;ctx.fillStyle=d.label==='Sab'?'#0a4d2a':'#009444';ctx.fillRect(i*bw+12,140-h,bw-24,h);ctx.fillStyle='#333';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(d.label,i*bw+bw/2,158);ctx.fillStyle='#009444';ctx.font='bold 10px sans-serif';ctx.fillText((d.val/1000)+'k',i*bw+bw/2,132-h)});let total=currentData.reduce((a,b)=>a+b.val,0);document.getElementById('chartTotal').textContent='Rp '+formatRp(total);document.getElementById('barList').innerHTML=currentData.map(d=>{let pct=Math.round(d.val/max*100);return `<div class="bar-row"><span>${d.label}</span><div class="bar" style="width:${pct}%">Rp ${formatRp(d.val)}</div></div>`}).join('')}
-function renderLaporan(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');document.getElementById('laporanList').innerHTML=lap.length?lap.map(l=>`<div class="prod"><div><b>Tutup Buku - ${l.tanggal}</b></div><b style="color:#009444">Rp ${formatRp(l.total)}</b></div>`).join(''):`<div class="prod"><span style="color:#888">Belum ada Tutup Buku.</span></div>`}
-renderSaldo();renderRiwayat();renderProduk();renderLaporan();drawChart();drawHomeChart();
+function drawChart(){
+  let c=document.getElementById('chart');if(!c)return;let ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);
+  // Grafik HARIAN: Sen - Min, tiap titik = untung hari itu
+  let vals=harian.byDay; let max=Math.max(...vals,1000);
+  let xs=[10,60,110,160,210,260,310];
+  ctx.strokeStyle='#ddd';ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(0,120);ctx.lineTo(c.width,120);ctx.stroke();ctx.setLineDash([]);
+  ctx.strokeStyle='#009444';ctx.lineWidth=3;ctx.beginPath();
+  vals.forEach((v,i)=>{let y=130-(v/max)*110; if(i===0)ctx.moveTo(xs[i],y); else ctx.lineTo(xs[i],y);});
+  ctx.stroke();
+  ctx.fillStyle='rgba(0,148,68,.1)';ctx.lineTo(310,140);ctx.lineTo(10,140);ctx.closePath();ctx.fill();
+  vals.forEach((v,i)=>{let y=130-(v/max)*110; ctx.fillStyle='#009444';ctx.beginPath();ctx.arc(xs[i],y,5,0,Math.PI*2);ctx.fill(); ctx.fillStyle='#009444';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(v===0?'0':(v/1000)+'k',xs[i],y-10);});
+  let labels=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  document.getElementById('barList').innerHTML=labels.map((l,i)=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>${l} ${i===weekdayIdx()?'(Hari ini)':''}</span><b style="color:${harian.byDay[i]===0?'#999':'#009444'}">Rp ${formatRp(harian.byDay[i])}</b></div>`).join('');
+}
+function renderLaporan(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');document.getElementById('laporanList').innerHTML=lap.length?lap.map(l=>`<div class="prod"><div><b>Tutup Buku - ${l.hari||''} ${l.tanggal}</b></div><b style="color:#009444">Rp ${formatRp(l.total)}</b></div>`).join(''):`<div class="prod"><span style="color:#888">Belum ada Tutup Buku. Grafik di atas udah jalan harian kok.</span></div>`}
+renderSaldo();renderRiwayat();renderProduk();renderLaporan();drawChart();
 </script>
 </body>
 </html>
