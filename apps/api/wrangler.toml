@@ -2,6 +2,10 @@ name = "warung-pintar-api"
 main = "src/index.ts"
 compatibility_date = "2025-09-20"
 compatibility_flags = ["nodejs_compat"]
+
+[[hyperdrive]]
+binding = "HYPERDRIVE"
+id = "34444e6e4a134100a1a4cad73b246606"
+
 [dev]
 port = 8787
-# Add Hyperdrive binding and Neon connection as managed secrets/resources before deployment.
