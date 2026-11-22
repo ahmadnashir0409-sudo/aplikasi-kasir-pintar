@@ -13,11 +13,13 @@ CREATE UNIQUE INDEX users_email_lower_idx ON users (lower(email));
 
 CREATE TABLE memberships (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  tenant_id UUID NOT NULL REFERENCES tenants(id) ON DELETE RESTRICT,
-  store_id UUID NOT NULL REFERENCES stores(id) ON DELETE RESTRICT,
+  tenant_id UUID NOT NULL,
+  store_id UUID NOT NULL,
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   role membership_role NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT memberships_tenant_store_fk FOREIGN KEY (tenant_id, store_id)
+    REFERENCES stores(tenant_id, id) ON DELETE RESTRICT,
   CONSTRAINT memberships_store_user_unique UNIQUE (store_id, user_id)
 );
 CREATE INDEX memberships_user_id_idx ON memberships(user_id);
