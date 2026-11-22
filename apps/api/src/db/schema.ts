@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, text, timestamp, uuid, char, uniqueIndex, index } from "drizzle-orm/pg-core";
+import { foreignKey, pgEnum, pgTable, text, timestamp, uuid, char, uniqueIndex, index, sql } from "drizzle-orm/pg-core";
 
 export const membershipRole = pgEnum("membership_role", ["owner", "manager", "cashier"]);
 
@@ -29,17 +29,22 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 }, (table) => [
-  uniqueIndex("users_email_lower_idx").on(table.email),
+  uniqueIndex("users_email_lower_idx").on(sql`lower(${table.email})`),
 ]);
 
 export const memberships = pgTable("memberships", {
   id: uuid("id").defaultRandom().primaryKey(),
-  tenantId: uuid("tenant_id").notNull().references(() => tenants.id, { onDelete: "restrict" }),
-  storeId: uuid("store_id").notNull().references(() => stores.id, { onDelete: "restrict" }),
+  tenantId: uuid("tenant_id").notNull(),
+  storeId: uuid("store_id").notNull(),
   userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   role: membershipRole("role").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 }, (table) => [
+  foreignKey({
+    name: "memberships_tenant_store_fk",
+    columns: [table.tenantId, table.storeId],
+    foreignColumns: [stores.tenantId, stores.id],
+  }).onDelete("restrict"),
   uniqueIndex("memberships_store_user_idx").on(table.storeId, table.userId),
   index("memberships_user_id_idx").on(table.userId),
 ]);
