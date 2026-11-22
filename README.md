@@ -7,7 +7,7 @@ A rebuild of the WARUNG PINTAR point-of-sale prototype into a reliable, multi-us
 - React + TypeScript + Vite (web)
 - Hono + Cloudflare Workers (API)
 - PostgreSQL + Drizzle ORM (data)
-- Neon PostgreSQL (planned managed host)
+- Neon PostgreSQL (selected managed host)
 - Cloudflare Hyperdrive (planned production database connectivity)
 
 ## Requirements
@@ -18,14 +18,16 @@ A rebuild of the WARUNG PINTAR point-of-sale prototype into a reliable, multi-us
 
 ## Local development
 
-1. Copy `.env.example` to `.env`.
-2. Start PostgreSQL locally: `docker compose up -d db`.
-3. Install dependencies: `npm install`.
-4. Start the web app: `npm run dev`.
-5. In another terminal, start the API: `npm run dev:api`.
+1. Start PostgreSQL locally: `docker compose up -d db`.
+2. Install dependencies: `npm install`.
+3. Set `DATABASE_URL` in your shell or copy `apps/api/.env.example` to your local environment for Drizzle Kit.
+4. For the Worker, copy `apps/api/.dev.vars.example` to `apps/api/.dev.vars`.
+5. Start the API: `npm run dev:api`.
+6. In another terminal, start the web app: `npm run dev`.
 
 Web: http://localhost:5173  
-API health: http://localhost:8787/health
+API health: http://localhost:8787/health  
+Database readiness: http://localhost:8787/health/db
 
 ## Commands
 
@@ -33,11 +35,12 @@ API health: http://localhost:8787/health
 - `npm run typecheck` — typecheck web and API
 - `npm test` — API tests
 - `npm run format:check` — formatting check
+- `npm run db:migrate --workspace @warung-pintar/api` — apply local SQL migrations after reviewing them
 
 ## Database
 
-PostgreSQL is the selected database engine. Neon is the planned managed provider. Do not commit database URLs or credentials. Schema changes must be made through versioned SQL migrations in `apps/api/drizzle/`.
+PostgreSQL is the selected database engine. Neon is the selected managed provider. Do not commit database URLs or credentials. Schema changes must be made through versioned SQL migrations in `apps/api/drizzle/`.
 
 ## Current status
 
-Phase 1 foundation scaffold. Authentication and store-scoped authorization are next; production database provisioning has not been performed.
+Phase 1 foundation scaffold. Database connectivity checks and identity schema are present; hosted Neon provisioning and full authentication flows are not complete.
