@@ -1,5 +1,5 @@
 CREATE TYPE membership_role AS ENUM ('owner', 'manager', 'cashier');
-
+--> statement-breakpoint
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email TEXT NOT NULL,
@@ -9,8 +9,9 @@ CREATE TABLE users (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+--> statement-breakpoint
 CREATE UNIQUE INDEX users_email_lower_idx ON users (lower(email));
-
+--> statement-breakpoint
 CREATE TABLE memberships (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   tenant_id UUID NOT NULL,
@@ -22,8 +23,9 @@ CREATE TABLE memberships (
     REFERENCES stores(tenant_id, id) ON DELETE RESTRICT,
   CONSTRAINT memberships_store_user_unique UNIQUE (store_id, user_id)
 );
+--> statement-breakpoint
 CREATE INDEX memberships_user_id_idx ON memberships(user_id);
-
+--> statement-breakpoint
 CREATE TABLE sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -32,4 +34,5 @@ CREATE TABLE sessions (
   revoked_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+--> statement-breakpoint
 CREATE INDEX sessions_user_id_idx ON sessions(user_id);
