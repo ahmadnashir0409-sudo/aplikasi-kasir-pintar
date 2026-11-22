@@ -1,22 +1,31 @@
 # Phase 1 — Foundation
 
 ## Implemented in this scaffold
+
 - Monorepo workspace for web and API.
 - React + TypeScript + Vite web entry point.
-- Hono API entry point with health endpoint and safe error response.
+- Hono API with liveness and PostgreSQL readiness endpoints.
 - PostgreSQL local development service through Docker Compose.
-- Initial tenant/store schema migration.
+- Drizzle schema for tenants, stores, users, memberships, and sessions.
+- Versioned SQL migrations for tenant/store and identity/session foundations.
+- Drizzle migration configuration and scripts.
 - Typecheck, test, build, formatting scripts.
 - GitHub Actions CI workflow.
 - Environment example and secret exclusions.
 
-## Deployment note
-The API currently runs locally through Wrangler. Before production deployment, provision Neon PostgreSQL and configure Cloudflare Hyperdrive with managed secrets/bindings. Never commit database credentials.
+## Database connectivity
 
-The initial migration is a development baseline only. Do not run it against an existing production database. Later migrations add users, memberships, products, inventory, sales, payments, cash sessions, and audit records.
+The API accepts a local `DATABASE_URL` binding for development or a Cloudflare Hyperdrive binding for deployment. The `/health/db` endpoint reports readiness without exposing credentials or driver errors.
+
+Neon is the selected managed PostgreSQL provider, but no Neon project has been provisioned and no production credentials have been added. Before production deployment, create the Neon database and configure Hyperdrive through the Cloudflare account. Never commit connection strings.
+
+## Migration safety
+
+The initial migration is a baseline for a new development database only. Do not run it against an existing production database. Apply migrations sequentially to a disposable local database first and verify the resulting schema before any hosted environment is considered.
 
 ## Next
-1. Add Neon connectivity via Hyperdrive and Drizzle schema/client.
-2. Add migration tooling and migration verification.
-3. Implement password hashing, login, secure server-side sessions, logout, and role/store authorization.
-4. Add API integration tests using disposable PostgreSQL.
+
+1. Run install, typecheck, tests, and build in CI; fix any failures.
+2. Provision a Neon development database and verify Hyperdrive/driver compatibility.
+3. Add password hashing, login, secure server-side sessions, logout, and role/store authorization.
+4. Add PostgreSQL integration tests for session and tenant/store isolation.
