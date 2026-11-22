@@ -1,4 +1,5 @@
-import { foreignKey, pgEnum, pgTable, text, timestamp, uuid, char, uniqueIndex, index, sql } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { foreignKey, pgEnum, pgTable, text, timestamp, uuid, char, uniqueIndex, index } from "drizzle-orm/pg-core";
 
 export const membershipRole = pgEnum("membership_role", ["owner", "manager", "cashier"]);
 
