@@ -1,0 +1,3 @@
+import {describe,expect,it} from "vitest";
+import app from "../src/index";
+describe("GET /health",()=>{it("returns a healthy API response",async()=>{const response=await app.request("/health",{}, {APP_ENV:"test"});expect(response.status).toBe(200);const body=await response.json<{status:string;service:string;environment:string}>();expect(body.status).toBe("ok");expect(body.service).toBe("warung-pintar-api");expect(body.environment).toBe("test")})});
