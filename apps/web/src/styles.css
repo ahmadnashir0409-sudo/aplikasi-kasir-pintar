@@ -40,3 +40,9 @@ button:focus-visible{outline:2px solid #f0c34b;outline-offset:2px}
   .pos{grid-template-columns:minmax(0,1fr) 290px}
   .content{padding-left:18px;padding-right:18px}
 }
+
+/* Official supplied brand asset */
+.brand{padding-left:5px;padding-right:5px}
+.brand-lockup{width:100%;justify-content:center}
+.brand-lockup img{display:block;width:100%;max-width:220px;height:auto;max-height:74px;object-fit:contain}
+@media(max-width:760px){.brand-lockup img{max-width:220px;max-height:76px}}
