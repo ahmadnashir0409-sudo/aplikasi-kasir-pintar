@@ -1,118 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 
-type Health = { status: string; service: string; environment?: string };
-type Page = "Dashboard" | "Kasir" | "Produk" | "Persediaan" | "Transaksi" | "Laporan" | "Pengaturan";
-
-const navigation: { group: string; items: { name: Page; icon: string; hint?: string }[] }[] = [
-  { group: "WORKSPACE", items: [{ name: "Dashboard", icon: "▦" }, { name: "Kasir", icon: "▣" }] },
-  { group: "MANAJEMEN TOKO", items: [{ name: "Produk", icon: "◇" }, { name: "Persediaan", icon: "▤" }, { name: "Transaksi", icon: "↗" }, { name: "Laporan", icon: "▥" }] },
-  { group: "PREFERENSI", items: [{ name: "Pengaturan", icon: "⚙" }] },
-];
-
-const pageDescriptions: Record<Page, string> = {
-  Dashboard: "Pantau ringkasan aktivitas tokomu dalam satu tempat.",
-  Kasir: "Alur penjualan dan pembayaran akan dibangun di tahap transaksi.",
-  Produk: "Kelola katalog barang, harga jual, dan informasi produk.",
-  Persediaan: "Pantau stok masuk, stok keluar, dan riwayat pergerakan barang.",
-  Transaksi: "Telusuri penjualan dan detail pembayaran.",
-  Laporan: "Lihat performa penjualan dan ringkasan operasional toko.",
-  Pengaturan: "Atur profil toko, akun, dan preferensi aplikasi.",
-};
-
-function App() {
-  const [page, setPage] = useState<Page>("Dashboard");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [health, setHealth] = useState<Health | null>(null);
-  const [apiState, setApiState] = useState<"checking" | "online" | "offline">("checking");
-
-  useEffect(() => {
-    fetch("/api/health")
-      .then((response) => { if (!response.ok) throw new Error("API unavailable"); return response.json() as Promise<Health>; })
-      .then((data) => { setHealth(data); setApiState("online"); })
-      .catch(() => setApiState("offline"));
-  }, []);
-
-  const choosePage = (next: Page) => { setPage(next); setSidebarOpen(false); };
-
-  return (
-    <div className="app-shell">
-      {sidebarOpen && <button className="mobile-scrim" aria-label="Tutup navigasi" onClick={() => setSidebarOpen(false)} />}
-      <aside className={`sidebar ${sidebarOpen ? "sidebar-open" : ""}`}>
-        <div className="brand-lockup">
-          <div className="brand-symbol">W<span>•</span></div>
-          <div><strong>WARUNG PINTAR</strong><small>SMART RETAIL SYSTEM</small></div>
-          <button className="sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Tutup menu">×</button>
-        </div>
-        <div className="store-switcher"><div className="store-avatar">WP</div><div><strong>Warung Utama</strong><small>Workspace toko</small></div><span className="switch-chevron">⌄</span></div>
-        <nav className="side-nav" aria-label="Navigasi utama">
-          {navigation.map((section) => <div className="nav-section" key={section.group}>
-            <p className="nav-heading">{section.group}</p>
-            {section.items.map((item) => <button key={item.name} className={`nav-item ${page === item.name ? "active" : ""}`} onClick={() => choosePage(item.name)}>
-              <span className="nav-icon">{item.icon}</span><span>{item.name}</span>{item.hint && <small>{item.hint}</small>}
-            </button>)}
-          </div>)}
-        </nav>
-        <div className="sidebar-bottom">
-          <div className="help-card"><div className="help-icon">✦</div><strong>Butuh bantuan?</strong><p>Pusat panduan WARUNG PINTAR akan segera hadir.</p><span>SEGERA HADIR ↗</span></div>
-          <div className="profile-row"><div className="profile-avatar">A</div><div><strong>Administrator</strong><small>Owner workspace</small></div><button aria-label="Menu akun">•••</button></div>
-        </div>
-      </aside>
-
-      <main className="main-area">
-        <header className="topbar">
-          <button className="mobile-menu" onClick={() => setSidebarOpen(true)} aria-label="Buka navigasi">☰</button>
-          <div className="breadcrumb">Workspace <span>/</span> <strong>{page}</strong></div>
-          <div className="topbar-actions"><span className={`connection-pill ${apiState}`}><i />{apiState === "online" ? "API terhubung" : apiState === "checking" ? "Memeriksa API" : "API offline"}</span><button className="icon-button" aria-label="Notifikasi">♧</button><div className="top-avatar">A</div></div>
-        </header>
-
-        <div className="page-content">
-          <div className="page-heading"><div><p className="eyebrow">OVERVIEW / {page.toUpperCase()}</p><h1>{page === "Dashboard" ? "Dashboard" : page}</h1><p>{pageDescriptions[page]}</p></div><div className="date-chip"><span>◷</span> Ringkasan hari ini</div></div>
-
-          {page === "Dashboard" ? <Dashboard health={health} apiState={apiState} onOpen={choosePage} /> : <ModulePreview page={page} onOpen={choosePage} />}
-          <footer className="page-footer"><span>© {new Date().getFullYear()} WARUNG PINTAR</span><span>BUILD FOUNDATION · PHASE 1</span></footer>
-        </div>
-      </main>
-    </div>
-  );
+type Page="Dashboard"|"Kasir"|"Produk"|"Persediaan"|"Transaksi"|"Shift Kasir"|"Laporan"|"Pengaturan";
+type Product={id:string;name:string;sku:string;category:string;price:number;cost:number;stock:number;unit:string;active:boolean};
+type Sale={id:string;number:string;createdAt:string;items:{name:string;qty:number;price:number}[];total:number;method:string};
+type Data={products:Product[];sales:Sale[];shift:{openedAt:string;openingCash:number}|null};
+const KEY="warung-pintar-local-v1", emptyData:Data={products:[],sales:[],shift:null};
+const cash=(n:number)=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
+const makeId=()=>crypto.randomUUID();
+const menus:{group:string;items:{page:Page;icon:string}[]}[]=[{group:"OPERASIONAL",items:[{page:"Dashboard",icon:"⌂"},{page:"Kasir",icon:"▣"},{page:"Transaksi",icon:"↗"},{page:"Shift Kasir",icon:"◷"}]},{group:"KATALOG & STOK",items:[{page:"Produk",icon:"◇"},{page:"Persediaan",icon:"▤"}]},{group:"ANALISIS",items:[{page:"Laporan",icon:"▥"}]},{group:"PENGATURAN",items:[{page:"Pengaturan",icon:"⚙"}]}];
+function load():Data{try{return {...emptyData,...JSON.parse(localStorage.getItem(KEY)||"{}")};}catch{return emptyData;}}
+export default function App(){
+ const [data,setData]=useState<Data>(load),[page,setPage]=useState<Page>("Dashboard"),[nav,setNav]=useState(false),[search,setSearch]=useState(""),[category,setCategory]=useState("Semua"),[cart,setCart]=useState<{id:string;qty:number}[]>([]),[discount,setDiscount]=useState(0),[modal,setModal]=useState(""),[notice,setNotice]=useState(""),[editing,setEditing]=useState<Product|null>(null),[chosen,setChosen]=useState<Product|null>(null),[paid,setPaid]=useState(""),[method,setMethod]=useState("Tunai"),[stockQty,setStockQty]=useState("1"),[cashOpen,setCashOpen]=useState(""),[range,setRange]=useState("today");
+ useEffect(()=>{localStorage.setItem(KEY,JSON.stringify(data));},[data]);
+ useEffect(()=>{if(!notice)return;const t=setTimeout(()=>setNotice(""),2600);return()=>clearTimeout(t);},[notice]);
+ const update=(fn:(d:Data)=>Data)=>setData(d=>fn(d));
+ const today=new Date().toLocaleDateString("en-CA");
+ const todays=data.sales.filter(s=>s.createdAt.slice(0,10)===today);
+ const cats=["Semua",...Array.from(new Set(data.products.map(p=>p.category)))];
+ const products=data.products.filter(p=>p.active&&(category==="Semua"||category===p.category)&&(!search||[p.name,p.sku].some(x=>x.toLowerCase().includes(search.toLowerCase()))));
+ const lines=cart.map(x=>({line:x,p:data.products.find(p=>p.id===x.id)})).filter((x):x is {line:{id:string;qty:number};p:Product}=>!!x.p);
+ const subtotal=lines.reduce((s,x)=>s+x.p.price*x.line.qty,0),total=Math.max(0,subtotal-discount);
+ const changePage=(p:Page)=>{setPage(p);setNav(false);setSearch("");};
+ const add=(p:Product)=>{if(!data.shift){setNotice("Buka shift sebelum transaksi");changePage("Shift Kasir");return;}setCart(c=>{const old=c.find(x=>x.id===p.id);if(old&&old.qty>=p.stock){setNotice("Jumlah melebihi stok");return c;}return old?c.map(x=>x.id===p.id?{...x,qty:x.qty+1}:x):[...c,{id:p.id,qty:1}];});};
+ const complete=()=>{const amount=Number(paid);if(!lines.length||amount<total){setNotice("Pembayaran belum mencukupi");return;}const sale:Sale={id:makeId(),number:"WP-"+Date.now().toString().slice(-8),createdAt:new Date().toISOString(),items:lines.map(x=>({name:x.p.name,qty:x.line.qty,price:x.p.price})),total,method};update(d=>({...d,sales:[sale,...d.sales],products:d.products.map(p=>{const l=lines.find(x=>x.p.id===p.id);return l?{...p,stock:p.stock-l.line.qty}:p;})}));setCart([]);setDiscount(0);setModal("");setPaid("");setNotice("Transaksi berhasil dicatat di perangkat ini");};
+ const saveProduct=(form:HTMLFormElement)=>{const fd=new FormData(form),name=String(fd.get("name")||"").trim(),price=Number(fd.get("price")),stock=Number(fd.get("stock")),cost=Number(fd.get("cost")||0);if(!name||price<=0||stock<0){setNotice("Periksa data produk");return;}const p:Product={id:editing?.id||makeId(),name,sku:String(fd.get("sku")||""),category:String(fd.get("category")||"Umum"),price,cost,stock,unit:String(fd.get("unit")||"pcs"),active:fd.get("active")==="on"};update(d=>({...d,products:editing?d.products.map(x=>x.id===p.id?p:x):[p,...d.products]}));setEditing(null);setModal("");setNotice("Produk tersimpan");};
+ const changeStock=()=>{const n=Number(stockQty);if(!chosen||!Number.isInteger(n)||n<=0)return;update(d=>({...d,products:d.products.map(p=>p.id===chosen.id?{...p,stock:p.stock+n}:p)}));setChosen(null);setModal("");setNotice("Stok masuk berhasil dicatat");};
+ const report=range==="today"?todays:range==="month"?data.sales.filter(s=>s.createdAt.slice(0,7)===today.slice(0,7)):data.sales;
+ return <div className="app-shell">{nav&&<button className="scrim" onClick={()=>setNav(false)} aria-label="Tutup menu"/>}
+ <aside className={"sidebar "+(nav?"open":"")}><div className="brand"><img src="/warung-pintar-logo.webp" alt="WARUNG PINTAR"/><button className="close-nav" onClick={()=>setNav(false)}>×</button></div><div className="store-card"><span>WP</span><div><b>Warung Utama</b><small>Workspace toko</small></div><i>⌄</i></div><nav>{menus.map(g=><section key={g.group}><label>{g.group}</label>{g.items.map(m=><button key={m.page} className={page===m.page?"active":""} onClick={()=>changePage(m.page)}><span>{m.icon}</span>{m.page}{m.page==="Kasir"&&cart.length>0?<em>{cart.reduce((s,x)=>s+x.qty,0)}</em>:null}</button>)}</section>)}</nav><div className="side-bottom"><div className="local-note"><b>MODE LOKAL</b><p>Data tersimpan di browser ini. Sinkronisasi server belum aktif.</p></div><div className="user"><span>A</span><div><b>Administrator</b><small>Owner · Lokal</small></div></div></div></aside>
+ <main className="main"><header className="topbar"><button className="hamburger" onClick={()=>setNav(true)}>☰</button><div className="crumb">WARUNG PINTAR <span>/</span> <b>{page}</b></div><div className="top-right"><span className="local-pill">● Penyimpanan lokal</span><span className={data.shift?"shift-pill on":"shift-pill"}>{data.shift?"Shift aktif":"Shift tutup"}</span><span className="user-icon">A</span></div></header>
+ <div className="content">
+ {page==="Dashboard"&&<><Heading eyebrow="RINGKASAN OPERASIONAL" title="Dashboard" desc="Ringkasan aktivitas berdasarkan data pada perangkat ini." action={<button className="primary" onClick={()=>changePage("Kasir")}>＋ Transaksi baru</button>}/><div className="metrics"><Metric label="Penjualan hari ini" value={cash(todays.reduce((s,x)=>s+x.total,0))} icon="↗"/><Metric label="Transaksi hari ini" value={String(todays.length)} icon="▣"/><Metric label="Produk aktif" value={String(data.products.filter(p=>p.active).length)} icon="◇"/><Metric label="Stok rendah" value={String(data.products.filter(p=>p.active&&p.stock<=5).length)} icon="⚠"/></div><div className="columns"><section className="panel"><PanelTitle title="Transaksi terbaru" desc="Penjualan terakhir yang tercatat" action={<button className="link-btn" onClick={()=>changePage("Transaksi")}>Lihat semua →</button>}/>{data.sales.length?<Table headers={["Nomor transaksi","Waktu","Metode","Total"]} rows={data.sales.slice(0,6).map(s=>[s.number,new Date(s.createdAt).toLocaleString("id-ID"),s.method,cash(s.total)])}/>:<Empty title="Belum ada transaksi" desc="Transaksi yang selesai dibayar akan muncul di sini."/>}</section><section className="panel"><PanelTitle title="Stok perlu perhatian" desc="Produk dengan stok lima atau kurang"/>{data.products.filter(p=>p.active&&p.stock<=5).length?data.products.filter(p=>p.active&&p.stock<=5).map(p=><div className="stock-row" key={p.id}><span>◇</span><div><b>{p.name}</b><small>{p.sku||p.category}</small></div><strong>{p.stock} {p.unit}</strong></div>):<Empty title="Stok aman" desc="Produk dengan stok rendah akan ditampilkan di sini."/>}</section></div></>}
+ {page==="Kasir"&&<><Heading eyebrow="POINT OF SALE" title="Kasir" desc="Cari produk, masukkan ke keranjang, lalu proses pembayaran." action={<span className={data.shift?"shift-pill on":"shift-pill"}>{data.shift?"Shift aktif":"Shift belum dibuka"}</span>}/><div className="pos"><section className="catalog"><div className="toolbar"><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Cari produk, SKU, atau barcode…"/><button className="secondary" onClick={()=>{setEditing(null);setModal("product");}}>＋ Produk</button></div><div className="chips">{cats.map(c=><button className={category===c?"chosen":""} key={c} onClick={()=>setCategory(c)}>{c}</button>)}</div><div className="product-grid">{products.map(p=><button className="product-card" key={p.id} disabled={p.stock<=0} onClick={()=>add(p)}><span className="product-icon">▧</span><b>{p.name}</b><small>{p.sku||p.category}</small><strong>{cash(p.price)}</strong><i>{p.stock} {p.unit} tersedia</i></button>)}</div>{!products.length&&<Empty title="Katalog masih kosong" desc="Tambahkan produk untuk mulai transaksi." action={<button className="primary" onClick={()=>{setEditing(null);setModal("product");}}>Tambah produk</button>}/>}</section><aside className="cart"><PanelTitle title="Keranjang" desc={lines.reduce((s,x)=>s+x.line.qty,0)+" item"} action={<button className="link-btn" onClick={()=>setCart([])}>Kosongkan</button>}/>{lines.length?lines.map(x=><div className="cart-line" key={x.p.id}><div><b>{x.p.name}</b><small>{cash(x.p.price)} / {x.p.unit}</small></div><div className="qty"><button onClick={()=>setCart(c=>c.map(y=>y.id===x.p.id?{...y,qty:Math.max(1,y.qty-1)}:y))}>−</button><b>{x.line.qty}</b><button onClick={()=>setCart(c=>c.map(y=>y.id===x.p.id?{...y,qty:Math.min(x.p.stock,y.qty+1)}:y))}>＋</button></div><strong>{cash(x.p.price*x.line.qty)}</strong></div>):<Empty title="Keranjang kosong" desc="Pilih produk dari katalog."/>}<div className="cart-foot"><label>Diskon (Rp)<input type="number" min="0" max={subtotal} value={discount||""} onChange={e=>setDiscount(Math.min(subtotal,Math.max(0,Number(e.target.value))))}/></label><div><span>Subtotal</span><b>{cash(subtotal)}</b></div><div><span>Diskon</span><b>− {cash(discount)}</b></div><div className="total"><span>Total</span><strong>{cash(total)}</strong></div><button className="checkout" disabled={!lines.length} onClick={()=>{if(!data.shift){setNotice("Buka shift kasir dahulu");changePage("Shift Kasir");return;}setPaid(String(total));setModal("payment");}}>Bayar sekarang →</button></div></aside></div></>}
+ {page==="Produk"&&<><Heading eyebrow="KATALOG BARANG" title="Produk" desc="Kelola katalog, harga jual, dan status produk." action={<button className="primary" onClick={()=>{setEditing(null);setModal("product");}}>＋ Tambah produk</button>}/><section className="panel"><div className="toolbar"><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Cari nama, SKU, kategori…"/><span>{data.products.length} produk</span></div><ProductTable products={data.products.filter(p=>[p.name,p.sku,p.category].some(x=>x.toLowerCase().includes(search.toLowerCase())))} edit={p=>{setEditing(p);setModal("product");}} stock={p=>{setChosen(p);setModal("stock");}}/></section></>}
+ {page==="Persediaan"&&<><Heading eyebrow="INVENTORY CONTROL" title="Persediaan" desc="Stok berkurang otomatis saat penjualan berhasil."/><div className="metrics three"><Metric label="Total produk" value={String(data.products.length)} icon="◇"/><Metric label="Jumlah unit" value={String(data.products.reduce((s,p)=>s+p.stock,0))} icon="▤"/><Metric label="Stok rendah" value={String(data.products.filter(p=>p.stock<=5).length)} icon="⚠"/></div><section className="panel"><ProductTable products={data.products} edit={p=>{setEditing(p);setModal("product");}} stock={p=>{setChosen(p);setModal("stock");}}/></section></>}
+ {page==="Transaksi"&&<><Heading eyebrow="SALES HISTORY" title="Riwayat transaksi" desc="Daftar penjualan yang tersimpan pada perangkat ini." action={<button className="primary" onClick={()=>changePage("Kasir")}>＋ Penjualan baru</button>}/><section className="panel"><Table headers={["Nomor","Tanggal","Item","Pembayaran","Total"]} rows={data.sales.map(s=>[s.number,new Date(s.createdAt).toLocaleString("id-ID"),String(s.items.reduce((a,x)=>a+x.qty,0)),s.method,cash(s.total)])}/>{!data.sales.length&&<Empty title="Belum ada transaksi" desc="Selesaikan penjualan dari halaman kasir."/>}</section></>}
+ {page==="Shift Kasir"&&<><Heading eyebrow="CASHIER SESSION" title="Shift kasir" desc="Buka shift sebelum mulai menerima pembayaran."/><section className="panel shift-panel">{data.shift?<><div className="shift-status"><span className="green-dot"/><div><b>Shift sedang berjalan</b><small>Dibuka {new Date(data.shift.openedAt).toLocaleString("id-ID")}</small></div></div><Metric label="Modal awal" value={cash(data.shift.openingCash)} icon="◷"/><label>Kas fisik saat tutup (Rp)<input id="close-cash" type="number" min="0" placeholder="Hitung uang di laci"/></label><button className="danger" onClick={()=>{const input=document.getElementById("close-cash") as HTMLInputElement;if(!input.value||Number(input.value)<0){setNotice("Masukkan kas fisik akhir");return;}update(d=>({...d,shift:null}));setNotice("Shift ditutup. Riwayat penutupan detail akan ditambahkan bersama API.");}}>Tutup shift</button></>:<><label>Modal awal kas (Rp)<input type="number" min="0" value={cashOpen} onChange={e=>setCashOpen(e.target.value)} placeholder="Contoh: 200000"/></label><button className="primary" onClick={()=>{if(cashOpen===""||Number(cashOpen)<0){setNotice("Masukkan modal awal");return;}update(d=>({...d,shift:{openedAt:new Date().toISOString(),openingCash:Number(cashOpen)}}));setCashOpen("");setNotice("Shift dibuka");}}>Buka shift</button></>}</section></>}
+ {page==="Laporan"&&<><Heading eyebrow="BUSINESS REPORTS" title="Laporan" desc="Rekap berdasarkan transaksi pada perangkat ini." action={<select value={range} onChange={e=>setRange(e.target.value)}><option value="today">Hari ini</option><option value="month">Bulan ini</option><option value="all">Semua waktu</option></select>}/><div className="metrics three"><Metric label="Omzet" value={cash(report.reduce((s,x)=>s+x.total,0))} icon="↗"/><Metric label="Transaksi" value={String(report.length)} icon="▣"/><Metric label="Rata-rata" value={cash(report.length?report.reduce((s,x)=>s+x.total,0)/report.length:0)} icon="◷"/></div><section className="panel"><PanelTitle title="Rincian penjualan" desc="Ekspor CSV untuk pengolahan lanjutan" action={<button className="secondary" onClick={()=>{const csv=[["Nomor","Tanggal","Total","Metode"],...report.map(s=>[s.number,s.createdAt,s.total,s.method])].map(r=>r.join(",")).join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="laporan-warung-pintar.csv";a.click();URL.revokeObjectURL(a.href);}}>Unduh CSV ↓</button>}/><Table headers={["Nomor transaksi","Tanggal","Pembayaran","Total"]} rows={report.map(s=>[s.number,new Date(s.createdAt).toLocaleString("id-ID"),s.method,cash(s.total)])}/>{!report.length&&<Empty title="Belum ada data" desc="Data laporan muncul setelah ada transaksi."/>}</section></>}
+ {page==="Pengaturan"&&<><Heading eyebrow="WORKSPACE SETTINGS" title="Pengaturan" desc="Informasi penyimpanan dan status integrasi."/><section className="panel settings"><h2>Penyimpanan lokal</h2><p>Data saat ini disimpan di local storage browser ini. Belum tersinkron ke Neon atau perangkat lain.</p><span className="warn-pill">Sinkronisasi server belum aktif</span><hr/><h2>Penghapusan data</h2><p>Hapus data lokal hanya jika benar-benar ingin mengosongkan seluruh data perangkat ini.</p><button className="danger-outline" onClick={()=>{if(confirm("Hapus semua produk, transaksi, dan shift lokal dari browser ini?")){setData(emptyData);setCart([]);setNotice("Data lokal dihapus");}}}>Hapus seluruh data lokal</button></section></>}
+ </div></main>
+ {notice&&<div className="toast">{notice}</div>}
+ {modal==="product"&&<Modal title={editing?"Edit produk":"Tambah produk"} close={()=>{setModal("");setEditing(null);}}><form onSubmit={e=>{e.preventDefault();saveProduct(e.currentTarget);}}><div className="form-grid"><label>Nama produk<input name="name" defaultValue={editing?.name} required/></label><label>SKU / Barcode<input name="sku" defaultValue={editing?.sku}/></label><label>Kategori<input name="category" defaultValue={editing?.category||"Umum"}/></label><label>Satuan<select name="unit" defaultValue={editing?.unit||"pcs"}><option>pcs</option><option>botol</option><option>bungkus</option><option>kg</option><option>liter</option><option>dus</option></select></label><label>Harga modal<input name="cost" type="number" min="0" defaultValue={editing?.cost||0}/></label><label>Harga jual<input name="price" type="number" min="1" defaultValue={editing?.price} required/></label><label>Stok awal<input name="stock" type="number" min="0" defaultValue={editing?.stock??0} disabled={!!editing}/></label><label className="check"><input name="active" type="checkbox" defaultChecked={editing?.active??true}/> Produk aktif</label></div><button className="primary full" type="submit">Simpan produk</button></form></Modal>}
+ {modal==="stock"&&chosen&&<Modal title={"Stok masuk · "+chosen.name} close={()=>setModal("")}><label>Jumlah stok<input type="number" min="1" value={stockQty} onChange={e=>setStockQty(e.target.value)}/></label><button className="primary full" onClick={changeStock}>Simpan stok masuk</button></Modal>}
+ {modal==="payment"&&<Modal title="Pembayaran" close={()=>setModal("")}><div className="pay-total"><small>Total pembayaran</small><b>{cash(total)}</b></div><label>Metode pembayaran<select value={method} onChange={e=>setMethod(e.target.value)}><option>Tunai</option><option>QRIS</option><option>Transfer bank</option><option>Kartu debit</option></select></label><label>Nominal diterima<input type="number" min={total} value={paid} onChange={e=>setPaid(e.target.value)}/></label><div className="change"><span>Kembalian</span><b>{cash(Math.max(0,Number(paid||0)-total))}</b></div><button className="checkout full" onClick={complete}>Konfirmasi pembayaran</button></Modal>}
+ </div>;
 }
-
-function Dashboard({ health, apiState, onOpen }: { health: Health | null; apiState: string; onOpen: (page: Page) => void }) {
-  return <>
-    <section className="welcome-banner"><div className="welcome-copy"><span className="banner-kicker">✦ SELAMAT DATANG DI WARUNG PINTAR</span><h2>Kelola tokomu,<br /><em>lebih mudah setiap hari.</em></h2><p>Semua kebutuhan operasional toko, disiapkan dalam satu workspace yang terintegrasi.</p><button onClick={() => onOpen("Kasir")}>Jelajahi halaman kasir <span>→</span></button></div><div className="banner-art" aria-hidden="true"><div className="art-ring ring-one" /><div className="art-ring ring-two" /><div className="art-card"><span>W</span><small>SMART<br />RETAIL</small></div><div className="art-spark">✳</div></div></section>
-
-    <div className="section-title"><div><h2>Ringkasan toko</h2><p>Indikator utama akan tampil setelah modul transaksi aktif.</p></div><span className="preview-label">UI PREVIEW</span></div>
-    <section className="stats-grid">
-      <StatCard label="Penjualan hari ini" value="—" change="Menunggu modul penjualan" icon="↗" tone="green" />
-      <StatCard label="Total transaksi" value="—" change="Menunggu modul transaksi" icon="▣" tone="blue" />
-      <StatCard label="Produk terdaftar" value="—" change="Menunggu modul produk" icon="◇" tone="purple" />
-      <StatCard label="Stok perlu perhatian" value="—" change="Menunggu modul persediaan" icon="▤" tone="orange" />
-    </section>
-
-    <section className="dashboard-grid">
-      <div className="panel sales-panel"><div className="panel-heading"><div><h3>Aktivitas penjualan</h3><p>Grafik akan terisi dari transaksi aktual.</p></div><button className="subtle-button" onClick={() => onOpen("Laporan")}>Lihat laporan ↗</button></div><div className="chart-placeholder"><div className="chart-y"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div><div className="chart-area"><div className="chart-gridlines"><i/><i/><i/><i/><i/></div><div className="chart-empty"><span className="chart-empty-icon">⌁</span><strong>Belum ada data penjualan</strong><small>Grafik akan muncul setelah transaksi dicatat.</small></div><div className="chart-x"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div></div></div></div>
-      <div className="panel activity-panel"><div className="panel-heading"><div><h3>Status sistem</h3><p>Kondisi layanan saat ini.</p></div><span className="live-indicator"><i /> LIVE</span></div><div className="system-row"><span className="system-icon">⌘</span><div><strong>Frontend</strong><small>Antarmuka aktif</small></div><span className="system-status good">Aktif</span></div><div className="system-row"><span className="system-icon">⌁</span><div><strong>API Service</strong><small>{health?.service ?? "warung-pintar-api"}</small></div><span className={`system-status ${apiState === "online" ? "good" : "waiting"}`}>{apiState === "online" ? "Terhubung" : apiState === "checking" ? "Memeriksa" : "Offline"}</span></div><div className="system-row"><span className="system-icon">▤</span><div><strong>Database</strong><small>PostgreSQL · Development</small></div><span className="system-status waiting">Belum diuji</span></div><div className="system-note">Data operasional belum ditampilkan. Tidak ada angka penjualan atau stok contoh yang dianggap sebagai data asli.</div></div>
-    </section>
-
-    <div className="section-title quick-title"><div><h2>Akses cepat</h2><p>Pilih area kerja yang ingin kamu buka.</p></div></div>
-    <section className="quick-grid">{([{name:"Kasir",desc:"Penjualan & pembayaran",icon:"▣"},{name:"Produk",desc:"Katalog & harga barang",icon:"◇"},{name:"Persediaan",desc:"Kontrol stok barang",icon:"▤"},{name:"Laporan",desc:"Analisis performa toko",icon:"▥"}] as {name:Page;desc:string;icon:string}[]).map((item)=><button className="quick-card" key={item.name} onClick={()=>onOpen(item.name)}><span>{item.icon}</span><div><strong>{item.name}</strong><small>{item.desc}</small></div><b>→</b></button>)}</section>
-  </>;
-}
-
-function StatCard({ label, value, change, icon, tone }: { label:string; value:string; change:string; icon:string; tone:string }) {
-  return <article className="stat-card"><div className="stat-top"><span>{label}</span><i className={`stat-icon ${tone}`}>{icon}</i></div><strong className="stat-value">{value}</strong><small className="stat-foot">{change}</small></article>;
-}
-
-function ModulePreview({ page, onOpen }: { page: Page; onOpen: (page:Page)=>void }) {
-  const details: Record<Exclude<Page,"Dashboard">,{tag:string;title:string;description:string;steps:string[]}> = {
-    Kasir:{tag:"POINT OF SALE",title:"Kasir siap dibangun",description:"Antarmuka kasir akan mengutamakan pencarian produk cepat, keranjang yang jelas, dan proses pembayaran yang aman.",steps:["Pencarian produk & barcode","Keranjang dan ringkasan belanja","Metode pembayaran & struk"]},
-    Produk:{tag:"PRODUCT CATALOG",title:"Pusat katalog produk",description:"Kelola data produk, kategori, satuan, harga jual, dan informasi pendukung lainnya.",steps:["Daftar & pencarian produk","Kategori, SKU, dan barcode","Harga jual dan status produk"]},
-    Persediaan:{tag:"INVENTORY CONTROL",title:"Persediaan lebih terkendali",description:"Satu sumber data stok akan digunakan untuk menjaga konsistensi pergerakan barang.",steps:["Saldo stok terkini","Stok masuk dan stok keluar","Riwayat mutasi dan penyesuaian"]},
-    Transaksi:{tag:"TRANSACTION HISTORY",title:"Riwayat transaksi toko",description:"Telusuri transaksi, status pembayaran, dan detail item setelah modul penjualan tersedia.",steps:["Daftar transaksi dan filter tanggal","Rincian item dan pembayaran","Status transaksi dan pembatalan terkontrol"]},
-    Laporan:{tag:"BUSINESS REPORTS",title:"Laporan operasional toko",description:"Ringkasan penjualan dan performa produk akan dihitung dari transaksi yang tersimpan.",steps:["Ringkasan penjualan","Produk terlaris dan pergerakan stok","Ekspor laporan"]},
-    Pengaturan:{tag:"WORKSPACE SETTINGS",title:"Pengaturan workspace",description:"Pengaturan profil toko, pengguna, dan keamanan akan tersedia bertahap.",steps:["Profil toko dan preferensi","Pengguna dan hak akses","Keamanan akun dan sesi"]},
-  };
-  const detail = details[page as Exclude<Page,"Dashboard">];
-  return <section className="module-stage"><div className="module-visual"><div className="module-orbit orbit-a"/><div className="module-orbit orbit-b"/><div className="module-symbol">{page === "Kasir" ? "▣" : page === "Produk" ? "◇" : page === "Persediaan" ? "▤" : page === "Transaksi" ? "↗" : page === "Laporan" ? "▥" : "⚙"}</div><span className="module-glow"/></div><div className="module-copy"><span className="preview-label">{detail.tag} · ROADMAP</span><h2>{detail.title}</h2><p>{detail.description}</p><div className="roadmap-list">{detail.steps.map((step,index)=><div key={step}><span>0{index+1}</span>{step}<i>○</i></div>)}</div><div className="module-actions"><span className="coming-soon">● Dalam tahap pengembangan</span><button className="subtle-button" onClick={()=>onOpen("Dashboard")}>← Kembali ke dashboard</button></div></div></section>;
-}
-
-export default App;
+function Heading({eyebrow,title,desc,action}:{eyebrow:string;title:string;desc:string;action?:ReactNode}){return <div className="heading"><div><small>{eyebrow}</small><h1>{title}</h1><p>{desc}</p></div>{action}</div>}
+function Metric({label,value,icon}:{label:string;value:string;icon:string}){return <div className="metric"><span>{icon}</span><small>{label}</small><b>{value}</b></div>}
+function PanelTitle({title,desc,action}:{title:string;desc?:string;action?:ReactNode}){return <div className="panel-title"><div><h2>{title}</h2>{desc&&<p>{desc}</p>}</div>{action}</div>}
+function Empty({title,desc,action}:{title:string;desc:string;action?:ReactNode}){return <div className="empty"><span>◇</span><b>{title}</b><p>{desc}</p>{action}</div>}
+function Table({headers,rows}:{headers:string[];rows:string[][]}){return rows.length?<div className="table-wrap"><table><thead><tr>{headers.map(h=><th key={h}>{h}</th>)}</tr></thead><tbody>{rows.map((r,i)=><tr key={i}>{r.map((v,j)=><td key={j}>{v}</td>)}</tr>)}</tbody></table></div>:null}
+function ProductTable({products,edit,stock}:{products:Product[];edit:(p:Product)=>void;stock:(p:Product)=>void}){return products.length?<div className="table-wrap"><table><thead><tr><th>Produk</th><th>SKU</th><th>Kategori</th><th>Harga jual</th><th>Stok</th><th>Status</th><th>Aksi</th></tr></thead><tbody>{products.map(p=><tr key={p.id}><td><b>{p.name}</b></td><td>{p.sku||"—"}</td><td>{p.category}</td><td>{cash(p.price)}</td><td><b className={p.stock<=5?"low":""}>{p.stock} {p.unit}</b></td><td><span className={p.active?"good":"warn-pill"}>{p.active?"Aktif":"Nonaktif"}</span></td><td><div className="actions"><button onClick={()=>edit(p)}>Edit</button><button onClick={()=>stock(p)}>＋ Stok</button></div></td></tr>)}</tbody></table></div>:<Empty title="Belum ada produk" desc="Tambahkan produk untuk mengisi katalog dan persediaan."/>}
+function Modal({title,close,children}:{title:string;close:()=>void;children:ReactNode}){return <div className="modal-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)close();}}><section className="modal"><div className="modal-head"><h2>{title}</h2><button onClick={close}>×</button></div><div className="modal-body">{children}</div></section></div>}
