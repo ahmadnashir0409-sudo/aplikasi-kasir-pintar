@@ -1,0 +1,20 @@
+{
+  "name": "warung-pintar",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "npm run dev --workspace @warung-pintar/web",
+    "dev:api": "npm run dev --workspace @warung-pintar/api",
+    "build": "npm run build --workspace @warung-pintar/web && npm run typecheck --workspace @warung-pintar/api",
+    "typecheck": "npm run typecheck --workspace @warung-pintar/web && npm run typecheck --workspace @warung-pintar/api",
+    "test": "npm run test --workspace @warung-pintar/api",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": { "node": ">=22.0.0", "npm": ">=10.0.0" }
+}
