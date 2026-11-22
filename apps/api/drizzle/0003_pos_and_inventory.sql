@@ -117,9 +117,3 @@ CREATE INDEX inventory_movements_product_created_idx
 --> statement-breakpoint
 CREATE INDEX inventory_movements_store_created_idx
   ON inventory_movements(store_id, created_at DESC);
---> statement-breakpoint
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO warung_pintar_app;
---> statement-breakpoint
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-  GRANT USAGE, SELECT ON SEQUENCES TO warung_pintar_app;
