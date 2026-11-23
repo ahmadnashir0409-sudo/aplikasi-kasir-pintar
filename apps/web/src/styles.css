@@ -96,11 +96,11 @@ button{color:inherit}
 .brand-lockup{justify-content:flex-start}
 .brand-lockup img{max-width:218px;max-height:66px;object-fit:contain}
 .close-nav{display:block;background:#fff1f3;border:0;border-radius:10px;color:#d7192b;font-size:25px;width:38px;height:38px}
-.drawer-nav{display:grid;gap:7px;overflow:auto;padding:4px 2px 10px}.nav-group{display:grid;gap:7px;margin:0}.drawer-nav button{min-height:48px}
-.drawer-nav button{width:100%;display:flex;align-items:center;gap:13px;text-align:left;border:0;background:transparent;border-radius:11px;padding:12px 13px;color:#29272b;font-size:13px;font-weight:650}
-.drawer-nav button span{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#fff0f2;color:#d7192b;font-size:17px}
-.drawer-nav button:hover{background:#fff4f5}
-.drawer-nav button.active{background:linear-gradient(100deg,#f22636,#c90018);color:#fff;box-shadow:0 6px 16px #d7192b30}
+.drawer-nav{display:flex;flex-direction:column;gap:9px;overflow-y:auto;overflow-x:hidden;padding:4px 2px 12px;min-height:0}
+.drawer-nav button{width:100%;height:50px;min-height:50px;flex:0 0 50px;display:flex;align-items:center;gap:13px;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:0 14px;margin:0;color:#29272b;font-size:13px;font-weight:650;line-height:1.2;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.drawer-nav button span{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:#fff0f2;color:#d7192b;font-size:17px}
+.drawer-nav button:hover{background:#fff4f5;border-color:#f4dce1}
+.drawer-nav button.active{background:linear-gradient(100deg,#f22636,#c90018);border-color:#f65a68;color:#fff;box-shadow:0 5px 13px #d7192b24}
 .drawer-nav button.active span{background:#ffffff25;color:#fff}
 .side-bottom{margin-top:auto}
 .drawer-note{padding:12px 5px;color:#8d777b;font-size:10px;border-bottom:1px solid #f3e5e8;margin-bottom:12px}
