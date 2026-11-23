@@ -514,3 +514,21 @@ td b{color:#30242a}
  .cash-actions .cash-action{min-height:84px!important}
  .cash-metrics .metric:not(:first-child){background:linear-gradient(145deg,#fff0f4,#ffdce5)!important}
 }
+
+
+/* Kas Warung compact title: title sits beside Back, description below it */
+.cash-page-back-row{
+ display:flex!important;align-items:center!important;justify-content:flex-start!important;
+ gap:15px!important;margin:0 0 7px!important;padding:0!important;min-height:0!important;
+}
+.cash-page-title{display:flex;flex-direction:column;justify-content:center;gap:1px;min-width:0}
+.cash-page-title h1{font-size:25px;line-height:1.05;margin:0!important;color:#302027;font-weight:850;letter-spacing:-.5px}
+.cash-page-title small{font-size:9px;line-height:1.1;letter-spacing:1.4px;font-weight:800;color:#a51c3c;order:-1}
+.cash-page-description{font-size:12px;line-height:1.25;color:#76666c;margin:0 0 10px!important;padding:0!important}
+.cash-page-back-row .page-back-button{flex:0 0 auto}
+@media(max-width:760px){
+ .cash-page-back-row{gap:10px!important;margin-bottom:5px!important}
+ .cash-page-title h1{font-size:21px}
+ .cash-page-title small{font-size:8px}
+ .cash-page-description{font-size:11px;margin-bottom:8px!important}
+}
