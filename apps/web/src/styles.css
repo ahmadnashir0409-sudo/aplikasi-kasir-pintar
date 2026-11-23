@@ -457,3 +457,60 @@ td b{color:#30242a}
  .heading{margin-top:0!important;margin-bottom:8px!important;padding-top:0!important}
  .heading h1{margin:2px 0!important;line-height:1.08!important}
 }
+
+
+/* Stronger rose/red contrast for Kas Warung cards */
+.cash-metrics .metric:not(:first-child){
+ background:linear-gradient(145deg,#fff0f4 0%,#ffdce5 100%)!important;
+ border:1.5px solid #efa9ba!important;
+ box-shadow:0 7px 20px #a9133218!important;
+}
+.cash-metrics .metric:not(:first-child)>span{
+ background:#ffd0dc!important;color:#ad1232!important;
+}
+.cash-metrics .metric:not(:first-child) small{color:#8b344b!important;font-weight:700}
+.cash-metrics .metric:not(:first-child) b{color:#381722!important;font-weight:850}
+.cash-actions .cash-action{
+ min-height:92px!important;
+ border:1.5px solid #e99bad!important;
+ background:linear-gradient(115deg,#ffe4eb 0%,#ffcbd8 100%)!important;
+ box-shadow:0 7px 19px #a913321c!important;
+}
+.cash-actions .cash-action.in{
+ background:linear-gradient(115deg,#ffe8ee 0%,#ffd0dc 100%)!important;
+ border-color:#e9a3b4!important;
+}
+.cash-actions .cash-action.out{
+ background:linear-gradient(115deg,#ffe0e8 0%,#ffc2d0 100%)!important;
+ border-color:#e58da2!important;
+}
+.cash-actions .cash-action>span{
+ box-shadow:0 4px 10px #9e17301e!important;
+}
+.cash-actions .cash-action.in>span{
+ background:linear-gradient(145deg,#16a34a,#087b35)!important;color:#fff!important;
+}
+.cash-actions .cash-action.out>span{
+ background:linear-gradient(145deg,#e51c3b,#a90d2d)!important;color:#fff!important;
+}
+.cash-actions .cash-action b{color:#421824!important;font-weight:850!important}
+.cash-actions .cash-action small{color:#794552!important;font-weight:600}
+.opening-cash-panel,.cash-history-panel{
+ background:linear-gradient(145deg,#fff0f4 0%,#ffe1e9 100%)!important;
+ border:1.5px solid #efb5c3!important;
+ box-shadow:0 7px 20px #a9133212!important;
+}
+.cash-opening-note{
+ background:linear-gradient(110deg,#ffe3ea,#ffd1dc)!important;
+ border-color:#eaa1b2!important;
+}
+.cash-integration-note{
+ background:#ffe8ee!important;border-color:#eeb1bf!important;color:#783849!important;
+}
+.cash-history-panel .panel-title h2{color:#72162d!important}
+.cash-history-panel th{background:#ffdce5!important;color:#74172f!important}
+.cash-history-panel td{background:#fff8fa}
+@media(max-width:760px){
+ .cash-actions .cash-action{min-height:84px!important}
+ .cash-metrics .metric:not(:first-child){background:linear-gradient(145deg,#fff0f4,#ffdce5)!important}
+}
