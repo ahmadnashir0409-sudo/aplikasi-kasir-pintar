@@ -801,3 +801,11 @@ button:disabled,.checkout:disabled{
 .table-wrap th{color:#75132f!important}
 .table-wrap td{color:#35101e!important}
 .table-wrap td b{color:#260812!important}
+
+/* Dashboard transaction actions: barcode shortcut belongs beside the main Transaksi button. */
+.dashboard-transaction-wrap{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.dashboard-transaction{width:min(520px,70%)}
+.dashboard-barcode-button{min-height:76px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 22px;border:1px solid #d7192b;border-radius:18px;background:linear-gradient(135deg,#fff0f2,#f9dce1);color:#b80d26;font:800 15px "Times New Roman",serif;box-shadow:0 8px 18px #d7192b18;cursor:pointer}
+.dashboard-barcode-button span{font-size:25px}
+.dashboard-barcode-button:hover{background:#f8cbd3;transform:translateY(-1px)}
+@media(max-width:700px){.dashboard-transaction{width:100%;min-height:62px;font-size:22px}.dashboard-barcode-button{width:100%;min-height:52px}}
