@@ -643,3 +643,78 @@ input,select,textarea{background:#fffafd!important;border-color:#e8bfca!importan
  .module-heading-desc{padding-left:0!important;grid-column:1/-1;font-size:10px!important}
  .module-heading-action{grid-column:2;grid-row:1/3}
 }
+
+
+/* Global typography refresh: Times New Roman, bold, high-contrast Warung Pintar */
+:root,body,#root,.app-shell,.main,.content,
+button,input,select,textarea,label,table,th,td,
+h1,h2,h3,h4,h5,h6,p,small,strong,b,span,div,a,
+.nav-group,.panel,.metric,.product-card,.dashboard-tile{
+ font-family:"Times New Roman",Times,serif!important;
+}
+body,#root,.app-shell,.main,.content{font-weight:700!important}
+h1,h2,h3,h4,h5,h6,p,small,label,th,td,
+button,input,select,textarea,.crumb,.nav-group button,
+.brand-lockup b,.brand-lockup small,.store-card b,.store-card small,
+.user b,.user small,.heading,.panel-title,.metric,.product-card,
+.dashboard-tile,.cash-page-title,.cash-page-description{
+ font-weight:700!important;
+}
+/* Main content: strong ink, no faded grey copy */
+.content,.content p,.content small,.content label,
+.content .heading p,.content .panel p,.content .panel-title p,
+.content .product-card small,.content .product-card i,
+.content .metric small,.content .empty p,
+.content .table-wrap td,.content .table-wrap th,
+.module-heading-desc,.cash-page-description{
+ color:#421322!important;
+ opacity:1!important;
+}
+.content h1,.content h2,.content h3,.content b,.content strong,
+.content .heading h1,.content .panel-title h2,
+.content .product-card b,.content .product-card strong,
+.content .metric b,.content .empty b{
+ color:#260813!important;
+ opacity:1!important;
+}
+/* Bright, readable pink-red interactive elements */
+button,.primary,.secondary,.danger,.danger-outline,
+.page-back-button,.dashboard-transaction,.cash-action{
+ font-weight:800!important;
+}
+.primary,.page-back-button,.dashboard-transaction{
+ color:#fff!important;
+ text-shadow:none!important;
+}
+.secondary{color:#8e1230!important}
+input,select,textarea{
+ color:#35101e!important;
+ font-weight:700!important;
+}
+input::placeholder,textarea::placeholder{color:#8e4358!important;opacity:1!important;font-weight:700!important}
+/* Sidebar remains dark, but every label is bright and legible */
+.sidebar{color:#fff!important}
+.brand-lockup b,.store-card b,.user b,.nav-group button,
+.nav-group label,.store-card small,.user small,.local-note p{
+ color:#fff0f4!important;opacity:1!important;font-weight:700!important;
+}
+.nav-group button.active{
+ color:#fff!important;
+ background:linear-gradient(90deg,#a90e32,#d91e49)!important;
+ box-shadow:inset 3px 0 #ffb4c6,0 4px 12px #e31a4533!important;
+}
+.nav-group button:hover{color:#fff!important;background:#6e1730!important}
+.nav-group label,.local-note b{color:#ffb5c8!important}
+.topbar,.topbar .crumb,.topbar .crumb b,.topbar .top-right,
+.topbar .admin-chip,.topbar .notification{
+ color:#fff!important;font-weight:700!important;opacity:1!important;
+}
+.shift-pill,.local-pill,.warn-pill{font-weight:800!important;opacity:1!important}
+.shift-pill{color:#8d1230!important;background:#ffdce5!important;border-color:#e99bad!important}
+.shift-pill.on{color:#075b32!important;background:#c9f7dc!important;border-color:#38b875!important}
+/* Table, status, and helper text contrast */
+thead th{color:#75132d!important;font-weight:800!important}
+tbody td{color:#35101e!important;font-weight:700!important}
+.metric small,.metric b{opacity:1!important}
+.empty p,.panel p,.panel-title p{color:#693044!important}
+button:disabled{opacity:.78!important}
