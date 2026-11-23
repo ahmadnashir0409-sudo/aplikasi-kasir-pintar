@@ -933,3 +933,91 @@ button:disabled,.checkout:disabled{
 .today-card:after{pointer-events:none}
 .today-heading{position:relative;z-index:1}
 .report-detail-button{position:relative;z-index:2;pointer-events:auto;cursor:pointer}
+
+
+/* SMART SCAN — vivid Warung Pintar POS experience */
+.smart-scan-card{
+  width:100%;margin:0 0 16px;padding:18px;border-radius:22px;
+  background:linear-gradient(135deg,#fff0f3 0%,#ffe0e7 48%,#ffd0db 100%)!important;
+  border:1.5px solid #f29aac!important;
+  box-shadow:0 12px 30px rgba(137,8,35,.13),inset 0 1px 0 #fff!important;
+  color:#260812!important;overflow:hidden;
+}
+.smart-scan-heading{display:flex;align-items:center;gap:13px;margin-bottom:15px}
+.smart-scan-symbol{width:52px;height:52px;flex:0 0 52px;display:grid;place-items:center;border-radius:16px;
+  color:#fff!important;font-size:31px;background:linear-gradient(145deg,#ff365c,#b90028);
+  box-shadow:0 7px 18px #b9002838}
+.smart-scan-heading h2{font:800 clamp(25px,3vw,34px)/1 "Times New Roman",serif!important;color:#250711!important;margin:0 0 5px}
+.smart-scan-heading p{font:700 14px/1.35 "Times New Roman",serif!important;color:#5a1829!important;margin:0}
+.smart-scan-ai{margin-left:auto;white-space:nowrap;padding:7px 10px;border-radius:30px;
+  color:#fff!important;background:linear-gradient(110deg,#c9002b,#ed234a);font:800 11px "Times New Roman",serif!important;letter-spacing:.5px}
+.smart-scan-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.scan-action{min-height:54px;border:1px solid #d8cbd0!important;border-radius:14px!important;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(145deg,#fff,#f7edf0)!important;color:#270b14!important;
+  font:800 17px "Times New Roman",serif!important;box-shadow:0 4px 10px #4d0a1712;cursor:pointer}
+.scan-action:first-child,.scan-action.selected{background:linear-gradient(115deg,#f52249,#b80029)!important;color:#fff!important;border-color:#a90026!important}
+.scan-action.barcode.selected{background:linear-gradient(115deg,#35353b,#111116)!important;border-color:#111!important}
+.smart-camera-wrap{height:clamp(220px,28vw,350px);position:relative;overflow:hidden;border-radius:18px;
+  background:radial-gradient(ellipse at 50% 40%,#5b1b2b 0%,#210711 75%);border:2px solid #b91d3e}
+.smart-camera-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+.camera-frame{position:absolute;inset:12% 15%;pointer-events:none}
+.camera-frame i{position:absolute;width:34px;height:34px;border-color:#fff;border-style:solid}
+.camera-frame i:nth-child(1){top:0;left:0;border-width:4px 0 0 4px;border-radius:8px 0 0}
+.camera-frame i:nth-child(2){top:0;right:0;border-width:4px 4px 0 0;border-radius:0 8px 0 0}
+.camera-frame i:nth-child(3){bottom:0;left:0;border-width:0 0 4px 4px;border-radius:0 0 0 8px}
+.camera-frame i:nth-child(4){bottom:0;right:0;border-width:0 4px 4px 0;border-radius:0 0 8px 0}
+.camera-hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);max-width:90%;width:max-content;
+  padding:8px 14px;border-radius:30px;background:rgba(20,5,10,.82);color:#fff!important;
+  font:700 13px "Times New Roman",serif!important;text-align:center}
+.camera-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border:0;border-radius:50%;
+  background:#a9002b!important;color:#fff!important;font:800 24px "Times New Roman",serif!important;cursor:pointer}
+.smart-camera-placeholder{min-height:205px;border:2px dashed #d77b91;border-radius:18px;
+  background:linear-gradient(135deg,#3b101c,#16070c);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px}
+.camera-placeholder-icon{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,#f52c53,#ad0028);
+  color:#fff!important;display:grid;place-items:center;font-size:28px;box-shadow:0 7px 18px #0005}
+.smart-camera-placeholder b{font:800 19px "Times New Roman",serif!important;color:#fff!important}
+.smart-camera-placeholder small{font:700 13px "Times New Roman",serif!important;color:#ffe2e8!important;max-width:420px}
+.smart-scan-footer{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.scan-capture{border:0;border-radius:13px;padding:13px 18px;background:linear-gradient(110deg,#f52249,#b9002b)!important;
+  color:#fff!important;font:800 15px "Times New Roman",serif!important;box-shadow:0 5px 14px #b9002b30;cursor:pointer}
+.scan-capture:disabled{opacity:.65}
+.smart-scan-footer>span,.barcode-fallback small{font:700 12px "Times New Roman",serif!important;color:#65182b!important}
+.barcode-fallback{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:11px}
+.barcode-fallback input{margin:0!important;min-width:0;background:#fff!important;border:1.5px solid #d77b91!important;color:#260812!important}
+.barcode-fallback button,.scan-match-row button{border:0;border-radius:12px;padding:0 16px;background:linear-gradient(110deg,#f52249,#b9002b)!important;color:#fff!important;font:800 14px "Times New Roman",serif!important;cursor:pointer}
+.barcode-fallback small{grid-column:1/-1}
+.scan-match-list{margin-top:13px;padding:12px;border-radius:15px;background:#fff!important;border:1px solid #e7b4c0}
+.scan-match-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font:800 16px "Times New Roman",serif!important;color:#260812!important}
+.scan-match-title small{color:#a9002b!important;font-size:12px}
+.scan-match-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid #f1dce1}
+.scan-match-row>div{min-width:0;display:grid;gap:3px}
+.scan-match-row b{font:800 14px "Times New Roman",serif!important;color:#260812!important}
+.scan-match-row small{font:700 12px "Times New Roman",serif!important;color:#65182b!important}
+.scan-match-row button{min-height:36px;white-space:nowrap}
+@media(min-width:1000px){
+ .smart-scan-card{padding:20px}
+ .smart-scan-actions .scan-action{min-height:58px;font-size:19px}
+}
+@media(max-width:760px){
+ .smart-scan-card{padding:13px;margin-bottom:12px;border-radius:18px}
+ .smart-scan-heading{gap:9px;margin-bottom:11px}
+ .smart-scan-symbol{width:43px;height:43px;flex-basis:43px;font-size:26px;border-radius:13px}
+ .smart-scan-heading h2{font-size:25px}
+ .smart-scan-heading p{font-size:12px}
+ .smart-scan-ai{font-size:9px;padding:6px 8px}
+ .smart-scan-actions{gap:7px}
+ .scan-action{min-height:48px;font-size:14px;gap:6px;padding:7px}
+ .smart-camera-wrap{height:245px}
+ .smart-camera-placeholder{min-height:175px}
+ .barcode-fallback{grid-template-columns:1fr}
+ .barcode-fallback button{min-height:42px}
+ .scan-match-row{align-items:flex-start}
+ .scan-match-row button{padding:0 10px;font-size:12px}
+}
+@media(max-width:380px){
+ .smart-scan-heading p{font-size:11px}
+ .smart-scan-ai{display:none}
+ .scan-action{font-size:13px}
+ .smart-camera-wrap{height:215px}
+}
