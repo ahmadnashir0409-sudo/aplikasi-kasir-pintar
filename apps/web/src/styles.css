@@ -321,3 +321,44 @@ body:has(.dashboard-transaction-wrap) .content{padding-bottom:150px}
  .detail-candle-chart{min-height:225px}.detail-candle-chart svg{height:220px}
  .detail-total b{font-size:17px}
 }
+
+
+/* Kas Warung — combined cash ledger */
+.cash-metrics{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}
+.cash-metrics .metric:first-child{background:linear-gradient(135deg,#e91b32,#a80c25);border-color:#d7192b}
+.cash-metrics .metric:first-child span,.cash-metrics .metric:first-child small,.cash-metrics .metric:first-child b{color:#fff}
+.cash-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:0 0 16px}
+.cash-action{display:flex;align-items:center;gap:15px;padding:18px;border-radius:16px;border:1px solid #f0e1e5;background:#fff;text-align:left;box-shadow:0 6px 18px #53121b0b;transition:transform .15s,box-shadow .15s}
+.cash-action:hover{transform:translateY(-2px);box-shadow:0 10px 22px #53121b14}
+.cash-action>span{display:grid;place-items:center;flex:0 0 52px;width:52px;height:52px;border-radius:14px;font:800 31px Manrope}
+.cash-action.in>span{background:#e9f9ee;color:#159447}
+.cash-action.out>span{background:#fff0f2;color:#c91428}
+.cash-action div{display:grid;gap:4px}
+.cash-action b{font:800 16px Manrope;color:#242027}
+.cash-action small{font-size:11px;color:#827780}
+.opening-cash-panel{margin-bottom:14px}
+.opening-cash-form{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:12px;margin-top:12px}
+.opening-cash-form .primary{min-height:42px;white-space:nowrap}
+.cash-opening-note{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 16px;border:1px solid #f1dce1;border-radius:13px;background:#fff6f7;color:#8d1730;margin-bottom:14px;font-size:12px}
+.cash-opening-note span{color:#6f6269}
+.cash-integration-note{padding:11px 14px;margin:0 0 14px;border:1px solid #f1d3da;border-radius:12px;background:#fff5f7;color:#79525b;font-size:11px;line-height:1.5}
+.cash-history-panel .panel-title{margin-bottom:12px}
+.cash-history-panel td{white-space:nowrap}
+.cash-history-panel td:nth-child(2){white-space:normal;min-width:145px}
+.cash-history-panel td:nth-child(5){color:#168747;font-weight:700}
+.cash-history-panel td:nth-child(6){color:#c91428;font-weight:700}
+@media(max-width:1050px){.cash-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+ .cash-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .cash-metrics .metric{padding:12px}
+ .cash-metrics .metric b{font-size:15px}
+ .cash-actions{gap:9px}
+ .cash-action{padding:12px;gap:9px}
+ .cash-action>span{flex-basis:40px;width:40px;height:40px;font-size:25px}
+ .cash-action b{font-size:13px}
+ .cash-action small{font-size:9px}
+ .opening-cash-form{grid-template-columns:1fr}
+ .opening-cash-form .primary{width:100%}
+ .cash-opening-note{align-items:flex-start;flex-direction:column;gap:5px}
+ .cash-history-panel .table-wrap{overflow-x:auto}
+}
