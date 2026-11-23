@@ -532,3 +532,31 @@ td b{color:#30242a}
  .cash-page-title small{font-size:8px}
  .cash-page-description{font-size:11px;margin-bottom:8px!important}
 }
+
+
+/* Dashboard menu tiles: medium rose tone, visibly softer than report and transaction */
+.dashboard-tiles .dashboard-tile{
+ background:linear-gradient(135deg,#ffe4eb 0%,#ffcbd8 100%)!important;
+ border:1.5px solid #ed9bad!important;
+ box-shadow:0 7px 18px #a8133218!important;
+}
+.dashboard-tiles .dashboard-tile>span{
+ background:linear-gradient(145deg,#ffd0dc 0%,#ffb8ca 100%)!important;
+ color:#b20e30!important;
+ border:1px solid #f3a3b5!important;
+}
+.dashboard-tiles .dashboard-tile b{color:#451a28!important}
+.dashboard-tiles .dashboard-tile:hover{
+ background:linear-gradient(135deg,#ffd7e1 0%,#ffb8ca 100%)!important;
+ border-color:#dc718b!important;
+ box-shadow:0 10px 23px #a8133225!important;
+}
+.dashboard-tiles .dashboard-tile:hover>span{
+ background:#ffb5c7!important;color:#9f0c2b!important;
+}
+@media(max-width:760px){
+ .dashboard-tiles .dashboard-tile{
+  background:linear-gradient(135deg,#ffe4eb 0%,#ffcbd8 100%)!important;
+  border-color:#ed9bad!important;
+ }
+}
