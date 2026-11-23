@@ -36,36 +36,62 @@ canvas{width:100%;height:180px;margin-top:8px}
 input{width:100%;padding:13px;border:1.5px solid #e5e5e5;border-radius:14px;margin:8px 0;font-size:15px}
 .badge{background:#e8f5ec;color:#009444;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center;padding:20px;z-index:30}.modal.show{display:grid}.modal-box{background:#fff;border-radius:20px;padding:20px;text-align:center;width:100%;max-width:360px}.modal-box button{border:none;padding:12px 18px;border-radius:12px;font-weight:700;margin-top:14px;cursor:pointer}.btn-yes{background:#009444;color:#fff}.btn-no{background:#eee;margin-left:8px}
+
+/* Home layout: clear, touch-friendly POS dashboard */
+.topbar{background:#087b83;padding:10px 18px;color:#eaffff;font-size:12px;font-weight:700;letter-spacing:.4px}
+.home-header{display:block;background:linear-gradient(145deg,#087f89,#08616e);padding:20px 18px 24px;border-radius:0 0 26px 26px;color:#fff}
+.home-header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.home-eyebrow{font-size:10px;font-weight:800;letter-spacing:1.2px;opacity:.8}
+.home-header h1{font-size:22px;letter-spacing:.3px;margin:5px 0}
+.home-header p{font-size:13px;opacity:.9}
+.daily-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.daily-metrics>div{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px;min-width:0}
+.daily-metrics small{display:block;font-size:12px;opacity:.85;margin-bottom:5px}
+.daily-metrics strong{font-size:clamp(16px,4.5vw,21px);white-space:nowrap}
+.store-strip{display:flex;align-items:center;gap:12px;margin:16px;background:#fff;padding:13px;border-radius:16px;box-shadow:0 3px 12px rgba(0,0,0,.05)}
+.store-avatar{width:48px;height:48px;border-radius:13px;background:#e5f5f4;display:grid;place-items:center;font-size:26px;flex-shrink:0}
+.store-strip>div:nth-child(2){flex:1;min-width:0}.store-strip b{display:block;font-size:14px;color:#253b3c}.store-strip small{display:block;color:#849293;font-size:12px;margin-top:4px}
+.store-strip button{border:0;background:#eff7f6;color:#087b83;border-radius:10px;width:36px;height:36px;font-size:19px}
+.home-menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 16px 18px}
+.home-menu{border:0;background:#fff;border-radius:16px;min-height:104px;padding:13px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;box-shadow:0 3px 12px rgba(0,0,0,.045);color:#354849;cursor:pointer}
+.home-menu span{font-size:29px;line-height:1.1}.home-menu b{font-size:12px;font-weight:700}
+.home-menu:active{transform:scale(.97);background:#eff9f8}
+.home-transaction{display:block;width:calc(100% - 32px);margin:0 16px 20px;padding:17px;border:0;border-radius:16px;background:#07818a;color:#fff;font-size:19px;font-weight:800;box-shadow:0 5px 14px rgba(8,127,137,.2)}
+.home-recent-head{margin-top:22px}
+.home-closebook{display:flex;align-items:center;gap:10px;margin:14px 16px 24px;flex-wrap:wrap}
+.home-closebook button{border:1px solid #0a8587;background:#fff;color:#087b83;border-radius:12px;padding:11px 14px;font-weight:700}
+.home-closebook small{color:#849293;font-size:11px}
+@media(max-width:360px){.home-menu-grid{gap:7px;margin-left:12px;margin-right:12px}.home-menu{min-height:94px}.home-menu span{font-size:25px}.home-menu b{font-size:11px}}
+
 </style>
 </head>
 <body>
-<div class="topbar"><span>10:53</span><span>70%</span></div>
-<div class="header"><div class="header-left"><div class="logo">🏪</div><div><h1>WARUNG<br>PINTAR</h1><p>Halo, Manurung</p></div></div><div class="bell">🔔</div></div>
+<div class="topbar"><span>WARUNG PINTAR</span><span>Kasir</span></div>
+<div class="header home-header">
+  <div class="home-header-top"><div><span class="home-eyebrow">RINGKASAN HARI INI</span><h1>WARUNG PINTAR</h1><p>Selamat datang kembali, Manurung</p></div><div class="bell">🔔</div></div>
+  <div class="daily-metrics">
+    <div><small>Penjualan</small><strong>Rp <span id="dailySales">445.000</span></strong></div>
+    <div><small>Profit</small><strong>Rp <span id="dailyProfit">65.500</span></strong></div>
+  </div>
+</div>
 
-<!-- BERANDA LAMA - BELUM ADA KALENDER -->
 <div id="page-home" class="page active">
-  <div class="card-saldo">
-    <button class="eye" onclick="toggleSaldo()">👁️</button>
-    <small>💳 &nbsp; Saldo Untung Hari Ini</small>
-    <div class="saldo">Rp <span id="saldoVal">445.000</span></div>
-    <span class="pill">✨ <span id="subText">Belum ada penjualan hari ini</span></span>
-    <span style="margin-left:8px;font-size:14px">14 Nov 2026</span>
-    <div class="card-foot"><span>WARUNG PINTAR •••• 1234</span><span>PREMIUM • SILVER</span></div>
+  <div class="store-strip"><div class="store-avatar">🏪</div><div><b>TOKO SEMBAKO</b><small>📍 Alamat toko Anda</small></div><button onclick="showPage('profil')" aria-label="Edit profil">✎</button></div>
+  <div class="home-menu-grid">
+    <button class="home-menu" onclick="showPage('produk')"><span>📦</span><b>Produk</b></button>
+    <button class="home-menu" onclick="showPage('produk')"><span>🧮</span><b>Stok</b></button>
+    <button class="home-menu" onclick="showPage('produk')"><span>🏷️</span><b>Harga Grosir</b></button>
+    <button class="home-menu" onclick="showPage('laporan')"><span>📱</span><b>Riwayat</b></button>
+    <button class="home-menu" onclick="showPage('laporan')"><span>🧾</span><b>Pengeluaran</b></button>
+    <button class="home-menu" onclick="showPage('laporan')"><span>📄</span><b>Laporan</b></button>
+    <button class="home-menu" onclick="showPage('profil')"><span>👥</span><b>Pelanggan</b></button>
+    <button class="home-menu" onclick="showPage('profil')"><span>🧮</span><b>Kasir</b></button>
+    <button class="home-menu" onclick="showPage('profil')"><span>💳</span><b>Metode Bayar</b></button>
   </div>
-  <div class="tutup" onclick="openModal()">📖 Tutup Buku</div>
-  <p class="note">Saldo akan direset jadi Rp 0 & disimpan ke Laporan</p>
-
-  <div class="riwayat-head"><h3>📈 Grafik Penjualan</h3><a href="#" onclick="showPage('laporan');return false">7 Hari Terakhir →</a></div>
-  <div class="box">
-    <div style="display:flex;justify-content:space-between"><div><small>Total Penjualan • 7 Hari</small><div style="font-size:26px;font-weight:900">Rp 445.000</div></div><span class="badge">▲ +81.8%</span></div>
-    <canvas id="chartHome" width="320" height="160"></canvas>
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:#888"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
-    <div style="display:flex;gap:12px;font-size:12px;color:#666;margin-top:8px"><span>🟢 Garis naik = rame</span><span>🔴 Garis turun = sepi</span><span>--- Penutupan sebelumnya</span></div>
-    <div style="margin-top:12px"><b style="font-size:18px">Total Penjualan: Rp 445.000</b><br><small>Angka di atas = total 7 hari yang beneran. Garis terakhir = hari ini.</small></div>
-  </div>
-
-  <div class="riwayat-head"><h3>🧾 Riwayat Transaksi</h3><a href="#" onclick="showPage('laporan');return false">Lihat Semua →</a></div>
+  <button class="home-transaction" onclick="showPage('transaksi')">▣ &nbsp; Transaksi</button>
+  <div class="riwayat-head home-recent-head"><h3>Transaksi Terakhir</h3><a href="#" onclick="showPage('laporan');return false">Lihat →</a></div>
   <div id="riwayatList"></div>
+  <div class="home-closebook"><button onclick="openModal()">📖 Tutup Buku</button><small>Rekap dan simpan penjualan hari ini</small></div>
 </div>
 
 <!-- LAPORAN RINGKAS -->
