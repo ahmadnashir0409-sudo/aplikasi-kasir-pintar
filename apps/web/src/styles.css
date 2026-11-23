@@ -718,3 +718,86 @@ tbody td{color:#35101e!important;font-weight:700!important}
 .metric small,.metric b{opacity:1!important}
 .empty p,.panel p,.panel-title p{color:#693044!important}
 button:disabled{opacity:.78!important}
+
+
+/* FINAL READABILITY OVERRIDE — no washed-out copy in any module */
+html,body,body *{
+  font-family:"Times New Roman",Times,serif!important;
+  font-weight:700!important;
+}
+body{color:#35101e!important}
+body p,body small,body label,body li,body td,body th,
+body .crumb,body .heading p,body .module-heading-desc,
+body .cash-page-description,body .panel-title p,
+body .empty p,body .settings p,body .cash-integration-note,
+body .cash-opening-note,body .toolbar>span,
+body .product-card small,body .product-card i,
+body .stock-row small,body .cart-line small,
+body .metric small,body .shift-status small,
+body .cash-actions small,body .pay-total small,
+body .cash-history-panel td{
+ color:#481727!important;
+ opacity:1!important;
+}
+body h1,body h2,body h3,body h4,body h5,body h6,
+body b,body strong,body .heading h1,body .module-heading-title h1,
+body .cash-page-title h1,body .panel-title h2,
+body .product-card b,body .product-card strong,
+body .metric b,body .empty b,body .cart-line b,
+body .cash-actions b,body .pay-total b{
+ color:#260812!important;
+ opacity:1!important;
+}
+/* Navigation and header: strong light text on dark surfaces */
+.sidebar,.sidebar *{color:#fff1f4!important;opacity:1!important}
+.sidebar .brand-mark,.sidebar .store-card>span,.sidebar .nav-group em{
+ color:#35101e!important;
+}
+.nav-group button.active,.nav-group button.active *{
+ color:#fff!important;
+}
+.topbar,.topbar *{color:#35101e!important;opacity:1!important}
+.topbar .user-icon{color:#fff!important}
+/* Buttons must retain readable contrast, including the back button */
+button,.page-back-button,.page-back-button *,
+.primary,.danger,.dashboard-transaction,.checkout,
+.cash-action,.cash-action span,.cash-action b{
+ text-shadow:none!important;
+}
+.page-back-button,.page-back-button *,.primary,.primary *,
+.danger,.danger *,.dashboard-transaction,.dashboard-transaction *,
+.checkout,.checkout *{
+ color:#fff!important;
+}
+.secondary,.secondary *,.danger-outline,.danger-outline *{
+ color:#85132f!important;
+}
+.cash-action.in,.cash-action.in *{color:#075b32!important}
+.cash-action.in>span{color:#fff!important}
+.cash-action.out,.cash-action.out *{color:#85132f!important}
+.cash-action.out>span{color:#fff!important}
+.chips button{color:#85132f!important}
+.chips button.chosen,.chips button.chosen *{color:#fff!important}
+input,select,textarea{color:#35101e!important;font-weight:700!important}
+input::placeholder,textarea::placeholder{color:#713044!important;opacity:1!important;font-weight:700!important}
+button:disabled,.checkout:disabled{
+ opacity:1!important;
+ filter:saturate(.88);
+ cursor:not-allowed;
+}
+.checkout:disabled{
+ background:linear-gradient(110deg,#b52a49,#8f1835)!important;
+ color:#fff!important;
+}
+.metric:first-child,.metric:first-child *{
+ color:#fff!important;
+}
+.metric:first-child>span{color:#fff!important}
+.empty,.empty *{opacity:1!important}
+.modal,.modal *{font-weight:700!important}
+.modal{color:#35101e!important}
+.modal p,.modal small,.modal label{color:#481727!important}
+.modal-head button{color:#85132f!important}
+.table-wrap th{color:#75132f!important}
+.table-wrap td{color:#35101e!important}
+.table-wrap td b{color:#260812!important}
