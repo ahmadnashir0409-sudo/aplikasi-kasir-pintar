@@ -436,3 +436,24 @@ td b{color:#30242a}
  .heading h1{font-size:23px}
  .panel,.catalog,.cart{background:#fff1f5}
 }
+
+
+/* Tight vertical layout: keep every module header close to the app bar */
+@media(min-width:761px){
+ .topbar{height:52px!important;min-height:52px!important}
+ .content{padding-top:3px!important}
+ .page-back-row{margin-top:0!important;margin-bottom:2px!important;min-height:0!important}
+ .page-back-button{min-height:34px!important;padding-top:0!important;padding-bottom:0!important}
+ .heading{margin-top:0!important;margin-bottom:8px!important;padding-top:0!important;padding-bottom:0!important}
+ .heading>div>small{display:block;line-height:1!important;margin:0!important}
+ .heading h1{margin:2px 0 2px!important;line-height:1.08!important}
+ .heading p{margin:0!important;line-height:1.25!important}
+}
+@media(max-width:760px){
+ .topbar{height:54px!important;min-height:54px!important}
+ .content{padding-top:3px!important}
+ .page-back-row{margin-top:0!important;margin-bottom:2px!important}
+ .page-back-button{min-height:34px!important}
+ .heading{margin-top:0!important;margin-bottom:8px!important;padding-top:0!important}
+ .heading h1{margin:2px 0!important;line-height:1.08!important}
+}
