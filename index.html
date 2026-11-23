@@ -29,6 +29,7 @@ body{background:#eef2ef;padding-bottom:110px}
 .page{display:none}.page.active{display:block}
 .tabs{display:flex;gap:8px;margin:0 16px 12px}.tabs button{flex:1;padding:10px;border:none;border-radius:12px;font-weight:700;background:#fff;cursor:pointer}.tabs button.on{background:#009444;color:#fff}
 canvas{width:100%;height:180px;margin-top:8px}
+.report-heading{display:flex;align-items:center;justify-content:space-between;margin-top:16px}.report-heading h2{margin-bottom:3px}.report-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 16px 16px}.report-tile{background:#fff;border-radius:18px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.04);display:flex;flex-direction:column;gap:8px;min-width:0}.report-tile>span{font-size:25px}.report-tile small{color:#858585;font-size:12px}.report-tile strong{font-size:clamp(17px,5vw,22px);color:#174b31;overflow-wrap:anywhere}.report-primary{background:#e8f5ec;border:1px solid #cdebd5}.report-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.report-section-head h3{font-size:17px}.report-section-head small{color:#888}.report-history #laporanList .prod{margin:0 0 10px;padding:12px;background:#f7faf8}.report-history #laporanList .prod:last-child{margin-bottom:0}.report-empty{color:#888;font-size:13px;padding:8px 0}
 .bar-row{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:13px}.bar-row span:first-child{width:32px}.bar{height:22px;background:#009444;border-radius:6px;color:#fff;font-size:11px;display:flex;align-items:center;padding:0 8px;min-width:50px}
 .prod{background:#fff;margin:0 16px 12px;border-radius:16px;padding:14px;display:flex;justify-content:space-between;align-items:center}
 .btn{background:#009444;color:#fff;border:none;padding:12px 14px;border-radius:12px;font-weight:800;cursor:pointer;width:100%}
@@ -67,13 +68,26 @@ input{width:100%;padding:13px;border:1.5px solid #e5e5e5;border-radius:14px;marg
   <div id="riwayatList"></div>
 </div>
 
-<!-- LAPORAN LAMA -->
+<!-- LAPORAN RINGKAS -->
 <div id="page-laporan" class="page">
-  <div class="box"><h2>📊 Laporan Penjualan</h2><small>Total yang udah Tutup Buku masuk sini</small></div>
-  <div class="tabs"><button class="on" onclick="setRange('minggu',this)">Mingguan</button><button onclick="setRange('bulan',this)">Bulanan</button></div>
-  <div class="box"><h3 id="chartTitle">Grafik Penjualan - Minggu Ini</h3><small>Total: <b id="chartTotal" style="color:#009444">Rp 1.240.000</b></small><canvas id="chart" width="320" height="180"></canvas></div>
-  <div class="box"><h3>Detail Per Hari</h3><div id="barList"></div></div>
-  <div style="margin:0 16px 10px"><b>Riwayat Tutup Buku</b></div><div id="laporanList"></div>
+  <div class="box report-heading">
+    <div><h2>📊 Laporan</h2><small>Ringkasan usaha warung</small></div>
+    <span class="badge">Hari ini</span>
+  </div>
+  <div class="report-summary">
+    <div class="report-tile report-primary">
+      <span>💰</span><small>Total Penjualan</small>
+      <strong id="reportSales">Rp 0</strong>
+    </div>
+    <div class="report-tile">
+      <span>🧾</span><small>Jumlah Transaksi</small>
+      <strong id="reportCount">0</strong>
+    </div>
+  </div>
+  <div class="box report-history">
+    <div class="report-section-head"><h3>Riwayat Tutup Buku</h3><small id="closeBookCount">0 catatan</small></div>
+    <div id="laporanList"></div>
+  </div>
 </div>
 
 <!-- TRANSAKSI / PRODUK / PROFIL LAMA - SIMPEL -->
@@ -111,7 +125,7 @@ function renderSaldo(){document.getElementById('saldoVal').textContent=hidden?'*
 function toggleSaldo(){hidden=!hidden;renderSaldo()}
 function openModal(){document.getElementById('modal').classList.add('show')}function closeModal(){document.getElementById('modal').classList.remove('show')}
 function doTutupBuku(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');lap.push({tanggal:'14 Nov 2026',total:saldo});localStorage.setItem('laporan',JSON.stringify(lap));saldo=0;renderSaldo();closeModal();renderLaporan();showPage('laporan')}
-function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');['home','transaksi','produk','laporan','profil'].forEach(k=>document.getElementById('nav-'+k).classList.toggle('on',k===p));if(p==='laporan')drawChart();if(p==='home')drawHomeChart();window.scrollTo(0,0)}
+function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');['home','transaksi','produk','laporan','profil'].forEach(k=>document.getElementById('nav-'+k).classList.toggle('on',k===p));if(p==='laporan')renderLaporan();if(p==='home')drawHomeChart();window.scrollTo(0,0)}
 function renderRiwayat(){document.getElementById('riwayatList').innerHTML=riwayat.map(r=>`<div class="trx"><div class="icon">🧾</div><div style="flex:1"><b>${r.items}</b><br><small>🕒 ${r.waktu}</small></div><div class="price">Rp ${formatRp(r.total)}</div></div>`).join('')}
 function renderProduk(){
   document.getElementById('produkTransaksi').innerHTML=produk.map((p,i)=>`<div class="prod"><div><b>${p.nama}</b><br><small>Rp ${formatRp(p.harga)}</small></div><button class="btn" style="width:auto;padding:10px 16px" onclick="addToCart(${i})">+ Keranjang</button></div>`).join('');
@@ -126,8 +140,17 @@ let dataBulan=[{label:'W1',val:850000},{label:'W2',val:1240000},{label:'W3',val:
 let currentData=dataMinggu;
 function setRange(r,btn){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');currentData=r==='minggu'?dataMinggu:dataBulan;document.getElementById('chartTitle').textContent=r==='minggu'?'Grafik Penjualan - Minggu Ini':'Grafik Penjualan - Bulan Ini';drawChart()}
 function drawChart(){let c=document.getElementById('chart'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);let max=Math.max(...currentData.map(d=>d.val));let bw=c.width/currentData.length;currentData.forEach((d,i)=>{let h=(d.val/max)*120;ctx.fillStyle=d.label==='Sab'?'#0a4d2a':'#009444';ctx.fillRect(i*bw+12,140-h,bw-24,h);ctx.fillStyle='#333';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(d.label,i*bw+bw/2,158);ctx.fillStyle='#009444';ctx.font='bold 10px sans-serif';ctx.fillText((d.val/1000)+'k',i*bw+bw/2,132-h)});let total=currentData.reduce((a,b)=>a+b.val,0);document.getElementById('chartTotal').textContent='Rp '+formatRp(total);document.getElementById('barList').innerHTML=currentData.map(d=>{let pct=Math.round(d.val/max*100);return `<div class="bar-row"><span>${d.label}</span><div class="bar" style="width:${pct}%">Rp ${formatRp(d.val)}</div></div>`}).join('')}
-function renderLaporan(){let lap=JSON.parse(localStorage.getItem('laporan')||'[]');document.getElementById('laporanList').innerHTML=lap.length?lap.map(l=>`<div class="prod"><div><b>Tutup Buku - ${l.tanggal}</b></div><b style="color:#009444">Rp ${formatRp(l.total)}</b></div>`).join(''):`<div class="prod"><span style="color:#888">Belum ada Tutup Buku.</span></div>`}
-renderSaldo();renderRiwayat();renderProduk();renderLaporan();drawChart();drawHomeChart();
+function renderLaporan(){
+  const lap=JSON.parse(localStorage.getItem('laporan')||'[]');
+  const sales=riwayat.reduce((sum,item)=>sum+Number(item.total||0),0);
+  document.getElementById('reportSales').textContent='Rp '+formatRp(sales);
+  document.getElementById('reportCount').textContent=riwayat.length;
+  document.getElementById('closeBookCount').textContent=lap.length+' catatan';
+  document.getElementById('laporanList').innerHTML=lap.length
+    ? lap.slice().reverse().map(l=>`<div class="prod"><div><b>📅 ${l.tanggal}</b><br><small style="color:#888">Penutupan kas</small></div><b style="color:#009444">Rp ${formatRp(l.total)}</b></div>`).join('')
+    : `<div class="report-empty">Belum ada riwayat tutup buku.</div>`;
+}
+renderSaldo();renderRiwayat();renderProduk();renderLaporan();drawHomeChart();
 </script>
 </body>
 </html>
