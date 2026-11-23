@@ -809,3 +809,24 @@ button:disabled,.checkout:disabled{
 .dashboard-barcode-button span{font-size:25px}
 .dashboard-barcode-button:hover{background:#f8cbd3;transform:translateY(-1px)}
 @media(max-width:700px){.dashboard-transaction{width:100%;min-height:62px;font-size:22px}.dashboard-barcode-button{width:100%;min-height:52px}}
+
+
+/* Sidebar drawer: fully opaque surface, never show page content through it. */
+.sidebar{
+  background-color:#fff0f2!important;
+  background-image:none!important;
+  opacity:1!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  isolation:isolate;
+  z-index:40!important;
+}
+.sidebar::before,
+.sidebar::after{
+  content:none!important;
+  display:none!important;
+}
+.scrim{
+  z-index:39!important;
+  background:rgba(38,8,14,.46)!important;
+}
