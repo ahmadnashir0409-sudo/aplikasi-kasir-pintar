@@ -830,3 +830,68 @@ button:disabled,.checkout:disabled{
   z-index:39!important;
   background:rgba(38,8,14,.46)!important;
 }
+
+
+/* Sidebar contrast correction: opaque burgundy drawer with readable menu rows. */
+.sidebar{
+  background:#7f1027!important;
+  background-color:#7f1027!important;
+  background-image:none!important;
+  opacity:1!important;
+  isolation:isolate!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  border-right:2px solid #65091c!important;
+  box-shadow:18px 0 55px rgba(45,0,12,.32)!important;
+}
+.sidebar .brand{
+  background:#7f1027!important;
+  border-bottom:1px solid #b84a60!important;
+}
+.sidebar .brand-lockup,
+.sidebar .brand-lockup b,
+.sidebar .brand-lockup small,
+.sidebar .nav-group>label,
+.sidebar .drawer-note,
+.sidebar .user b,
+.sidebar .user small{
+  color:#fff!important;
+}
+.sidebar .close-nav{
+  background:#a92543!important;
+  color:#fff!important;
+}
+.sidebar .drawer-nav{
+  background:#7f1027!important;
+}
+.sidebar .drawer-nav button{
+  background:#a91d3d!important;
+  color:#fff!important;
+  border:1px solid #c84a65!important;
+  font-weight:700!important;
+}
+.sidebar .drawer-nav button span{
+  background:#d65a75!important;
+  color:#fff!important;
+}
+.sidebar .drawer-nav button:hover{
+  background:#c52b4d!important;
+}
+.sidebar .drawer-nav button.active{
+  background:#ed3156!important;
+  color:#fff!important;
+  border-color:#ff8098!important;
+  box-shadow:0 5px 16px rgba(25,0,8,.28)!important;
+}
+.sidebar .drawer-nav button.active span{
+  background:#ffffff30!important;
+  color:#fff!important;
+}
+.sidebar .user{
+  border-top:1px solid #b84a60!important;
+}
+.sidebar .user>span,
+.sidebar .user-icon{
+  background:#d65a75!important;
+  color:#fff!important;
+}
