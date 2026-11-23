@@ -210,3 +210,28 @@ td b{color:#262229}
 @media(max-width:390px){
  .header-logo{width:106px}.admin-chip{gap:5px;padding:0 7px}.summary-row{grid-template-columns:34px minmax(78px,.85fr) minmax(0,1.15fr);gap:6px}.summary-icon{width:32px;height:32px}.summary-row b,.summary-row strong{font-size:10px}
 }
+
+
+/* Keep the primary checkout action visible while the dashboard scrolls */
+body:has(.dashboard-transaction-wrap) .content{padding-bottom:150px}
+.dashboard-transaction-wrap{
+ position:fixed;
+ left:50%;
+ bottom:calc(14px + env(safe-area-inset-bottom,0px));
+ transform:translateX(-50%);
+ z-index:20;
+ width:min(520px,calc(100vw - 32px));
+ margin:0;
+ padding:0;
+}
+.dashboard-transaction{
+ width:100%;
+ min-height:72px;
+ border-radius:19px;
+ box-shadow:0 12px 32px #b9001c45,0 2px 8px #4b001522;
+}
+@media(max-width:760px){
+ body:has(.dashboard-transaction-wrap) .content{padding-bottom:132px}
+ .dashboard-transaction-wrap{width:calc(100vw - 28px);bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+ .dashboard-transaction{min-height:66px;border-radius:17px;font-size:21px}
+}
