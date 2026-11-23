@@ -235,3 +235,11 @@ body:has(.dashboard-transaction-wrap) .content{padding-bottom:150px}
  .dashboard-transaction-wrap{width:calc(100vw - 28px);bottom:calc(12px + env(safe-area-inset-bottom,0px))}
  .dashboard-transaction{min-height:66px;border-radius:17px;font-size:21px}
 }
+
+
+/* Consistent maroon back navigation on every non-dashboard page */
+.page-back-row{display:flex;align-items:center;margin:0 0 16px}
+.page-back-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:0 17px;border:1px solid #8f1028;border-radius:12px;background:#8f1028;color:#fff;font:750 13px Manrope,sans-serif;box-shadow:0 5px 13px #8f10282b;cursor:pointer;transition:background .15s,transform .15s}
+.page-back-button:hover{background:#710d20;transform:translateX(-2px)}
+.page-back-button span{font:800 22px/1 Arial,sans-serif}
+@media(max-width:760px){.page-back-row{margin:0 0 13px}.page-back-button{min-height:40px;padding:0 15px;border-radius:11px;font-size:12px}}
