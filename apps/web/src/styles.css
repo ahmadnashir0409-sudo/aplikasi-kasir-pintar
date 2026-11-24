@@ -1021,3 +1021,33 @@ button:disabled,.checkout:disabled{
  .scan-action{font-size:13px}
  .smart-camera-wrap{height:215px}
 }
+
+
+/* Mobile dashboard: keep Transaksi in normal document flow so it never
+   overlays the Pengadaan Barang and Printer tiles. */
+.dashboard-transaction-wrap{
+ position:static!important;
+ left:auto!important;
+ bottom:auto!important;
+ transform:none!important;
+ z-index:auto!important;
+ width:min(520px,100%)!important;
+ margin:18px auto 8px!important;
+ padding:0!important;
+}
+.dashboard-transaction{
+ width:100%!important;
+ min-height:62px!important;
+}
+body:has(.dashboard-transaction-wrap) .content{
+ padding-bottom:24px!important;
+}
+@media(max-width:760px){
+ .dashboard-transaction-wrap{
+  width:100%!important;
+  margin:16px auto 8px!important;
+ }
+ body:has(.dashboard-transaction-wrap) .content{
+  padding-bottom:24px!important;
+ }
+}
