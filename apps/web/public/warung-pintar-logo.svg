@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img" aria-labelledby="title">
+<title id="title">Warung Pintar</title>
+<g font-family="Arial Black, Impact, system-ui, sans-serif" font-style="italic" font-weight="900" letter-spacing="-12">
+  <text x="22" y="178" font-size="164" fill="#171719">Warung</text>
+  <text x="492" y="178" font-size="164" fill="#e50925">Pintar</text>
+</g>
+<path d="M535 220 C650 180 820 180 970 205" fill="none" stroke="#e50925" stroke-width="17" stroke-linecap="round"/>
+</svg>
