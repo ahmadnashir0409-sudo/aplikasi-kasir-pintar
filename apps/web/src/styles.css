@@ -1023,31 +1023,40 @@ button:disabled,.checkout:disabled{
 }
 
 
-/* Mobile dashboard: keep Transaksi in normal document flow so it never
-   overlays the Pengadaan Barang and Printer tiles. */
+/* Dashboard mobile: sticky Transaksi with reserved scroll space.
+   The action stays visible while the eight dashboard shortcuts can scroll
+   completely above it without being covered. */
 .dashboard-transaction-wrap{
- position:static!important;
- left:auto!important;
- bottom:auto!important;
- transform:none!important;
- z-index:auto!important;
- width:min(520px,100%)!important;
- margin:18px auto 8px!important;
+ position:fixed!important;
+ left:50%!important;
+ bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+ transform:translateX(-50%)!important;
+ z-index:30!important;
+ width:min(520px,calc(100vw - 28px))!important;
+ margin:0!important;
  padding:0!important;
 }
 .dashboard-transaction{
  width:100%!important;
- min-height:62px!important;
+ min-height:58px!important;
+ border-radius:16px!important;
 }
 body:has(.dashboard-transaction-wrap) .content{
- padding-bottom:24px!important;
+ padding-bottom:calc(94px + env(safe-area-inset-bottom,0px))!important;
+}
+.dashboard-tiles{
+ margin-bottom:18px;
 }
 @media(max-width:760px){
  .dashboard-transaction-wrap{
-  width:100%!important;
-  margin:16px auto 8px!important;
+  width:calc(100vw - 26px)!important;
+  bottom:calc(8px + env(safe-area-inset-bottom,0px))!important;
+ }
+ .dashboard-transaction{
+  min-height:56px!important;
+  font-size:20px!important;
  }
  body:has(.dashboard-transaction-wrap) .content{
-  padding-bottom:24px!important;
+  padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))!important;
  }
 }
